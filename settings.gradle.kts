@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "AngkorLife"
 include(":app")
+
+include(":domain")
