@@ -24,3 +24,4 @@ include(":app")
 
 include(":domain")
 include(":design")
+include(":feature")
