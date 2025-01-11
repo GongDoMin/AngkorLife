@@ -2,25 +2,33 @@ package com.unionmobile.angkorlife.feature.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -42,6 +50,12 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val scrollState = rememberScrollState()
+    val keyboardHeight = WindowInsets.ime.getBottom(LocalDensity.current)
+
+    LaunchedEffect(keyboardHeight) {
+        scrollState.scrollBy(keyboardHeight.toFloat())
+    }
 
     EventCollect(
         event = viewModel.event,
@@ -51,13 +65,16 @@ fun LoginScreen(
     }
 
     AngkorLifeTopBarWithContent(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .imePadding(),
         isBackButtonVisible = false,
         title = stringResource(R.string.top_bar_title)
     ) {
         Column(
             modifier = Modifier
-                .background(Color.Black),
+                .fillMaxSize()
+                .background(Color.Black)
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.padding(vertical = 11.dp))
