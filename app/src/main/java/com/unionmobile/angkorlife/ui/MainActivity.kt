@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife
+package com.unionmobile.angkorlife.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
