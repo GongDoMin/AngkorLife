@@ -52,7 +52,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun updateUiState(
+    fun updateUiState(
         id: String = "",
         loginButtonEnable: Boolean = false,
         isError: Boolean = false,

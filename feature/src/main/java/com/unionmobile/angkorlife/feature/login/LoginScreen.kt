@@ -18,31 +18,42 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
+import com.unionmobile.angkorlife.feature.common.EventCollect
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
-    var text by remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    EventCollect(
+        event = viewModel.event,
+        lifecycleOwner = lifecycleOwner,
+    ) {
+        TODO("Not yet implemented")
+    }
 
     AngkorLifeTopBarWithContent(
         isBackButtonVisible = false,
-        title = "2024 WMU"
+        title = stringResource(R.string.top_bar_title)
     ) {
         Column(
             modifier = modifier
@@ -81,8 +92,8 @@ fun LoginScreen(
                         )
                         .background(Color.White)
                     ,
-                    value = text,
-                    onValueChange = { text = it },
+                    value = uiState.id,
+                    onValueChange = { value -> viewModel.updateUiState(id = value) },
                     placeholder = {
                         Text(
                             text = "Enter your ID",
@@ -117,13 +128,14 @@ fun LoginScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
+                    enabled = uiState.loginButtonEnable,
                     colors = ButtonColors(
                         containerColor = Color(0xFF4232D5),
                         contentColor = Color.White,
                         disabledContainerColor = Color.Unspecified,
                         disabledContentColor = Color.Unspecified,
                     ),
-                    onClick = { println("hi!!") },
+                    onClick = { viewModel.login() },
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
                     Text(text = "Log in")
