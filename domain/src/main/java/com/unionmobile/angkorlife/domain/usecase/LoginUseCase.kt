@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 class LoginUseCase {
     fun invoke(id: String): Flow<Unit> =
         flow {
-            if (id.isValidRange()) {
+            if (!id.isValidRange()) {
                 throw IllegalArgumentException("id must be between 1 and 16")
             }
             emit(Unit)
