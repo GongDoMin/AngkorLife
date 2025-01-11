@@ -35,6 +35,7 @@ import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.EventCollect
+import com.unionmobile.angkorlife.feature.common.PainterImage
 
 @Composable
 fun LoginScreen(
@@ -65,8 +66,8 @@ fun LoginScreen(
                 modifier = Modifier.padding(vertical = 11.dp)
             )
 
-            Image(
-                painter = painterResource(id = R.drawable.img_login_top),
+            PainterImage(
+                res = R.drawable.img_login_top,
                 contentDescription = null
             )
 
@@ -146,8 +147,8 @@ fun LoginScreen(
                 modifier = Modifier.weight(3f)
             )
 
-            Image(
-                painter = painterResource(id = R.drawable.img_login_bottom),
+            PainterImage(
+                res = R.drawable.img_login_bottom,
                 contentDescription = null
             )
         }
