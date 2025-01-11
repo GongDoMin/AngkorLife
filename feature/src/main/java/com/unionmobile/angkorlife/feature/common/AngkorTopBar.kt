@@ -33,9 +33,15 @@ fun AngkorLifeTopBarWithContent(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
     ) {
         AngkorLifeTopBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .padding(
+                    vertical = 15.dp,
+                    horizontal = 16.dp
+                ),
             isBackButtonVisible = isBackButtonVisible,
             title = title
         )
@@ -51,13 +57,7 @@ fun AngkorLifeTopBar(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .padding(
-                vertical = 15.dp,
-                horizontal = 16.dp
-            ),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (isBackButtonVisible) {
@@ -96,6 +96,13 @@ fun AngkorLifeTopBar(
 @Composable
 fun AngkorLifeTopBarWithoutBackButtonPreview() {
     AngkorLifeTopBar(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .padding(
+                vertical = 15.dp,
+                horizontal = 16.dp
+            ),
         isBackButtonVisible = false,
         title = stringResource(R.string.top_bar_title)
     )
@@ -105,6 +112,13 @@ fun AngkorLifeTopBarWithoutBackButtonPreview() {
 @Composable
 fun AngkorLifeTopBarWithBackButtonPreview() {
     AngkorLifeTopBar(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .padding(
+                vertical = 15.dp,
+                horizontal = 16.dp
+            ),
         isBackButtonVisible = true,
         title = stringResource(R.string.top_bar_title)
     )
