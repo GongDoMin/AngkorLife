@@ -119,7 +119,8 @@ fun LoginScreen(
                     value = uiState.id,
                     onValueChange = { value ->
                         viewModel.updateUiState(
-                            id = value
+                            id = value,
+                            loginButtonEnable = value.isNotEmpty()
                         )
                     },
                     placeholder = {
