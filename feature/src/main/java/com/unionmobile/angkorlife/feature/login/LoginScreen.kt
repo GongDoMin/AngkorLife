@@ -46,6 +46,7 @@ import com.unionmobile.angkorlife.feature.common.PainterImage
 
 @Composable
 fun LoginScreen(
+    navigateToMain: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -61,7 +62,9 @@ fun LoginScreen(
         event = viewModel.event,
         lifecycleOwner = lifecycleOwner,
     ) {
-        TODO("Not yet implemented")
+        when (it) {
+            LoginViewModel.Event.SuccessLogin -> navigateToMain()
+        }
     }
 
     AngkorLifeTopBarWithContent(
@@ -114,7 +117,11 @@ fun LoginScreen(
                         .background(Color.White)
                     ,
                     value = uiState.id,
-                    onValueChange = { value -> viewModel.updateUiState(id = value) },
+                    onValueChange = { value ->
+                        viewModel.updateUiState(
+                            id = value
+                        )
+                    },
                     placeholder = {
                         Text(
                             text = "Enter your ID",
@@ -167,5 +174,7 @@ fun LoginScreen(
 )
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(
+        navigateToMain = {}
+    )
 }

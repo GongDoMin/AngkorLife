@@ -18,5 +18,12 @@ fun rememberAngkorLifeNavController(
 class AngkorLifeNavController(
     val navController: NavHostController
 ) {
+    fun navigateToMain() {
+        navController.navigate(Routes.MAIN) {
+            popUpTo(Routes.LOGIN) {
+                inclusive = true
+            }
+        }
 
+    }
 }

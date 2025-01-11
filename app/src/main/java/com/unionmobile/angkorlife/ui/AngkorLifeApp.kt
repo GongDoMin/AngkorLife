@@ -12,15 +12,17 @@ import com.unionmobile.angkorlife.feature.navigation.rememberAngkorLifeNavContro
 
 @Composable
 fun AngkorLifeApp() {
-    val navController = rememberAngkorLifeNavController()
+    val angkorLifeNavController = rememberAngkorLifeNavController()
 
     Scaffold { paddingValues ->
         NavHost(
             modifier = Modifier.padding(paddingValues),
-            navController = navController.navController,
+            navController = angkorLifeNavController.navController,
             startDestination = Routes.LOGIN,
         ) {
-            loginScreen()
+            loginScreen(
+                angkorLifeNavController::navigateToMain
+            )
 
             mainScreen()
         }

@@ -4,8 +4,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.unionmobile.angkorlife.feature.navigation.Routes
 
-fun NavGraphBuilder.loginScreen() {
+fun NavGraphBuilder.loginScreen(
+    navigateToMain: () -> Unit
+) {
     composable<Routes.LOGIN> {
-        LoginScreen()
+        LoginScreen(
+            navigateToMain = navigateToMain
+        )
     }
 }
