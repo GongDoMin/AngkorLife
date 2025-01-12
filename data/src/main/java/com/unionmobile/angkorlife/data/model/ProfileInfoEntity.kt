@@ -18,5 +18,6 @@ private fun String.toMineType() =
     when (this) {
         "image/gif" -> MimeType.IMAGE_GIF
         "image/jpg" -> MimeType.IMAGE_JPG
+        "image/png" -> MimeType.IMAGE_PNG
         else -> MimeType.UNKNOWN
     }

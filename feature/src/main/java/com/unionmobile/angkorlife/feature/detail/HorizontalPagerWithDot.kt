@@ -46,7 +46,7 @@ fun HorizontalPagerWithDot(
             }
 
             when (profiles[page].mimeType) {
-                MimeType.IMAGE_GIF, MimeType.IMAGE_JPG -> {
+                MimeType.IMAGE_GIF, MimeType.IMAGE_JPG, MimeType.IMAGE_PNG -> {
                     AsyncImage(
                         modifier = horizontalModifier,
                         model = profiles[page].profileUrl,
