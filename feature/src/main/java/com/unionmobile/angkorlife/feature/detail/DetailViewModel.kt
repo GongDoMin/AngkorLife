@@ -1,0 +1,37 @@
+package com.unionmobile.angkorlife.feature.detail
+
+import androidx.lifecycle.ViewModel
+import com.unionmobile.angkorlife.domain.usecase.GetCandidateDetailUseCase
+import com.unionmobile.angkorlife.feature.common.launch
+import com.unionmobile.angkorlife.feature.detail.model.CandidateDetailModel
+import com.unionmobile.angkorlife.feature.detail.model.toPresentation
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import javax.inject.Inject
+
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val getCandidateDetailUseCase: GetCandidateDetailUseCase
+) : ViewModel() {
+    data class UiState(
+        val candidateDetail: CandidateDetailModel = CandidateDetailModel()
+    )
+
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
+
+    fun getCandidateDetail(candidateId: Int) {
+        launch(Dispatchers.IO) {
+            getCandidateDetailUseCase.invoke(candidateId).collect { candidateDetail ->
+                _uiState.update {
+                    it.copy(
+                        candidateDetail = candidateDetail.toPresentation()
+                    )
+                }
+            }
+        }
+    }
+}

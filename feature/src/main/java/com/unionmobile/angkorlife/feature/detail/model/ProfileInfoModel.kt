@@ -1,14 +1,14 @@
-package com.unionmobile.angkorlife.data.model
+package com.unionmobile.angkorlife.feature.detail.model
 
 import com.unionmobile.angkorlife.domain.model.ProfileInfo
 
-data class ProfileInfoEntity(
+data class ProfileInfoModel(
     val profileUrl: String = "",
     val mimeType: String = ""
 )
 
-fun ProfileInfoEntity.toModel() =
-    ProfileInfo(
+fun ProfileInfo.toPresentation() =
+    ProfileInfoModel(
         profileUrl = profileUrl,
         mimeType = mimeType
     )
