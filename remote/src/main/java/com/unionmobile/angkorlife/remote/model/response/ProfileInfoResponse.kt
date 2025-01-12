@@ -14,8 +14,6 @@ data class ProfileInfoResponse(
 
 fun ProfileInfoResponse.toEntity() =
     ProfileInfoEntity(
-        fileArea = fileArea,
-        displayOrder = displayOrder,
         profileUrl = profileUrl,
         mimeType = mimeType
     )

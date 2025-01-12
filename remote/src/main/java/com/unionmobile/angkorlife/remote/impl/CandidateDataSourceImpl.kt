@@ -21,7 +21,12 @@ class CandidateDataSourceImpl @Inject constructor(
 
     override fun getCandidate(candidateId: Int, userId: String): Flow<CandidateDetailEntity> =
         flow {
-            val entity = angkorLifeService.getCandidate(candidateId, userId).toEntity()
+            val response = angkorLifeService.getCandidate(candidateId, userId)
+            val sortedProfiles =
+                response.profileInfoList
+                    .filter { it.fileArea == CANDIDATE_DETAIL_IMAGE }
+                    .sortedBy { it.displayOrder }
+            val entity = angkorLifeService.getCandidate(candidateId, userId).toEntity(sortedProfiles)
             emit(entity)
         }
 
@@ -31,3 +36,7 @@ class CandidateDataSourceImpl @Inject constructor(
             emit(response)
         }
 }
+
+private const val CANDIDATE_LIST_IMAGE = 1
+private const val CANDIDATE_DETAIL_IMAGE = 2
+private const val VIDEO = 3

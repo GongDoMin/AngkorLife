@@ -21,7 +21,9 @@ data class CandidateDetailResponse(
     @SerialName("voted") val voted: Boolean = false
 )
 
-fun CandidateDetailResponse.toEntity() =
+fun CandidateDetailResponse.toEntity(
+    sortedProfileInfoList: List<ProfileInfoResponse>
+) =
     CandidateDetailEntity(
         id = id,
         candidateNumber = candidateNumber,
@@ -33,7 +35,7 @@ fun CandidateDetailResponse.toEntity() =
         talent = talent,
         ambition = ambition,
         contents = contents,
-        profileInfoList = profileInfoList.map { it.toEntity() },
+        profileInfoList = sortedProfileInfoList.map { it.toEntity() },
         regDt = regDt,
         voted = voted
     )
