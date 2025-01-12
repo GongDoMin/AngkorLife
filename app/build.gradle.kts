@@ -43,6 +43,7 @@ android {
 
 dependencies {
 
+    implementation(project(":domain"))
     implementation(project(":feature"))
 
     implementation(libs.androidx.core.ktx)
