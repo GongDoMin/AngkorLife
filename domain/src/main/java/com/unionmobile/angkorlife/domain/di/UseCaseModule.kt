@@ -1,6 +1,6 @@
 package com.unionmobile.angkorlife.domain.di
 
-import com.unionmobile.angkorlife.domain.core.time.TimeProvider
+import com.unionmobile.angkorlife.domain.core.time.TimerProvider
 import com.unionmobile.angkorlife.domain.usecase.GetTimerUseCase
 import com.unionmobile.angkorlife.domain.usecase.LoginUseCase
 import dagger.Module
@@ -17,5 +17,5 @@ class UseCaseModule {
 
     @Provides
     fun provideGetTimerUseCase() : GetTimerUseCase =
-        GetTimerUseCase(TimeProvider())
+        GetTimerUseCase(TimerProvider())
 }
