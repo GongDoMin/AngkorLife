@@ -10,5 +10,5 @@ data class PageableResponse(
     @SerialName("pageNumber") val pageNumber: Int = 0,
     @SerialName("pageSize") val pageSize: Int = 0,
     @SerialName("paged") val paged: Boolean = false,
-    @SerialName("unPaged") val unPaged: Boolean = false,
+    @SerialName("unpaged") val unPaged: Boolean = false,
 )
