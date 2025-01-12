@@ -26,8 +26,8 @@ class CandidateDataSourceImpl @Inject constructor(
                 response.profileInfoList
                     .filter { it.fileArea == CANDIDATE_DETAIL_IMAGE }
                     .sortedBy { it.displayOrder }
-            val entity = angkorLifeService.getCandidate(candidateId, userId).toEntity(sortedProfiles)
-            emit(entity)
+            val candidate = angkorLifeService.getCandidate(candidateId, userId).toEntity(sortedProfiles)
+            emit(candidate)
         }
 
     override fun getVotedCandidatesId(userId: String): Flow<List<Int>> =
