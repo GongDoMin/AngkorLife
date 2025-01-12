@@ -17,6 +17,6 @@ fun ProfileInfoEntity.toModel() =
 private fun String.toMineType() =
     when (this) {
         "image/gif" -> MimeType.IMAGE_GIF
-        "image/jpeg" -> MimeType.IMAGE_JPG
+        "image/jpg" -> MimeType.IMAGE_JPG
         else -> MimeType.UNKNOWN
     }
