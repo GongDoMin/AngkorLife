@@ -25,7 +25,7 @@ fun CandidateInformation(
     candidateNumber: String,
     education: String,
     major: String,
-    hobbies: String,
+    hobby: String,
     talent: String,
     ambition: String,
     modifier: Modifier = Modifier,
@@ -69,7 +69,7 @@ fun CandidateInformation(
                 ),
             education = education,
             major = major,
-            hobbies = hobbies,
+            hobby = hobby,
             talent = talent,
             ambition = ambition
         )
@@ -80,7 +80,7 @@ fun CandidateInformation(
 fun CandidateExtra(
     education: String,
     major: String,
-    hobbies: String,
+    hobby: String,
     talent: String,
     ambition: String,
     modifier: Modifier = Modifier
@@ -112,7 +112,7 @@ fun CandidateExtra(
 
         Extra(
             title = "Hobbies",
-            description = hobbies
+            description = hobby
         )
 
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
@@ -230,7 +230,7 @@ fun CandidateExtraPreview() {
             .background(Color(0xFF171717)),
         education = "Bashkir State Agrarian University",
         major = "Computer Engineering",
-        hobbies = "Singing",
+        hobby = "Singing",
         talent = "Singing",
         ambition = "Singing"
     )
@@ -250,7 +250,7 @@ fun CandidateInformationPreview() {
         candidateNumber = "Entry No.5",
         education = "Bashkir State Agrarian University",
         major = "Computer Engineering",
-        hobbies = "Singing",
+        hobby = "Singing",
         talent = "Singing",
         ambition = "Singing"
     )

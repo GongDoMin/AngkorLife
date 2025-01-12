@@ -61,7 +61,7 @@ fun DetailScreen(
                     candidateNumber = uiState.candidateDetail.candidateNumber,
                     education = uiState.candidateDetail.education,
                     major = uiState.candidateDetail.major,
-                    hobbies = uiState.candidateDetail.hobby,
+                    hobby = uiState.candidateDetail.hobby,
                     talent = uiState.candidateDetail.talent,
                     ambition = uiState.candidateDetail.ambition,
                 )
