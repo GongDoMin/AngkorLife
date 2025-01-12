@@ -15,7 +15,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,11 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil3.ImageLoader
 import coil3.compose.AsyncImage
 import coil3.compose.rememberAsyncImagePainter
-import coil3.gif.AnimatedImageDecoder
 import coil3.request.ImageRequest
+import com.unionmobile.angkorlife.domain.model.MimeType
 import com.unionmobile.angkorlife.feature.detail.model.ProfileInfoModel
 
 @Composable
@@ -44,25 +42,36 @@ fun HorizontalPagerWithDot(
         modifier = modifier
     ){
         HorizontalPager(pagerState) { page ->
-            if (profiles[page].mimeType == "image/gif") {
-                val painter = rememberAsyncImagePainter(
-                    model = ImageRequest.Builder(context).data(profiles[page].profileUrl).build()
-                )
-                Image(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
-                    painter = painter,
-                    contentDescription = null
-                )
-            } else {
-                AsyncImage(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
-                    model = profiles[page].profileUrl,
-                    contentDescription = null
-                )
+            when (profiles[page].mimeType) {
+                MimeType.IMAGE_GIF -> {
+                    val painter = rememberAsyncImagePainter(
+                        model = ImageRequest.Builder(context).data(profiles[page].profileUrl).build()
+                    )
+                    Image(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f),
+                        painter = painter,
+                        contentDescription = null
+                    )
+                }
+                MimeType.IMAGE_JPG -> {
+                    AsyncImage(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f),
+                        model = profiles[page].profileUrl,
+                        contentDescription = null
+                    )
+                }
+                else -> {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f)
+                            .background(Color.Black),
+                    )
+                }
             }
         }
 

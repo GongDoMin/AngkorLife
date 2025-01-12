@@ -1,5 +1,6 @@
 package com.unionmobile.angkorlife.data.model
 
+import com.unionmobile.angkorlife.domain.model.MimeType
 import com.unionmobile.angkorlife.domain.model.ProfileInfo
 
 data class ProfileInfoEntity(
@@ -10,5 +11,12 @@ data class ProfileInfoEntity(
 fun ProfileInfoEntity.toModel() =
     ProfileInfo(
         profileUrl = profileUrl,
-        mimeType = mimeType
+        mimeType = mimeType.toMineType()
     )
+
+private fun String.toMineType() =
+    when (this) {
+        "image/gif" -> MimeType.IMAGE_GIF
+        "image/jpeg" -> MimeType.IMAGE_JPG
+        else -> MimeType.UNKNOWN
+    }
