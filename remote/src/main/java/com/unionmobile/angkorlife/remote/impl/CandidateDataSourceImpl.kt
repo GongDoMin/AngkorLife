@@ -13,7 +13,7 @@ class CandidateDataSourceImpl @Inject constructor(
 ): CandidateDataSource {
     override fun getCandidates(page: Int, perPage: Int, sort: List<String>): Flow<List<CandidateEntity>> =
         flow {
-            val response = angkorLifeService.getCandidates(page, page, sort)
+            val response = angkorLifeService.getCandidates(page, perPage, sort)
             val candidates = response.content.map { it.toEntity() }
             emit(candidates)
         }
