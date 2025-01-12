@@ -11,6 +11,6 @@ import javax.inject.Inject
 class CandidateRepositoryImpl @Inject constructor(
     private val candidateDataSource: CandidateDataSource
 ): CandidateRepository {
-    override fun getCandidates(page: Int, perPage: Int, sort: List<String>): Flow<List<Candidate>> =
-        candidateDataSource.getCandidates(page, perPage, sort).map { it.map { it.toModel() } }
+    override fun getCandidates(page: Int, size: Int, sort: List<String>): Flow<List<Candidate>> =
+        candidateDataSource.getCandidates(page, size, sort).map { it.map { it.toModel() } }
 }
