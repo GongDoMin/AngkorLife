@@ -26,7 +26,7 @@ class DetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
-    fun getCandidateDetail(candidateId: Int?) {
+    private fun getCandidateDetail(candidateId: Int?) {
         checkNotNull(candidateId) { "candidateId cannot be null" }
 
         launch(Dispatchers.IO) {
