@@ -1,6 +1,5 @@
 package com.unionmobile.angkorlife.feature.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,14 +18,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.unionmobile.angkorlife.design.R
+import coil3.compose.AsyncImage
+import com.unionmobile.angkorlife.feature.detail.model.ProfileInfoModel
 
 @Composable
 fun HorizontalPagerWithDot(
-    profiles: List<Int>,
+    profiles: List<ProfileInfoModel>,
     modifier: Modifier = Modifier
 ) {
     val pagerState = rememberPagerState(
@@ -37,11 +36,11 @@ fun HorizontalPagerWithDot(
         modifier = modifier
     ){
         HorizontalPager(pagerState) { page ->
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(1f),
-                painter = painterResource(R.drawable.img_login_top),
+                model = profiles[page],
                 contentDescription = null
             )
         }
@@ -83,6 +82,6 @@ fun HorizontalPagerWithDot(
 @Composable
 fun HorizontalPagerWithDotPreview() {
     HorizontalPagerWithDot(
-        profiles = listOf(0, 1, 2, 3, 4, 5)
+        profiles = emptyList()
     )
 }

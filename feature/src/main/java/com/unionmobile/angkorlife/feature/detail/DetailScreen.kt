@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,12 +26,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.CopyRightText
 
 @Composable
-fun DetailScreen() {
+fun DetailScreen(
+    viewModel: DetailViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     AngkorLifeTopBarWithContent(
         isBackButtonVisible = true,
         title = stringResource(R.string.top_bar_title)
@@ -45,7 +52,7 @@ fun DetailScreen() {
                     .verticalScroll(rememberScrollState())
             ) {
                 HorizontalPagerWithDot(
-                    listOf(0, 1, 2, 3, 4, 5)
+                    profiles = uiState.candidateDetail.profileInfoList
                 )
 
                 CandidateInformation(
@@ -54,7 +61,14 @@ fun DetailScreen() {
                         .padding(
                             vertical = 26.dp,
                             horizontal = 16.dp
-                        )
+                        ),
+                    name = uiState.candidateDetail.name,
+                    candidateNumber = uiState.candidateDetail.candidateNumber,
+                    education = uiState.candidateDetail.education,
+                    major = uiState.candidateDetail.major,
+                    hobbies = uiState.candidateDetail.hobbies,
+                    talent = uiState.candidateDetail.talent,
+                    ambition = uiState.candidateDetail.ambition,
                 )
 
                 CopyRightText(
@@ -85,7 +99,7 @@ fun DetailScreen() {
                         start = 16.dp,
                         end = 16.dp
                     ),
-                enabled = false,
+                enabled = uiState.candidateDetail.voted,
                 colors = ButtonColors(
                     containerColor = Color(0xFF4232D5),
                     contentColor = Color.White,

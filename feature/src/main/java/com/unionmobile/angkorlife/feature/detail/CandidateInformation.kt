@@ -21,13 +21,20 @@ import com.unionmobile.angkorlife.design.RobotoFontFamily
 
 @Composable
 fun CandidateInformation(
+    name: String,
+    candidateNumber: Int,
+    education: String,
+    major: String,
+    hobbies: String,
+    talent: String,
+    ambition: String,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
     ) {
         Text(
-            text = "Prolomova Anastasia",
+            text = name,
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
@@ -40,7 +47,7 @@ fun CandidateInformation(
         Spacer(modifier = Modifier.padding(vertical = 3.dp))
 
         Text(
-            text = "Entry No.5",
+            text = "Entry No.$candidateNumber",
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
@@ -59,13 +66,23 @@ fun CandidateInformation(
                 .padding(
                     vertical = 18.dp,
                     horizontal = 14.dp
-                )
+                ),
+            education = education,
+            major = major,
+            hobbies = hobbies,
+            talent = talent,
+            ambition = ambition
         )
     }
 }
 
 @Composable
 fun CandidateExtra(
+    education: String,
+    major: String,
+    hobbies: String,
+    talent: String,
+    ambition: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -73,7 +90,7 @@ fun CandidateExtra(
     ) {
         Extra(
             title = "Education",
-            description = "Bashkir State Agrarian University"
+            description = education
         )
 
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
@@ -84,7 +101,7 @@ fun CandidateExtra(
 
         Extra(
             title = "Major",
-            description = "Business and marketing"
+            description = major
         )
 
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
@@ -95,7 +112,7 @@ fun CandidateExtra(
 
         Extra(
             title = "Hobbies",
-            description = "Singing, Modeling, Acting"
+            description = hobbies
         )
 
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
@@ -106,7 +123,7 @@ fun CandidateExtra(
 
         Extra(
             title = "Talent",
-            description = "Singing"
+            description = talent
         )
 
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
@@ -117,7 +134,7 @@ fun CandidateExtra(
 
         Extra(
             title = "Ambition",
-            description = "To be a professional actress and singer"
+            description = ambition
         )
     }
 }
@@ -210,7 +227,12 @@ fun ExtraPreview() {
 fun CandidateExtraPreview() {
     CandidateExtra(
         modifier = Modifier
-            .background(Color(0xFF171717))
+            .background(Color(0xFF171717)),
+        education = "Bashkir State Agrarian University",
+        major = "Computer Engineering",
+        hobbies = "Singing",
+        talent = "Singing",
+        ambition = "Singing"
     )
 }
 
@@ -223,6 +245,13 @@ fun CandidateInformationPreview() {
             .padding(
                 vertical = 18.dp,
                 horizontal = 14.dp
-            )
+            ),
+        name = "Prolomova Anastasia",
+        candidateNumber = 5,
+        education = "Bashkir State Agrarian University",
+        major = "Computer Engineering",
+        hobbies = "Singing",
+        talent = "Singing",
+        ambition = "Singing"
     )
 }
