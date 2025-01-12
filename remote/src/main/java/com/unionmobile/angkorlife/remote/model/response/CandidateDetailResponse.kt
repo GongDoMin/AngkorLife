@@ -12,7 +12,7 @@ data class CandidateDetailResponse(
     @SerialName("country") val country: String = "",
     @SerialName("education") val education: String = "",
     @SerialName("major") val major: String = "",
-    @SerialName("hobbies") val hobbies: String = "",
+    @SerialName("hobby") val hobbies: String = "",
     @SerialName("talent") val talent: String = "",
     @SerialName("ambition") val ambition: String = "",
     @SerialName("contents") val contents: String = "",
