@@ -1,5 +1,6 @@
 package com.unionmobile.angkorlife.remote.model.response
 
+import com.unionmobile.angkorlife.data.model.CandidateEntity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,3 +12,12 @@ data class CandidateResponse(
     @SerialName("profileUrl") val profileUrl: String = "",
     @SerialName("voteCnt") val voteCnt: String = ""
 )
+
+fun CandidateResponse.toEntity() =
+    CandidateEntity(
+        id = id,
+        candidateNumber = candidateNumber,
+        name = name,
+        profileUrl = profileUrl,
+        voteCnt = voteCnt
+    )

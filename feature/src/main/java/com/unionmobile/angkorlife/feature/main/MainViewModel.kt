@@ -2,6 +2,7 @@ package com.unionmobile.angkorlife.feature.main
 
 import androidx.lifecycle.ViewModel
 import com.unionmobile.angkorlife.domain.model.Timer
+import com.unionmobile.angkorlife.domain.usecase.GetCandidatesUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetTimerUseCase
 import com.unionmobile.angkorlife.feature.common.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getTimerUseCase: GetTimerUseCase
+    private val getTimerUseCase: GetTimerUseCase,
+    private val getCandidatesUseCase: GetCandidatesUseCase
 ) : ViewModel() {
     data class UiState(
         val timer: Timer = Timer()

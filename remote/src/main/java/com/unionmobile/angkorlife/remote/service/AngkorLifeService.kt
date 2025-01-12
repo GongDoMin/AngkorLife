@@ -10,6 +10,6 @@ interface AngkorLifeService {
         @Query("page") page: Int,
         @Query("size") perPage: Int,
         @Query("sort") sort: List<String>,
-        @Query("searchKeyword") searchKeyword: String
+        @Query("searchKeyword") searchKeyword: String = ""
     ) : PageCandidateListResponse
 }
