@@ -2,15 +2,17 @@ package com.unionmobile.angkorlife.feature.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +31,8 @@ fun AngkorLifeTopBarWithContent(
     isBackButtonVisible: Boolean,
     title: String,
     modifier: Modifier = Modifier,
+    onClickBackButton: () -> Unit = {},
+    onClickCloseButton: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     Column(
@@ -43,7 +47,9 @@ fun AngkorLifeTopBarWithContent(
                     horizontal = 16.dp
                 ),
             isBackButtonVisible = isBackButtonVisible,
-            title = title
+            title = title,
+            onClickBackButton = onClickBackButton,
+            onClickCloseButton = onClickCloseButton
         )
 
         content()
@@ -54,7 +60,9 @@ fun AngkorLifeTopBarWithContent(
 fun AngkorLifeTopBar(
     isBackButtonVisible: Boolean,
     title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickBackButton: () -> Unit = {},
+    onClickCloseButton: () -> Unit = {},
 ) {
     Row(
         modifier = modifier,
@@ -63,7 +71,12 @@ fun AngkorLifeTopBar(
         if (isBackButtonVisible) {
             Image(
                 modifier = Modifier
-                    .size(24.dp),
+                    .size(24.dp)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = onClickBackButton
+                    ),
                 painter = painterResource(R.drawable.img_top_back),
                 contentDescription = null
             )
@@ -85,7 +98,12 @@ fun AngkorLifeTopBar(
 
         Image(
             modifier = Modifier
-                .size(24.dp),
+                .size(24.dp)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = onClickCloseButton
+                ),
             painter = painterResource(R.drawable.img_top_close),
             contentDescription = null
         )

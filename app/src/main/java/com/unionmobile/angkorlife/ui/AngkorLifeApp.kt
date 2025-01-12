@@ -29,7 +29,9 @@ fun AngkorLifeApp() {
                 navigateToDetail = angkorLifeNavController::navigateToDetail
             )
 
-            detailScreen()
+            detailScreen(
+                popBackStack = angkorLifeNavController::popBackStack
+            )
         }
     }
 }

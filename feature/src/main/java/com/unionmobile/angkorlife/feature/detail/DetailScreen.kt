@@ -38,13 +38,15 @@ import com.unionmobile.angkorlife.feature.common.CopyRightText
 
 @Composable
 fun DetailScreen(
+    popBackStack: () -> Unit,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     AngkorLifeTopBarWithContent(
         isBackButtonVisible = true,
-        title = stringResource(R.string.top_bar_title)
+        title = stringResource(R.string.top_bar_title),
+        onClickBackButton = popBackStack
     ) {
         Box(
             modifier = Modifier
@@ -182,5 +184,7 @@ fun DetailScreen(
 @Preview(showBackground = true)
 @Composable
 fun DetailScreenPreview() {
-    DetailScreen()
+    DetailScreen(
+        popBackStack = {}
+    )
 }

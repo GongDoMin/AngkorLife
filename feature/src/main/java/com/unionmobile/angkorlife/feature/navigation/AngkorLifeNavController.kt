@@ -18,6 +18,10 @@ fun rememberAngkorLifeNavController(
 class AngkorLifeNavController(
     val navController: NavHostController
 ) {
+    fun popBackStack() {
+        navController.popBackStack()
+    }
+
     fun navigateToMain() {
         navController.navigate(Routes.MAIN) {
             popUpTo(Routes.LOGIN) {
