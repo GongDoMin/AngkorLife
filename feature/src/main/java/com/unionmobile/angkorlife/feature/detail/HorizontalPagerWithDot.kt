@@ -15,6 +15,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,33 +43,33 @@ fun HorizontalPagerWithDot(
         modifier = modifier
     ){
         HorizontalPager(pagerState) { page ->
+            val horizontalModifier = remember {
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+            }
+
             when (profiles[page].mimeType) {
                 MimeType.IMAGE_GIF -> {
                     val painter = rememberAsyncImagePainter(
                         model = ImageRequest.Builder(context).data(profiles[page].profileUrl).build()
                     )
                     Image(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1f),
+                        modifier = horizontalModifier,
                         painter = painter,
                         contentDescription = null
                     )
                 }
                 MimeType.IMAGE_JPG -> {
                     AsyncImage(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1f),
+                        modifier = horizontalModifier,
                         model = profiles[page].profileUrl,
                         contentDescription = null
                     )
                 }
                 else -> {
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1f)
+                        modifier = horizontalModifier
                             .background(Color.Black),
                     )
                 }
