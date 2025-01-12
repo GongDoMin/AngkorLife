@@ -1,15 +1,17 @@
-package com.unionmobile.angkorlife.domain.usecase
+package com.unionmobile.angkorlife.domain.impl
 
 import com.unionmobile.angkorlife.domain.core.time.TimerProvider
 import com.unionmobile.angkorlife.domain.model.Timer
+import com.unionmobile.angkorlife.domain.usecase.GetTimerUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class GetTimerUseCase(
+class GetTimerUseCaseImpl @Inject constructor(
     private val timerProvider: TimerProvider
-) {
-    operator fun invoke() : Flow<Timer> =
+) : GetTimerUseCase {
+    override operator fun invoke() : Flow<Timer> =
         flow {
             while (true) {
                 val timer = timerProvider.getRemainingSeconds()

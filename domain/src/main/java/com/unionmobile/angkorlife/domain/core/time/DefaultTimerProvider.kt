@@ -4,14 +4,15 @@ import com.unionmobile.angkorlife.domain.model.Timer
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
+import javax.inject.Inject
 
-class DefaultTimerProvider(
-    private val targetZoneId: ZoneId = ZoneId.of(TARGET_ZONE_ID),
+class DefaultTimerProvider @Inject constructor() : TimerProvider {
+    private val targetZoneId: ZoneId = ZoneId.of(TARGET_ZONE_ID)
     private val targetDateTime: ZonedDateTime =
         ZonedDateTime.of(
             TARGET_YEAR, TARGET_MONTH, TARGET_DAY_OF_MONTH, TARGET_HOUR, TARGET_MINUTE, TARGET_SECOND, TARGET_NANO_OF_SECOND, targetZoneId
         )
-) : TimerProvider {
+
     override fun getRemainingSeconds() : Timer {
         val now = ZonedDateTime.now(targetZoneId)
         val remainingSeconds = now.until(targetDateTime, ChronoUnit.SECONDS).coerceAtLeast(0)
