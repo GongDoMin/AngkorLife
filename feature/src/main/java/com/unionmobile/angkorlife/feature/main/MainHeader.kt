@@ -19,15 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
+import com.unionmobile.angkorlife.domain.model.Timer
 import com.unionmobile.angkorlife.feature.common.PainterImage
 import java.util.Locale
 
 @Composable
 fun MainHeader(
-    day: Int,
-    hour: Int,
-    minute: Int,
-    second: Int,
+    timer: Timer,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -39,10 +37,10 @@ fun MainHeader(
         )
 
         Timer(
-            day = day,
-            hour = hour,
-            minute = minute,
-            second = second
+            day = timer.days,
+            hour = timer.hours,
+            minute = timer.minutes,
+            second = timer.seconds
         )
 
         PainterImage(
@@ -199,9 +197,6 @@ fun TimerPreview() {
 @Composable
 fun MainHeaderPreview() {
     MainHeader(
-        day = 16,
-        hour = 0,
-        minute = 8,
-        second = 27
+        timer = Timer()
     )
 }

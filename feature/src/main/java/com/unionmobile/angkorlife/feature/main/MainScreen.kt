@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -24,6 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
@@ -31,15 +34,16 @@ import com.unionmobile.angkorlife.feature.common.CopyRightText
 
 @Composable
 fun MainScreen(
-    candidates: List<Int>,
-    modifier: Modifier = Modifier
+    viewModel: MainViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     AngkorLifeTopBarWithContent(
         isBackButtonVisible = false,
         title = stringResource(R.string.top_bar_title)
     ) {
         LazyVerticalGrid (
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Black),
             columns = GridCells.Fixed(2)
@@ -49,10 +53,7 @@ fun MainScreen(
             ) {
                 Column {
                     MainHeader(
-                        day = 16,
-                        hour = 0,
-                        minute = 8,
-                        second = 27
+                        timer = uiState.timer
                     )
 
                     MainVoteDescription(
@@ -122,8 +123,8 @@ fun MainScreen(
             }
 
             items(
-                count = candidates.size,
-                key = { index -> candidates[index] }
+                count = 0,
+                key = { }
             ) { index ->
                 val columnModifier = remember(index) {
                     if (index % 2 == 0) {
@@ -139,7 +140,7 @@ fun MainScreen(
                     Row {
                         Candidate(
                             uri = "",
-                            id = candidates[index],
+                            id = 0,
                             name = "kazakova Julia",
                             voteCount = 1200,
                             voteEnable = false
@@ -169,7 +170,5 @@ fun MainScreen(
 @Preview
 @Composable
 fun MainScreenPreview() {
-    MainScreen(
-        listOf(0, 1, 2, 3, 4, 5, 6, 7, 8)
-    )
+    MainScreen()
 }
