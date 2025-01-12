@@ -15,6 +15,8 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,6 +43,8 @@ fun DetailScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
+            val buttonHeight by remember { mutableStateOf(84.dp) }
+
             Column(
                 modifier = Modifier
                     .background(Color.Black)
@@ -78,7 +82,7 @@ fun DetailScreen(
 
                 Box(
                     modifier = Modifier
-                        .height(84.dp)
+                        .height(buttonHeight)
                         .background(Color.Black)
                 )
             }
@@ -86,7 +90,7 @@ fun DetailScreen(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(84.dp)
+                    .height(buttonHeight)
                     .align(Alignment.BottomCenter)
                     .padding(
                         top = 12.dp,
