@@ -1,3 +1,10 @@
+import java.io.FileInputStream
+import java.util.Properties
+
+val localProperties = Properties().apply {
+    load(FileInputStream(rootProject.file("local.properties")))
+}
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -18,12 +25,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "ANGKORLIFE_API_URL", "\"https://api-wmu-dev.angkorcoms.com/\"")
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "ANGKORLIFE_API_URL", "\"https://api-wmu-dev.angkorcoms.com/\"")
         }
     }
     compileOptions {
@@ -32,6 +44,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
