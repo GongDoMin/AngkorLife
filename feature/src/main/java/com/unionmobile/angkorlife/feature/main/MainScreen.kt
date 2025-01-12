@@ -143,7 +143,7 @@ fun MainScreen(
                             id = uiState.candidates[index].id,
                             name = uiState.candidates[index].name,
                             voteCount = uiState.candidates[index].voteCnt,
-                            voteEnable = true
+                            isVoted = uiState.candidates[index].isVoted
                         )
                     }
 

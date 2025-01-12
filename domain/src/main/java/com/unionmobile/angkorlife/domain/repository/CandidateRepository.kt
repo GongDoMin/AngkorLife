@@ -5,4 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface CandidateRepository {
     fun getCandidates(page: Int, size: Int, sort: List<String>) : Flow<List<Candidate>>
+
+    fun getVotedCandidatesId(userId: String) : Flow<List<Int>>
 }

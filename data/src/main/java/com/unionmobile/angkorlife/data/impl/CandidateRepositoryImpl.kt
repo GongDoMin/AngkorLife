@@ -13,4 +13,7 @@ class CandidateRepositoryImpl @Inject constructor(
 ): CandidateRepository {
     override fun getCandidates(page: Int, size: Int, sort: List<String>): Flow<List<Candidate>> =
         candidateDataSource.getCandidates(page, size, sort).map { it.map { it.toModel() } }
+
+    override fun getVotedCandidatesId(userId: String): Flow<List<Int>> =
+        candidateDataSource.getVotedCandidatesId(userId)
 }

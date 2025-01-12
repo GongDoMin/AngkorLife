@@ -12,4 +12,9 @@ interface AngkorLifeService {
         @Query("sort") sort: List<String>,
         @Query("searchKeyword") searchKeyword: String = ""
     ) : PageCandidateListResponse
+
+    @GET("vote/voted/candidate/list")
+    suspend fun getVotedCandidatesId(
+        @Query("userId") userId: String
+    ) : List<Int>
 }

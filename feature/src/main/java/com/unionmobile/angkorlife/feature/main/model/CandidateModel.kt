@@ -7,14 +7,18 @@ data class CandidateModel(
     val candidateNumber: Int = 0,
     val name: String = "",
     val profileUrl: String = "",
-    val voteCnt: String = ""
+    val voteCnt: String = "",
+    val isVoted: Boolean = false
 )
 
-fun Candidate.toPresentation() =
+fun Candidate.toPresentation(
+    isVoted: Boolean
+) =
     CandidateModel(
         id = id,
         candidateNumber = candidateNumber,
         name = name,
         profileUrl = profileUrl,
-        voteCnt = voteCnt
+        voteCnt = voteCnt,
+        isVoted = isVoted
     )

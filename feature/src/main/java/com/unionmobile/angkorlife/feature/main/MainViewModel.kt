@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.unionmobile.angkorlife.domain.model.Timer
 import com.unionmobile.angkorlife.domain.usecase.GetCandidatesUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetTimerUseCase
+import com.unionmobile.angkorlife.domain.usecase.GetVotedCandidatesIdUseCase
 import com.unionmobile.angkorlife.feature.common.launch
 import com.unionmobile.angkorlife.feature.main.model.CandidateModel
 import com.unionmobile.angkorlife.feature.main.model.toPresentation
@@ -11,13 +12,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getTimerUseCase: GetTimerUseCase,
-    private val getCandidatesUseCase: GetCandidatesUseCase
+    private val getCandidatesUseCase: GetCandidatesUseCase,
+    private val getVotedCandidatesIdUseCase: GetVotedCandidatesIdUseCase
 ) : ViewModel() {
     data class UiState(
         val timer: Timer = Timer(),
@@ -41,10 +44,19 @@ class MainViewModel @Inject constructor(
 
     private fun getCandidates() {
         launch(Dispatchers.IO) {
-            getCandidatesUseCase.invoke().collect { candidates ->
+            combine(
+                getCandidatesUseCase.invoke(),
+                getVotedCandidatesIdUseCase.invoke()
+            ) { candidates, votedCandidatesId ->
+                candidates.map { candidate ->
+                    candidate.toPresentation(
+                        isVoted = votedCandidatesId.contains(candidate.id)
+                    )
+                }
+            }.collect { candidates ->
                 _uiState.update {
                     it.copy(
-                        candidates = candidates.map { it.toPresentation() }
+                        candidates = candidates
                     )
                 }
             }

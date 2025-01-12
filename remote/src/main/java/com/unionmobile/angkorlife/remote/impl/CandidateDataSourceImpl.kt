@@ -17,4 +17,10 @@ class CandidateDataSourceImpl @Inject constructor(
             val candidates = response.content.map { it.toEntity() }
             emit(candidates)
         }
+
+    override fun getVotedCandidatesId(userId: String): Flow<List<Int>> =
+        flow {
+            val response = angkorLifeService.getVotedCandidatesId(userId)
+            emit(response)
+        }
 }

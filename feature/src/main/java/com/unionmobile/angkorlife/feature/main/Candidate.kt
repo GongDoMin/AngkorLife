@@ -24,9 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
-import com.unionmobile.angkorlife.design.R
-import com.unionmobile.angkorlife.feature.common.PainterImage
-import java.text.DecimalFormat
 
 @Composable
 fun Candidate(
@@ -34,7 +31,7 @@ fun Candidate(
     id: Int,
     name: String,
     voteCount: String,
-    voteEnable: Boolean,
+    isVoted: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -82,18 +79,18 @@ fun Candidate(
         Spacer(modifier = Modifier.padding(vertical = 5.dp))
 
         VoteHandlerButton(
-            voteEnable = voteEnable
+            isVoted = isVoted
         )
     }
 }
 
 @Composable
 fun VoteHandlerButton(
-    voteEnable: Boolean,
+    isVoted: Boolean,
     modifier: Modifier = Modifier
 ) {
-    if (voteEnable) VoteButton(modifier)
-    else VotedButton(modifier)
+    if (isVoted) VotedButton(modifier)
+    else VoteButton(modifier)
 }
 
 @Composable
@@ -112,7 +109,7 @@ fun VoteButton(
         ),
         onClick = { TODO("Not yet implemented") },
         contentPadding = PaddingValues(
-            vertical = 4.dp,
+            vertical = 8.dp,
             horizontal = 12.dp
         )
     ) {
@@ -137,7 +134,7 @@ fun VotedButton(
         ),
         onClick = { TODO("Not yet implemented") },
         contentPadding = PaddingValues(
-            vertical = 4.dp,
+            vertical = 8.dp,
             horizontal = 12.dp
         )
     ) {
@@ -171,6 +168,6 @@ fun CandidatePreview() {
         id = 0,
         name = "kazakova Julia",
         voteCount = "1,200 voted",
-        voteEnable = false
+        isVoted = false
     )
 }
