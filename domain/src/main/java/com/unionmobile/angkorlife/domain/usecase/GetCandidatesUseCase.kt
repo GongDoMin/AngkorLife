@@ -4,5 +4,5 @@ import com.unionmobile.angkorlife.domain.model.Candidate
 import kotlinx.coroutines.flow.Flow
 
 interface GetCandidatesUseCase {
-    operator fun invoke() : Flow<List<Candidate>>
+    operator fun invoke(candidateId: Int) : Flow<List<Candidate>>
 }

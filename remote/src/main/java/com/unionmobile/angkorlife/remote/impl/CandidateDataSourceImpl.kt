@@ -1,6 +1,7 @@
 package com.unionmobile.angkorlife.remote.impl
 
 import com.unionmobile.angkorlife.data.datasource.CandidateDataSource
+import com.unionmobile.angkorlife.data.model.CandidateDetailEntity
 import com.unionmobile.angkorlife.data.model.CandidateEntity
 import com.unionmobile.angkorlife.remote.model.response.toEntity
 import com.unionmobile.angkorlife.remote.service.AngkorLifeService
@@ -16,6 +17,12 @@ class CandidateDataSourceImpl @Inject constructor(
             val response = angkorLifeService.getCandidates(page, size, sort)
             val candidates = response.content.map { it.toEntity() }
             emit(candidates)
+        }
+
+    override fun getCandidate(candidateId: Int, userId: String): Flow<CandidateDetailEntity> =
+        flow {
+            val entity = angkorLifeService.getCandidate(candidateId, userId).toEntity()
+            emit(entity)
         }
 
     override fun getVotedCandidatesId(userId: String): Flow<List<Int>> =

@@ -2,10 +2,12 @@ package com.unionmobile.angkorlife.domain.di
 
 import com.unionmobile.angkorlife.domain.core.time.DefaultTimerProvider
 import com.unionmobile.angkorlife.domain.core.time.TimerProvider
+import com.unionmobile.angkorlife.domain.impl.GetCandidateDetailUseCaseImpl
 import com.unionmobile.angkorlife.domain.impl.GetCandidatesUseCaseImpl
 import com.unionmobile.angkorlife.domain.impl.GetTimerUseCaseImpl
 import com.unionmobile.angkorlife.domain.impl.GetVotedCandidatesIdUseCaseImpl
 import com.unionmobile.angkorlife.domain.impl.LoginUseCaseImpl
+import com.unionmobile.angkorlife.domain.usecase.GetCandidateDetailUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetCandidatesUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetTimerUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetVotedCandidatesIdUseCase
@@ -32,4 +34,7 @@ abstract class DomainModule {
 
     @Binds
     abstract fun bindGetVotedCandidatesIdUseCase(getVotedCandidatesIdUseCaseImpl: GetVotedCandidatesIdUseCaseImpl) : GetVotedCandidatesIdUseCase
+
+    @Binds
+    abstract fun bindGetCandidateDetailUseCase(getCandidateDetailUseCaseImpl: GetCandidateDetailUseCaseImpl) : GetCandidateDetailUseCase
 }

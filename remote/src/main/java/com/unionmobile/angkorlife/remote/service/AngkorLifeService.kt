@@ -1,7 +1,9 @@
 package com.unionmobile.angkorlife.remote.service
 
+import com.unionmobile.angkorlife.remote.model.response.CandidateDetailResponse
 import com.unionmobile.angkorlife.remote.model.response.PageCandidateListResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AngkorLifeService {
@@ -12,6 +14,12 @@ interface AngkorLifeService {
         @Query("sort") sort: List<String>,
         @Query("searchKeyword") searchKeyword: String = ""
     ) : PageCandidateListResponse
+
+    @GET("vote/candidate/{id}")
+    suspend fun getCandidate(
+        @Path("id") id: Int,
+        @Query("userId") userId: String,
+    ) : CandidateDetailResponse
 
     @GET("vote/voted/candidate/list")
     suspend fun getVotedCandidatesId(
