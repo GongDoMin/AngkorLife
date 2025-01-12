@@ -9,6 +9,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 domain/build/kotlin/
+.kotlin/
 .DS_Store
 /build
 /captures
