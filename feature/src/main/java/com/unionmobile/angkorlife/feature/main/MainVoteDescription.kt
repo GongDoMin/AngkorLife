@@ -100,7 +100,6 @@ fun VoteDescriptionTable(
 
         HorizontalDivider(
             modifier = Modifier
-                .padding(horizontal = 14.dp)
                 .background(Color(0xFF1E1D1E))
         )
 
