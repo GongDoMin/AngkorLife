@@ -27,6 +27,7 @@ import coil3.compose.AsyncImage
 import coil3.compose.rememberAsyncImagePainter
 import coil3.request.ImageRequest
 import com.unionmobile.angkorlife.domain.model.MimeType
+import com.unionmobile.angkorlife.domain.model.ProfileInfo
 import com.unionmobile.angkorlife.feature.detail.model.ProfileInfoModel
 
 @Composable
@@ -113,6 +114,6 @@ fun HorizontalPagerWithDot(
 @Composable
 fun HorizontalPagerWithDotPreview() {
     HorizontalPagerWithDot(
-        profiles = emptyList()
+        profiles = listOf(ProfileInfoModel(), ProfileInfoModel())
     )
 }
