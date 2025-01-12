@@ -34,6 +34,7 @@ import com.unionmobile.angkorlife.feature.common.CopyRightText
 
 @Composable
 fun MainScreen(
+    navigateToDetail: (candidateId: Int) -> Unit,
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -143,7 +144,8 @@ fun MainScreen(
                             id = uiState.candidates[index].id,
                             name = uiState.candidates[index].name,
                             voteCount = uiState.candidates[index].voteCnt,
-                            isVoted = uiState.candidates[index].isVoted
+                            isVoted = uiState.candidates[index].isVoted,
+                            onClickImage = navigateToDetail
                         )
                     }
 
@@ -170,5 +172,7 @@ fun MainScreen(
 @Preview
 @Composable
 fun MainScreenPreview() {
-    MainScreen()
+    MainScreen(
+        navigateToDetail = {}
+    )
 }

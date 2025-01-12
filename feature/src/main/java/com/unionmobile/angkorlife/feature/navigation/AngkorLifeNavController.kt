@@ -24,6 +24,9 @@ class AngkorLifeNavController(
                 inclusive = true
             }
         }
+    }
 
+    fun navigateToDetail(candidateId: Int) {
+        navController.navigate(Routes.DETAIL(candidateId))
     }
 }

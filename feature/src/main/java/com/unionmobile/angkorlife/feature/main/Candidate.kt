@@ -1,5 +1,6 @@
 package com.unionmobile.angkorlife.feature.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,7 @@ fun Candidate(
     name: String,
     voteCount: String,
     isVoted: Boolean,
+    onClickImage: (candidateId: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -43,7 +45,10 @@ fun Candidate(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
-                .clip(RoundedCornerShape(8.dp)),
+                .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    onClickImage(id)
+                },
             model = url,
             contentDescription = null
         )
@@ -168,6 +173,7 @@ fun CandidatePreview() {
         id = 0,
         name = "kazakova Julia",
         voteCount = "1,200 voted",
-        isVoted = false
+        isVoted = false,
+        onClickImage = {}
     )
 }

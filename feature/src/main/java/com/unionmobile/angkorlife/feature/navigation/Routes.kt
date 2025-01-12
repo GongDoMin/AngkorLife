@@ -7,5 +7,11 @@ sealed interface Routes {
 
     @Serializable data object MAIN : Routes
 
-    @Serializable data object DETAIL : Routes
+    @Serializable data class DETAIL(
+        val candidateId: Int
+    ) : Routes {
+        companion object {
+            const val CANDIDATE_ID = "candidateId"
+        }
+    }
 }

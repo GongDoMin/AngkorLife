@@ -25,7 +25,9 @@ fun AngkorLifeApp() {
                 angkorLifeNavController::navigateToMain
             )
 
-            mainScreen()
+            mainScreen(
+                navigateToDetail = angkorLifeNavController::navigateToDetail
+            )
 
             detailScreen()
         }
