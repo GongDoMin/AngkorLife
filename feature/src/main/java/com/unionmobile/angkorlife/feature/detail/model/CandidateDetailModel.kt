@@ -4,7 +4,7 @@ import com.unionmobile.angkorlife.domain.model.CandidateDetail
 
 data class CandidateDetailModel(
     val id: Int = 0,
-    val candidateNumber: Int = 0,
+    val candidateNumber: String = "",
     val name: String = "",
     val education: String = "",
     val major: String = "",
@@ -18,7 +18,7 @@ data class CandidateDetailModel(
 fun CandidateDetail.toPresentation() =
     CandidateDetailModel(
         id = id,
-        candidateNumber = candidateNumber,
+        candidateNumber = "Entry No.$candidateNumber",
         name = name,
         education = education,
         major = major,

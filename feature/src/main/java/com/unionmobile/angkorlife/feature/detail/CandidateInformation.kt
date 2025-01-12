@@ -22,7 +22,7 @@ import com.unionmobile.angkorlife.design.RobotoFontFamily
 @Composable
 fun CandidateInformation(
     name: String,
-    candidateNumber: Int,
+    candidateNumber: String,
     education: String,
     major: String,
     hobbies: String,
@@ -47,7 +47,7 @@ fun CandidateInformation(
         Spacer(modifier = Modifier.padding(vertical = 3.dp))
 
         Text(
-            text = "Entry No.$candidateNumber",
+            text = candidateNumber,
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
@@ -247,7 +247,7 @@ fun CandidateInformationPreview() {
                 horizontal = 14.dp
             ),
         name = "Prolomova Anastasia",
-        candidateNumber = 5,
+        candidateNumber = "Entry No.5",
         education = "Bashkir State Agrarian University",
         major = "Computer Engineering",
         hobbies = "Singing",
