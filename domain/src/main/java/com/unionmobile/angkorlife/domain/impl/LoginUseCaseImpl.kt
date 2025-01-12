@@ -9,13 +9,13 @@ import javax.inject.Inject
 class LoginUseCaseImpl @Inject constructor(
     private val userIdRepository: UserIdRepository
 ) : LoginUseCase {
-    override operator fun invoke(id: String): Flow<Unit> =
+    override operator fun invoke(userId: String): Flow<Unit> =
         flow {
-            if (!id.isValidRange()) {
+            if (!userId.isValidRange()) {
                 throw IllegalArgumentException("id must be between 1 and 16")
             }
 
-            userIdRepository.setUserId(id)
+            userIdRepository.setUserId(userId)
 
             emit(Unit)
         }
