@@ -7,7 +7,7 @@ data class CandidateDetail(
     val country: String = "",
     val education: String = "",
     val major: String = "",
-    val hobbies: String = "",
+    val hobby: String = "",
     val talent: String = "",
     val ambition: String = "",
     val contents: String = "",
