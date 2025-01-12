@@ -139,7 +139,7 @@ fun MainScreen(
                 ) {
                     Row {
                         Candidate(
-                            uri = "",
+                            url = uiState.candidates[index].profileUrl,
                             id = uiState.candidates[index].id,
                             name = uiState.candidates[index].name,
                             voteCount = uiState.candidates[index].voteCnt,

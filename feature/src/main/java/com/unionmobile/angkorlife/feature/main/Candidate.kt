@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.PainterImage
@@ -29,7 +30,7 @@ import java.text.DecimalFormat
 
 @Composable
 fun Candidate(
-    uri: String,
+    url: String,
     id: Int,
     name: String,
     voteCount: String,
@@ -41,13 +42,13 @@ fun Candidate(
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        PainterImage(
-            res = R.drawable.img_login_top,
-            contentDescription = null,
+        AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
-                .clip(RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(8.dp)),
+            model = url,
+            contentDescription = null
         )
 
         Spacer(modifier = Modifier.padding(vertical = 9.dp))
@@ -166,7 +167,7 @@ fun VotedButtonPreview() {
 @Composable
 fun CandidatePreview() {
     Candidate(
-        uri = "",
+        url = "",
         id = 0,
         name = "kazakova Julia",
         voteCount = "1,200 voted",
