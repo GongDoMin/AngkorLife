@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetCandidatesUseCaseImpl @Inject constructor(
     private val candidateRepository: CandidateRepository
 ): GetCandidatesUseCase {
-    override fun invoke(): Flow<List<Candidate>> =
+    override operator fun invoke(): Flow<List<Candidate>> =
         candidateRepository.getCandidates(1, 100, listOf(NAME_ASC))
 }
 
