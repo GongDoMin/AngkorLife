@@ -1,6 +1,5 @@
 package com.unionmobile.angkorlife.feature.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,10 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.compose.rememberAsyncImagePainter
-import coil3.request.ImageRequest
 import com.unionmobile.angkorlife.domain.model.MimeType
-import com.unionmobile.angkorlife.domain.model.ProfileInfo
 import com.unionmobile.angkorlife.feature.detail.model.ProfileInfoModel
 
 @Composable
@@ -35,7 +31,6 @@ fun HorizontalPagerWithDot(
     profiles: List<ProfileInfoModel>,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     val pagerState = rememberPagerState(
         pageCount = { profiles.size }
     )
@@ -51,17 +46,7 @@ fun HorizontalPagerWithDot(
             }
 
             when (profiles[page].mimeType) {
-                MimeType.IMAGE_GIF -> {
-                    val painter = rememberAsyncImagePainter(
-                        model = ImageRequest.Builder(context).data(profiles[page].profileUrl).build()
-                    )
-                    Image(
-                        modifier = horizontalModifier,
-                        painter = painter,
-                        contentDescription = null
-                    )
-                }
-                MimeType.IMAGE_JPG -> {
+                MimeType.IMAGE_GIF, MimeType.IMAGE_JPG -> {
                     AsyncImage(
                         modifier = horizontalModifier,
                         model = profiles[page].profileUrl,
