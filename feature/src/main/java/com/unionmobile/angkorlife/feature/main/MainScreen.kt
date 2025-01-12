@@ -123,8 +123,8 @@ fun MainScreen(
             }
 
             items(
-                count = 0,
-                key = { }
+                count = uiState.candidates.size,
+                key = { uiState.candidates[it].id }
             ) { index ->
                 val columnModifier = remember(index) {
                     if (index % 2 == 0) {
@@ -140,10 +140,10 @@ fun MainScreen(
                     Row {
                         Candidate(
                             uri = "",
-                            id = 0,
-                            name = "kazakova Julia",
-                            voteCount = 1200,
-                            voteEnable = false
+                            id = uiState.candidates[index].id,
+                            name = uiState.candidates[index].name,
+                            voteCount = uiState.candidates[index].voteCnt,
+                            voteEnable = true
                         )
                     }
 

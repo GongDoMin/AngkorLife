@@ -32,7 +32,7 @@ fun Candidate(
     uri: String,
     id: Int,
     name: String,
-    voteCount: Int,
+    voteCount: String,
     voteEnable: Boolean,
     modifier: Modifier = Modifier
 ) {
@@ -67,7 +67,7 @@ fun Candidate(
         Spacer(modifier = Modifier.padding(vertical = 2.dp))
 
         Text(
-            text = "${DecimalFormat.getNumberInstance().format(voteCount)} voted",
+            text = "$voteCount voted",
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
@@ -169,7 +169,7 @@ fun CandidatePreview() {
         uri = "",
         id = 0,
         name = "kazakova Julia",
-        voteCount = 1200,
+        voteCount = "1,200 voted",
         voteEnable = false
     )
 }

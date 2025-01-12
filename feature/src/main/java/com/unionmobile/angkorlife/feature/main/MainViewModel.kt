@@ -5,6 +5,8 @@ import com.unionmobile.angkorlife.domain.model.Timer
 import com.unionmobile.angkorlife.domain.usecase.GetCandidatesUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetTimerUseCase
 import com.unionmobile.angkorlife.feature.common.launch
+import com.unionmobile.angkorlife.feature.main.model.CandidateModel
+import com.unionmobile.angkorlife.feature.main.model.toPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,25 +20,39 @@ class MainViewModel @Inject constructor(
     private val getCandidatesUseCase: GetCandidatesUseCase
 ) : ViewModel() {
     data class UiState(
-        val timer: Timer = Timer()
+        val timer: Timer = Timer(),
+        val candidates: List<CandidateModel> = emptyList()
     )
 
     private val _uiState = MutableStateFlow<UiState>(UiState())
     val uiState = _uiState.asStateFlow()
 
-    fun updateUiState(timer: Timer) {
-        _uiState.update { it.copy(timer = timer) }
-    }
-
     private fun getTimer() {
         launch(Dispatchers.IO) {
-            getTimerUseCase.invoke().collect {
-                updateUiState(it)
+            getTimerUseCase.invoke().collect { timer ->
+                _uiState.update {
+                    it.copy(
+                        timer = timer
+                    )
+                }
+            }
+        }
+    }
+
+    private fun getCandidates() {
+        launch(Dispatchers.IO) {
+            getCandidatesUseCase.invoke().collect { candidates ->
+                _uiState.update {
+                    it.copy(
+                        candidates = candidates.map { it.toPresentation() }
+                    )
+                }
             }
         }
     }
 
     init {
         getTimer()
+        getCandidates()
     }
 }
