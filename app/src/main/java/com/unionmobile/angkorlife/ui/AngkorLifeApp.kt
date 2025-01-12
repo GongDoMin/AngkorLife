@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.unionmobile.angkorlife.feature.detail.detailScreen
 import com.unionmobile.angkorlife.feature.login.loginScreen
 import com.unionmobile.angkorlife.feature.main.mainScreen
 import com.unionmobile.angkorlife.feature.navigation.Routes
@@ -25,6 +26,8 @@ fun AngkorLifeApp() {
             )
 
             mainScreen()
+
+            detailScreen()
         }
     }
 }
