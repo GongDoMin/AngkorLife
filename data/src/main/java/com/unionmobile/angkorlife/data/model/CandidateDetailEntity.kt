@@ -13,7 +13,7 @@ data class CandidateDetailEntity(
     val talent: String = "",
     val ambition: String = "",
     val contents: String = "",
-    val profileInfoList: List<ProfileInfoDetail> = emptyList(),
+    val profileInfoList: List<ProfileInfoEntity> = emptyList(),
     val regDt: String = "",
     val voted: Boolean = false
 )
