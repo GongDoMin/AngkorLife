@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife.remote.model.di
+package com.unionmobile.angkorlife.remote.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module

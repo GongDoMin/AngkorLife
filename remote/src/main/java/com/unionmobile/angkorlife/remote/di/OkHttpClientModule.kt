@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife.remote.model.di
+package com.unionmobile.angkorlife.remote.di
 
 import com.unionmobile.angkorlife.remote.BuildConfig
 import dagger.Module
