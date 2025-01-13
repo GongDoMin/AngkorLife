@@ -143,9 +143,10 @@ fun MainScreen(
                             url = uiState.candidates[index].profileUrl,
                             id = uiState.candidates[index].id,
                             name = uiState.candidates[index].name,
-                            voteCount = uiState.candidates[index].voteCnt,
+                            voteCountString = uiState.candidates[index].voteCntString,
                             isVoted = uiState.candidates[index].isVoted,
-                            onClickImage = navigateToDetail
+                            onClickImage = navigateToDetail,
+                            onClickVote = viewModel::vote
                         )
                     }
 

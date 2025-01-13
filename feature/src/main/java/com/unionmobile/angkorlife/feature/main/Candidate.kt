@@ -25,15 +25,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
+import com.unionmobile.angkorlife.feature.main.model.toFormattedString
 
 @Composable
 fun Candidate(
     url: String,
     id: Int,
     name: String,
-    voteCount: String,
+    voteCountString: String,
     isVoted: Boolean,
     onClickImage: (candidateId: Int) -> Unit,
+    onClickVote: (candidateId: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -70,7 +72,7 @@ fun Candidate(
         Spacer(modifier = Modifier.padding(vertical = 2.dp))
 
         Text(
-            text = "$voteCount voted",
+            text = voteCountString,
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
@@ -83,83 +85,32 @@ fun Candidate(
 
         Spacer(modifier = Modifier.padding(vertical = 5.dp))
 
-        VoteHandlerButton(
-            isVoted = isVoted
-        )
+        Button(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(32.dp),
+            enabled = !isVoted,
+            colors = ButtonColors(
+                containerColor = Color(0xFF4232D5),
+                contentColor = Color.White,
+                disabledContainerColor = Color.White,
+                disabledContentColor = Color(0xFF4232D5),
+            ),
+            onClick = { onClickVote(id) },
+            contentPadding = PaddingValues(
+                vertical = 8.dp,
+                horizontal = 12.dp
+            )
+        ) {
+            val text = if (isVoted) {
+                "Voted"
+            } else {
+                "Vote"
+            }
+
+            Text(text = text)
+        }
     }
-}
-
-@Composable
-fun VoteHandlerButton(
-    isVoted: Boolean,
-    modifier: Modifier = Modifier
-) {
-    if (isVoted) VotedButton(modifier)
-    else VoteButton(modifier)
-}
-
-@Composable
-fun VoteButton(
-    modifier: Modifier = Modifier
-) {
-    Button(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(32.dp),
-        colors = ButtonColors(
-            containerColor = Color(0xFF4232D5),
-            contentColor = Color.White,
-            disabledContainerColor = Color.Unspecified,
-            disabledContentColor = Color.Unspecified,
-        ),
-        onClick = { TODO("Not yet implemented") },
-        contentPadding = PaddingValues(
-            vertical = 8.dp,
-            horizontal = 12.dp
-        )
-    ) {
-        Text(text = "Vote")
-    }
-}
-
-@Composable
-fun VotedButton(
-    modifier: Modifier = Modifier
-) {
-    Button(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(32.dp),
-        enabled = false,
-        colors = ButtonColors(
-            containerColor = Color.Unspecified,
-            contentColor = Color.Unspecified,
-            disabledContainerColor = Color.White,
-            disabledContentColor = Color(0xFF4232D5),
-        ),
-        onClick = { TODO("Not yet implemented") },
-        contentPadding = PaddingValues(
-            vertical = 8.dp,
-            horizontal = 12.dp
-        )
-    ) {
-        Text(text = "Voted")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun VoteButtonPreview() {
-    VoteButton()
-}
-
-@Preview(
-    showBackground = true,
-    backgroundColor = 0xFF000000
-)
-@Composable
-fun VotedButtonPreview() {
-    VotedButton()
 }
 
 @Preview(
@@ -172,8 +123,9 @@ fun CandidatePreview() {
         url = "",
         id = 0,
         name = "kazakova Julia",
-        voteCount = "1,200 voted",
+        voteCountString = 1200.toFormattedString(),
         isVoted = false,
-        onClickImage = {}
+        onClickImage = {},
+        onClickVote = {}
     )
 }

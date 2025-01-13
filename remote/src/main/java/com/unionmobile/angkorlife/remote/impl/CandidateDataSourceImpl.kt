@@ -42,6 +42,7 @@ class CandidateDataSourceImpl @Inject constructor(
             angkorLifeService.vote(
                 VoteRequest(userId, candidateId)
             )
+            emit(Unit)
         }
 }
 
