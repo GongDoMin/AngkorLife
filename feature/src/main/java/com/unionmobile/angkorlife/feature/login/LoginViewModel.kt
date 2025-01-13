@@ -44,10 +44,10 @@ class LoginViewModel @Inject constructor(
             loginUseCase.invoke(id)
                 .catch {
                     _uiState.update { it.copy(isLoggingIn = false) }
-                    updateEvent(Event.ShowSnackBar("아이디의 길이는 최소 1 최대 16 입니다."))
+                    _event.send(Event.ShowSnackBar("아이디의 길이는 최소 1 최대 16 입니다."))
                 }
                 .collect {
-                    updateEvent(Event.SuccessLogin)
+                    _event.send(Event.SuccessLogin)
                 }
         }
     }
@@ -56,9 +56,5 @@ class LoginViewModel @Inject constructor(
         _uiState.update {
             it.copy(id = id)
         }
-    }
-
-    private suspend fun updateEvent(event: Event) {
-        _event.send(event)
     }
 }
