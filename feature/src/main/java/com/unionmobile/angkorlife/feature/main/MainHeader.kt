@@ -1,11 +1,11 @@
 package com.unionmobile.angkorlife.feature.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
@@ -37,6 +38,8 @@ fun MainHeader(
         )
 
         Timer(
+            modifier = Modifier
+                .fillMaxWidth(),
             day = timer.days,
             hour = timer.hours,
             minute = timer.minutes,
@@ -60,40 +63,34 @@ fun Timer(
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
     ) {
-        val semiColonModifier = Modifier
-            .padding(8.dp)
-
-        Spacer(modifier = Modifier.weight(1f))
-
         TimeContainerWithLabel(
             label = "DAY",
             time = day
         )
 
-        SemiColon(modifier = semiColonModifier)
+        Colon()
 
         TimeContainerWithLabel(
             label = "HR",
             time = hour
         )
 
-        SemiColon(modifier = semiColonModifier)
+        Colon()
 
         TimeContainerWithLabel(
             label = "MIN",
             time = minute
         )
 
-        SemiColon(modifier = semiColonModifier)
+        Colon()
 
         TimeContainerWithLabel(
             label = "SEC",
             time = second
         )
-
-        Spacer(modifier = Modifier.weight(1f))
     }
 }
 
@@ -105,11 +102,12 @@ fun TimeContainerWithLabel(
 ) {
     Column(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        TimeContainer(time = time)
-
-        Spacer(modifier = Modifier.padding(vertical = 2.dp))
+        TimeContainer(
+            time = time
+        )
 
         Text(
             text = label,
@@ -127,10 +125,9 @@ fun TimeContainerWithLabel(
 @Composable
 fun TimeContainer(
     time: Int,
-    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = modifier
+        modifier = Modifier
             .size(48.dp)
             .background(Color(0xFF1B191A)),
         contentAlignment = Alignment.Center
@@ -148,11 +145,8 @@ fun TimeContainer(
 }
 
 @Composable
-fun SemiColon(
-    modifier: Modifier = Modifier
-) {
+fun Colon() {
     Text(
-        modifier = modifier,
         text = ":",
         color = Color(0xFFD9D9D9)
     )
@@ -161,7 +155,9 @@ fun SemiColon(
 @Preview(showBackground = true)
 @Composable
 fun TimeContainerPreview() {
-    TimeContainer(time = 10)
+    TimeContainer(
+        time = 10
+    )
 }
 
 @Preview(
@@ -186,7 +182,7 @@ fun TimerPreview() {
         day = 16,
         hour = 0,
         minute = 8,
-        second = 27
+        second = 27,
     )
 }
 
