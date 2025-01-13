@@ -15,9 +15,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.RobotoFontFamily
+import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
 fun CandidateInformation(
@@ -38,8 +38,8 @@ fun CandidateInformation(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 22.sp,
-                lineHeight = 26.sp
+                fontSize = 22.dpTextUnit,
+                lineHeight = 26.dpTextUnit
             ),
             color = Color.White
         )
@@ -51,8 +51,8 @@ fun CandidateInformation(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
-                lineHeight = 20.sp
+                fontSize = 14.dpTextUnit,
+                lineHeight = 20.dpTextUnit
             ),
             color = Color(0xFF6F76FF)
         )
@@ -148,67 +148,31 @@ fun Extra(
     Column(
         modifier = modifier
     ) {
-        ExtraTitle(title = title)
+        Text(
+            modifier = modifier,
+            text = title,
+            style = TextStyle(
+                fontFamily = RobotoFontFamily,
+                fontWeight = FontWeight.Medium,
+                fontSize = 14.dpTextUnit
+            ),
+            color = Color(0xFF7C7C7C)
+        )
 
         Spacer(modifier = Modifier.padding(vertical = 5.dp))
 
-        ExtraDescription(description = description)
+        Text(
+            modifier = modifier,
+            text = description,
+            style = TextStyle(
+                fontFamily = KantumruyFontFamily,
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.dpTextUnit,
+                lineHeight = 19.dpTextUnit
+            ),
+            color = Color(0xFFF6F6F6)
+        )
     }
-}
-
-@Composable
-fun ExtraTitle(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        modifier = modifier,
-        text = title,
-        style = TextStyle(
-            fontFamily = RobotoFontFamily,
-            fontWeight = FontWeight.Medium,
-            fontSize = 14.sp
-        ),
-        color = Color(0xFF7C7C7C)
-    )
-}
-
-@Composable
-fun ExtraDescription(
-    description: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        modifier = modifier,
-        text = description,
-        style = TextStyle(
-            fontFamily = KantumruyFontFamily,
-            fontWeight = FontWeight.Normal,
-            fontSize = 16.sp,
-            lineHeight = 19.sp
-        ),
-        color = Color(0xFFF6F6F6)
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ExtraDescriptionPreview() {
-    ExtraDescription(
-        modifier = Modifier
-            .background(Color(0xFF171717)),
-        description = "Singing"
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ExtraTitlePreview() {
-    ExtraTitle(
-        modifier = Modifier
-            .background(Color(0xFF171717)),
-        title = "Education"
-    )
 }
 
 @Preview(showBackground = true)
