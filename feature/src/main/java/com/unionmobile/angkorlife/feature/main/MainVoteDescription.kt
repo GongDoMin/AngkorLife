@@ -17,8 +17,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
+import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
 fun MainVoteDescription(
@@ -32,7 +32,7 @@ fun MainVoteDescription(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.dpTextUnit
             ),
             color = Color(0xFF6F76FF)
         )
@@ -44,8 +44,8 @@ fun MainVoteDescription(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 28.sp,
-                lineHeight = 29.sp
+                fontSize = 28.dpTextUnit,
+                lineHeight = 29.dpTextUnit
             ),
             color = Color.White
         )
@@ -57,8 +57,8 @@ fun MainVoteDescription(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 14.sp,
-                lineHeight = 22.sp
+                fontSize = 14.dpTextUnit,
+                lineHeight = 22.dpTextUnit
             ),
             color = Color(0xFFAEAEB2)
         )
@@ -134,8 +134,8 @@ fun TitleCell(
         style = TextStyle(
             fontFamily = KantumruyFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 13.sp,
-            lineHeight = 15.sp
+            fontSize = 13.dpTextUnit,
+            lineHeight = 15.dpTextUnit
         ),
         color = Color(0xFFF6F6F6)
     )
@@ -162,7 +162,7 @@ fun BasicDescriptionCell(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 13.sp
+                fontSize = 13.dpTextUnit
             ),
         )
 
@@ -174,8 +174,8 @@ fun BasicDescriptionCell(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 13.sp,
-                lineHeight = 15.sp
+                fontSize = 13.dpTextUnit,
+                lineHeight = 15.dpTextUnit
             ),
             color = Color(0xFFDBDBDB)
         )
