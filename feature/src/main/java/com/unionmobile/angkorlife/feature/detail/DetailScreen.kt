@@ -26,15 +26,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.domain.model.MimeType
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.CopyRightText
+import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
 fun DetailScreen(
@@ -42,6 +46,8 @@ fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val voteButtonHeight = remember { 84.dp }
+    val horizontalPagerIntervalSeconds = remember { 3000L }
 
     AngkorLifeTopBarWithContent(
         isBackButtonVisible = true,
@@ -52,9 +58,6 @@ fun DetailScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            val buttonHeight = remember { 84.dp }
-            val horizontalPagerIntervalSeconds = remember { 3000L }
-
             Column(
                 modifier = Modifier
                     .background(Color.Black)
@@ -64,37 +67,10 @@ fun DetailScreen(
                     listSize = uiState.candidateDetail.profileInfoList.size,
                     intervalSeconds = horizontalPagerIntervalSeconds,
                     bottomContent = { currentPage ->
-                        val dotSize = remember { 8.dp }
-                        val bottomPadding = remember { 10.dp }
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(dotSize + bottomPadding)
-                                .padding(
-                                    start = 16.dp,
-                                    end = 16.dp,
-                                    bottom = bottomPadding
-                                ),
-                            horizontalArrangement = Arrangement.spacedBy(dotSize, Alignment.CenterHorizontally)
-                        ) {
-                            with(uiState.candidateDetail.profileInfoList) {
-                                this.indices.forEach {
-                                    val color =
-                                        if (it == (currentPage % this.size)) {
-                                            Color(0xFF6F76FF)
-                                        } else {
-                                            Color.White
-                                        }
-
-                                    Box(
-                                        modifier = Modifier
-                                            .clip(CircleShape)
-                                            .size(8.dp)
-                                            .background(color)
-                                    )
-                                }
-                            }
-                        }
+                        DotContainer(
+                            dotCount = uiState.candidateDetail.profileInfoList.size,
+                            currentPage = currentPage
+                        )
                     }
                 ) { currentPage ->
                     val horizontalModifier = remember {
@@ -149,7 +125,7 @@ fun DetailScreen(
 
                 Box(
                     modifier = Modifier
-                        .height(buttonHeight)
+                        .height(voteButtonHeight)
                         .background(Color.Black)
                 )
             }
@@ -157,7 +133,7 @@ fun DetailScreen(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(buttonHeight)
+                    .height(voteButtonHeight)
                     .align(Alignment.BottomCenter)
                     .padding(
                         top = 12.dp,
@@ -172,7 +148,7 @@ fun DetailScreen(
                     disabledContainerColor = Color.White,
                     disabledContentColor = Color(0xFF4232D5),
                 ),
-                onClick = viewModel::vote ,
+                onClick = viewModel::vote,
                 contentPadding = PaddingValues(vertical = 12.dp)
             ) {
                 val text = if (uiState.candidateDetail.voted) {
@@ -180,7 +156,14 @@ fun DetailScreen(
                 } else {
                     "Vote"
                 }
-                Text(text = text)
+                Text(
+                    text = text,
+                    style = TextStyle(
+                        fontFamily = KantumruyFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.dpTextUnit
+                    )
+                )
             }
         }
     }

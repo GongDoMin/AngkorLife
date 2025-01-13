@@ -20,8 +20,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DotContainer(
     dotCount: Int,
-    currentPage: Int,
-    modifier: Modifier = Modifier
+    currentPage: Int
 ) {
     val dotSize = remember { 8.dp }
     val dotBottomPadding = remember { 10.dp }
