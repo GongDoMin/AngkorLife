@@ -43,14 +43,16 @@ fun MainScreen(
         isBackButtonVisible = false,
         title = stringResource(R.string.top_bar_title)
     ) {
+        val gridCount = remember { 2 }
+
         LazyVerticalGrid (
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Black),
-            columns = GridCells.Fixed(2)
+            columns = GridCells.Fixed(gridCount)
         ) {
             item(
-                span = { GridItemSpan(2) }
+                span = { GridItemSpan(gridCount) }
             ) {
                 Column {
                     MainHeader(
@@ -128,7 +130,7 @@ fun MainScreen(
                 key = { uiState.candidates[it].id }
             ) { index ->
                 val columnModifier = remember(index) {
-                    if (index % 2 == 0) {
+                    if (index % gridCount == 0) {
                         Modifier.padding(start = 19.dp, end = 5.dp)
                     } else {
                         Modifier.padding(start = 5.dp, end = 19.dp)
@@ -155,7 +157,7 @@ fun MainScreen(
             }
 
             item(
-                span = { GridItemSpan(2) }
+                span = { GridItemSpan(gridCount) }
             ) {
                 CopyRightText(
                     modifier = Modifier
