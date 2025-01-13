@@ -12,10 +12,14 @@ import com.unionmobile.angkorlife.feature.main.model.toFormattedString
 import com.unionmobile.angkorlife.feature.main.model.toPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import okio.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,8 +34,16 @@ class MainViewModel @Inject constructor(
         val candidates: List<CandidateModel> = emptyList()
     )
 
+    sealed interface Event {
+        data class ShowSnackBar(val message: String) : Event
+        data class ShowSnackBarAndNavigateToLogin(val message: String) : Event
+    }
+
     private val _uiState = MutableStateFlow<UiState>(UiState())
     val uiState = _uiState.asStateFlow()
+
+    private val _event = Channel<Event>()
+    val event = _event.receiveAsFlow()
 
     fun vote(candidateId: Int) {
         launch(Dispatchers.IO) {
@@ -75,6 +87,19 @@ class MainViewModel @Inject constructor(
                     candidate.toPresentation(
                         isVoted = votedCandidatesId.contains(candidate.id)
                     )
+                }
+            }.catch {
+                when (it) {
+                    is IOException -> {
+                        _event.send(
+                            Event.ShowSnackBarAndNavigateToLogin("연결 실패")
+                        )
+                    }
+                    else -> {
+                        _event.send(
+                            Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
+                        )
+                    }
                 }
             }.collect { candidates ->
                 _uiState.update {
