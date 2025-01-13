@@ -18,6 +18,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -110,12 +112,10 @@ fun LoginScreen(
                         .fillMaxWidth()
                         .height(48.dp)
                         .border(
-                            width = 0.5.dp,
+                            width = 1.dp,
                             color = Color(0xFFDBDBDB),
                             shape = RoundedCornerShape(8.dp)
-                        )
-                        .background(Color.White)
-                    ,
+                        ),
                     value = uiState.id,
                     onValueChange = { value ->
                         viewModel.updateUiState(
@@ -132,11 +132,17 @@ fun LoginScreen(
                     singleLine = true,
                     textStyle = textFieldStyle,
                     colors = TextFieldDefaults.colors(
+                        unfocusedTextColor = Color(0xFFAEAEB2),
                         focusedTextColor = Color(0xFFAEAEB2),
-                        unfocusedLabelColor = Color(0xFFAEAEB2),
+                        unfocusedPlaceholderColor = Color(0xFFAEAEB2),
+                        focusedPlaceholderColor = Color(0xFFAEAEB2),
                         focusedContainerColor = Color(0xFF1B191A),
-                        unfocusedContainerColor = Color(0xFF1B191A)
-                    )
+                        unfocusedContainerColor = Color(0xFF1B191A),
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+
                 )
 
                 Spacer(modifier = Modifier.padding(vertical = 12.dp))
