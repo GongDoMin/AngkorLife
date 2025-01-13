@@ -3,6 +3,7 @@ package com.unionmobile.angkorlife.feature.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.unionmobile.angkorlife.domain.usecase.GetCandidateDetailUseCase
+import com.unionmobile.angkorlife.domain.usecase.VoteUseCase
 import com.unionmobile.angkorlife.feature.common.launch
 import com.unionmobile.angkorlife.feature.detail.model.CandidateDetailModel
 import com.unionmobile.angkorlife.feature.detail.model.toPresentation
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val getCandidateDetailUseCase: GetCandidateDetailUseCase,
+    private val voteUseCase: VoteUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     data class UiState(
@@ -25,6 +27,21 @@ class DetailViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
+
+    fun vote() {
+        val candidateId = _uiState.value.candidateDetail.id
+        launch(Dispatchers.IO) {
+            voteUseCase.invoke(candidateId).collect {
+                _uiState.update {
+                    it.copy(
+                        it.candidateDetail.copy(
+                            voted = true
+                        )
+                    )
+                }
+            }
+        }
+    }
 
     private fun getCandidateDetail(candidateId: Int?) {
         checkNotNull(candidateId) { "candidateId cannot be null" }

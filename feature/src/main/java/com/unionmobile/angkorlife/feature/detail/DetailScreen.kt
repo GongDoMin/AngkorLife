@@ -165,17 +165,22 @@ fun DetailScreen(
                         start = 16.dp,
                         end = 16.dp
                     ),
-                enabled = uiState.candidateDetail.voted,
+                enabled = !uiState.candidateDetail.voted,
                 colors = ButtonColors(
                     containerColor = Color(0xFF4232D5),
                     contentColor = Color.White,
-                    disabledContainerColor = Color(0xFF4232D5),
-                    disabledContentColor = Color.White,
+                    disabledContainerColor = Color.White,
+                    disabledContentColor = Color(0xFF4232D5),
                 ),
-                onClick = { TODO("Not yet implemented") },
+                onClick = viewModel::vote ,
                 contentPadding = PaddingValues(vertical = 12.dp)
             ) {
-                Text(text = "Vote")
+                val text = if (uiState.candidateDetail.voted) {
+                    "Voted"
+                } else {
+                    "Vote"
+                }
+                Text(text = text)
             }
         }
     }
