@@ -105,12 +105,7 @@ fun LoginScreen(
                             shape = RoundedCornerShape(8.dp)
                         ),
                     value = uiState.id,
-                    onValueChange = { value ->
-                        viewModel.updateUiState(
-                            id = value,
-                            loginButtonEnable = value.isNotEmpty()
-                        )
-                    },
+                    onValueChange = viewModel::updateId,
                     placeholder = {
                         Text(
                             text = "Enter your ID",

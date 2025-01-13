@@ -40,11 +40,13 @@ class LoginViewModel @Inject constructor(
         launch(Dispatchers.IO) {
 
             loginUseCase.invoke(id)
-                .catch {
-                    updateUiState(
-                        isError = true,
-                        errorMessage = it.message ?: "Unknown Error"
-                    )
+                .catch { throwable ->
+                    _uiState.update {
+                        it.copy(
+                            isError = true,
+                            errorMessage = throwable.message ?: "Unknown Error"
+                        )
+                    }
                 }
                 .collect {
                     updateEvent(Event.SuccessLogin)
@@ -52,21 +54,13 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun updateUiState(
-        id: String = "",
-        loginButtonEnable: Boolean = false,
-        isError: Boolean = false,
-        errorMessage: String = ""
-    ) {
-        _uiState
-            .update { uiState ->
-                uiState.copy(
-                    id = id,
-                    loginButtonEnable = loginButtonEnable,
-                    isError = isError,
-                    errorMessage = errorMessage
-                )
-            }
+    fun updateId(id: String) {
+        _uiState.update {
+            it.copy(
+                id = id,
+                loginButtonEnable = id.isNotEmpty()
+            )
+        }
     }
 
     private suspend fun updateEvent(
