@@ -43,6 +43,7 @@ android {
 
 dependencies {
 
+    implementation(project(":design"))
     implementation(project(":domain"))
     implementation(project(":remote"))
     implementation(project(":feature"))
