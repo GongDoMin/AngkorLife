@@ -22,7 +22,7 @@ fun CopyRightText(
         style = TextStyle(
             fontFamily = RobotoFontFamily,
             fontWeight = FontWeight.Light,
-            fontSize = 10.sp,
+            fontSize = 10.dpTextUnit,
         ),
         color = Color(0xFFF8F8Fc),
         textAlign = textAlign
