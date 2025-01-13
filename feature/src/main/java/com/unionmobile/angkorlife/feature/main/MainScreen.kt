@@ -106,25 +106,27 @@ fun MainScreen(
                 val columnModifier = remember(index) {
                     if (index % gridCount == 0) {
                         Modifier.padding(start = 19.dp, end = 5.dp)
-                    } else {
+                    } else if (index % gridCount == gridCount - 1) {
                         Modifier.padding(start = 5.dp, end = 19.dp)
+                    } else {
+                        Modifier.padding(start = 5.dp, end = 5.dp)
                     }
                 }
 
                 Column(
                     modifier = columnModifier
                 ) {
-                    Row {
-                        Candidate(
-                            url = uiState.candidates[index].profileUrl,
-                            id = uiState.candidates[index].id,
-                            name = uiState.candidates[index].name,
-                            voteCountString = uiState.candidates[index].voteCntString,
-                            isVoted = uiState.candidates[index].isVoted,
-                            onClickImage = navigateToDetail,
-                            onClickVote = viewModel::vote
-                        )
-                    }
+                    Candidate(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        url = uiState.candidates[index].profileUrl,
+                        id = uiState.candidates[index].id,
+                        name = uiState.candidates[index].name,
+                        voteCountString = uiState.candidates[index].voteCntString,
+                        isVoted = uiState.candidates[index].isVoted,
+                        onClickImage = navigateToDetail,
+                        onClickVote = viewModel::vote
+                    )
 
                     Spacer(modifier = Modifier.padding(vertical = 20.dp))
                 }

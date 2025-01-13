@@ -22,9 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
+import com.unionmobile.angkorlife.feature.common.dpTextUnit
 import com.unionmobile.angkorlife.feature.main.model.toFormattedString
 
 @Composable
@@ -39,8 +39,7 @@ fun Candidate(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
@@ -48,9 +47,7 @@ fun Candidate(
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable {
-                    onClickImage(id)
-                },
+                .clickable { onClickImage(id) },
             model = url,
             contentDescription = null
         )
@@ -62,7 +59,7 @@ fun Candidate(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
+                fontSize = 16.dpTextUnit
             ),
             color = Color(0xFFF6F6F6),
             maxLines = 1,
@@ -76,7 +73,7 @@ fun Candidate(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
+                fontSize = 14.dpTextUnit,
             ),
             color = Color(0xFF6F76FF),
             maxLines = 1,
@@ -108,7 +105,14 @@ fun Candidate(
                 "Vote"
             }
 
-            Text(text = text)
+            Text(
+                text = text,
+                style = TextStyle(
+                    fontFamily = KantumruyFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.dpTextUnit
+                )
+            )
         }
     }
 }
@@ -118,13 +122,30 @@ fun Candidate(
     backgroundColor = 0xFF000000
 )
 @Composable
-fun CandidatePreview() {
+fun NotVotedCandidatePreview() {
     Candidate(
         url = "",
         id = 0,
         name = "kazakova Julia",
         voteCountString = 1200.toFormattedString(),
         isVoted = false,
+        onClickImage = {},
+        onClickVote = {}
+    )
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFF000000
+)
+@Composable
+fun VotedCandidatePreview() {
+    Candidate(
+        url = "",
+        id = 0,
+        name = "kazakova Julia",
+        voteCountString = 1200.toFormattedString(),
+        isVoted = true,
         onClickImage = {},
         onClickVote = {}
     )
