@@ -34,7 +34,7 @@ fun MainHeader(
         modifier = modifier
     ) {
         PainterImage(
-            res = R.drawable.img_login_top,
+            res = R.drawable.img_world_miss_university,
             contentDescription = null
         )
 
@@ -48,7 +48,7 @@ fun MainHeader(
         )
 
         PainterImage(
-            res = R.drawable.img_login_bottom,
+            res = R.drawable.img_earth,
             contentDescription = null
         )
     }
