@@ -24,6 +24,7 @@ class LoginViewModel @Inject constructor(
 
     sealed interface Event {
         data object SuccessLogin : Event
+        data class ShowSnackBar(val message: String) : Event
     }
 
     private val _uiState = MutableStateFlow<UiState>(UiState())
@@ -38,7 +39,9 @@ class LoginViewModel @Inject constructor(
         launch(Dispatchers.IO) {
 
             loginUseCase.invoke(id)
-                .catch {}
+                .catch {
+                    updateEvent(Event.ShowSnackBar("아이디의 길이는 최소 1 최대 16 입니다."))
+                }
                 .collect {
                     updateEvent(Event.SuccessLogin)
                 }

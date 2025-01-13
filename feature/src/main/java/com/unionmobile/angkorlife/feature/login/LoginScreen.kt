@@ -62,7 +62,8 @@ fun LoginScreen(
         lifecycleOwner = lifecycleOwner,
     ) {
         when (it) {
-            LoginViewModel.Event.SuccessLogin -> navigateToMain()
+            is LoginViewModel.Event.SuccessLogin -> navigateToMain()
+            is LoginViewModel.Event.ShowSnackBar -> { }
         }
     }
 
