@@ -45,6 +45,7 @@ import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.EventCollect
 import com.unionmobile.angkorlife.feature.common.PainterImage
+import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
 fun LoginScreen(
@@ -98,15 +99,6 @@ fun LoginScreen(
                         horizontal = 16.dp
                     )
             ) {
-                val textFieldStyle = remember {
-                    TextStyle(
-                        color = Color(0xFFAEAEB2),
-                        fontFamily = KantumruyFontFamily,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 13.sp
-                    )
-                }
-
                 TextField(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -126,11 +118,21 @@ fun LoginScreen(
                     placeholder = {
                         Text(
                             text = "Enter your ID",
-                            style = textFieldStyle
+                            style = TextStyle(
+                                color = Color(0xFFAEAEB2),
+                                fontFamily = KantumruyFontFamily,
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 13.dpTextUnit
+                            )
                         )
                     },
                     singleLine = true,
-                    textStyle = textFieldStyle,
+                    textStyle = TextStyle(
+                        color = Color(0xFFAEAEB2),
+                        fontFamily = KantumruyFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 13.dpTextUnit
+                    ),
                     colors = TextFieldDefaults.colors(
                         unfocusedTextColor = Color(0xFFAEAEB2),
                         focusedTextColor = Color(0xFFAEAEB2),
@@ -161,7 +163,14 @@ fun LoginScreen(
                     onClick = viewModel::login,
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
-                    Text(text = "Log in")
+                    Text(
+                        text = "Log in",
+                        style = TextStyle(
+                            fontFamily = KantumruyFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.dpTextUnit
+                        )
+                    )
                 }
             }
 
