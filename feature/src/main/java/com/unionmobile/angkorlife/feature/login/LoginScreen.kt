@@ -63,7 +63,7 @@ fun LoginScreen(
     ) {
         when (it) {
             is LoginViewModel.Event.SuccessLogin -> navigateToMain()
-            is LoginViewModel.Event.ShowSnackBar -> { showSnackBar(it.message) }
+            is LoginViewModel.Event.ShowSnackBar -> showSnackBar(it.message)
         }
     }
 
