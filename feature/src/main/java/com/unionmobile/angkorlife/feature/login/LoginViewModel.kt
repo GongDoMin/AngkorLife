@@ -19,9 +19,7 @@ class LoginViewModel @Inject constructor(
 ): ViewModel() {
     data class UiState(
         val id: String = "",
-        val loginButtonEnable: Boolean = false,
-        val isError: Boolean = false,
-        val errorMessage: String = ""
+        val loginButtonEnable: Boolean = false
     )
 
     sealed interface Event {
@@ -40,14 +38,7 @@ class LoginViewModel @Inject constructor(
         launch(Dispatchers.IO) {
 
             loginUseCase.invoke(id)
-                .catch { throwable ->
-                    _uiState.update {
-                        it.copy(
-                            isError = true,
-                            errorMessage = throwable.message ?: "Unknown Error"
-                        )
-                    }
-                }
+                .catch {}
                 .collect {
                     updateEvent(Event.SuccessLogin)
                 }
