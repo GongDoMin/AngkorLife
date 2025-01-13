@@ -22,6 +22,14 @@ class AngkorLifeNavController(
         navController.popBackStack()
     }
 
+    fun navigateToLogin() {
+        navController.navigate(Routes.LOGIN) {
+            popUpTo(navController.graph.id) {
+                inclusive = false
+            }
+        }
+    }
+
     fun navigateToMain() {
         navController.navigate(Routes.MAIN) {
             popUpTo(Routes.LOGIN) {

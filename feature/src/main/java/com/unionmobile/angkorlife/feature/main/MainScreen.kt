@@ -22,17 +22,36 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.CopyRightText
+import com.unionmobile.angkorlife.feature.common.EventCollect
+import com.unionmobile.angkorlife.feature.login.LoginViewModel
 
 @Composable
 fun MainScreen(
     navigateToDetail: (candidateId: Int) -> Unit,
+    navigateToLogin: () -> Unit,
+    showSnackBar: (message: String) -> Unit,
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    EventCollect(
+        event = viewModel.event,
+        lifecycleOwner = lifecycleOwner,
+    ) {
+        when (it) {
+            is MainViewModel.Event.ShowSnackBar -> showSnackBar(it.message)
+            is MainViewModel.Event.ShowSnackBarAndNavigateToLogin -> {
+                showSnackBar(it.message)
+                navigateToLogin()
+            }
+        }
+    }
 
     AngkorLifeTopBarWithContent(
         isBackButtonVisible = false,
@@ -152,6 +171,8 @@ fun MainScreen(
 @Composable
 fun MainScreenPreview() {
     MainScreen(
-        navigateToDetail = {}
+        navigateToDetail = {},
+        navigateToLogin = {},
+        showSnackBar = {}
     )
 }

@@ -5,11 +5,15 @@ import androidx.navigation.compose.composable
 import com.unionmobile.angkorlife.feature.navigation.Routes
 
 fun NavGraphBuilder.mainScreen(
-    navigateToDetail: (candidateId: Int) -> Unit
+    navigateToDetail: (candidateId: Int) -> Unit,
+    navigateToLogin: () -> Unit,
+    showSnackBar: (message: String) -> Unit
 ) {
     composable<Routes.MAIN> {
         MainScreen(
-            navigateToDetail = navigateToDetail
+            navigateToDetail = navigateToDetail,
+            navigateToLogin = navigateToLogin,
+            showSnackBar = showSnackBar
         )
     }
 }
