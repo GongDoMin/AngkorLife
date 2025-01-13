@@ -143,7 +143,6 @@ fun LoginScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
-                    enabled = uiState.loginButtonEnable,
                     colors = ButtonColors(
                         containerColor = Color(0xFF4232D5),
                         contentColor = Color.White,

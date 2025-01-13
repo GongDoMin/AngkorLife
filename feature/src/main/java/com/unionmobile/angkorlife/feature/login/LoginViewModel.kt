@@ -18,8 +18,7 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ): ViewModel() {
     data class UiState(
-        val id: String = "",
-        val loginButtonEnable: Boolean = false
+        val id: String = ""
     )
 
     sealed interface Event {
@@ -50,10 +49,7 @@ class LoginViewModel @Inject constructor(
 
     fun updateId(id: String) {
         _uiState.update {
-            it.copy(
-                id = id,
-                loginButtonEnable = id.isNotEmpty()
-            )
+            it.copy(id = id)
         }
     }
 
