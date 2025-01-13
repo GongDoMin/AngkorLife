@@ -43,10 +43,11 @@ android {
 
 dependencies {
 
+    implementation(project(":feature"))
     implementation(project(":design"))
     implementation(project(":domain"))
     implementation(project(":remote"))
-    implementation(project(":feature"))
+    implementation(project(":local"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
