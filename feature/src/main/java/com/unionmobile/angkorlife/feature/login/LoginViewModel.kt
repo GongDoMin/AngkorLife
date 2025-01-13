@@ -18,7 +18,8 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ): ViewModel() {
     data class UiState(
-        val id: String = ""
+        val id: String = "",
+        val isLoggingIn: Boolean = false
     )
 
     sealed interface Event {
@@ -33,12 +34,16 @@ class LoginViewModel @Inject constructor(
     val event = _event.receiveAsFlow()
 
     fun login() {
+        if (uiState.value.isLoggingIn) return
+
+        _uiState.update { it.copy(isLoggingIn = true) }
+
         val id = uiState.value.id
 
         launch(Dispatchers.IO) {
-
             loginUseCase.invoke(id)
                 .catch {
+                    _uiState.update { it.copy(isLoggingIn = false) }
                     updateEvent(Event.ShowSnackBar("아이디의 길이는 최소 1 최대 16 입니다."))
                 }
                 .collect {
@@ -53,9 +58,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private suspend fun updateEvent(
-        event: Event
-    ) {
+    private suspend fun updateEvent(event: Event) {
         _event.send(event)
     }
 }
