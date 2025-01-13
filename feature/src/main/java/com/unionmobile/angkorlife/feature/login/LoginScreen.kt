@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,6 +45,7 @@ import com.unionmobile.angkorlife.feature.common.dpTextUnit
 @Composable
 fun LoginScreen(
     navigateToMain: () -> Unit,
+    showSnackBar: (message: String) -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -63,13 +63,11 @@ fun LoginScreen(
     ) {
         when (it) {
             is LoginViewModel.Event.SuccessLogin -> navigateToMain()
-            is LoginViewModel.Event.ShowSnackBar -> { }
+            is LoginViewModel.Event.ShowSnackBar -> { showSnackBar(it.message) }
         }
     }
 
     AngkorLifeTopBarWithContent(
-        modifier = Modifier
-            .imePadding(),
         isBackButtonVisible = false,
         title = stringResource(R.string.top_bar_title)
     ) {
@@ -183,6 +181,7 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     LoginScreen(
-        navigateToMain = {}
+        navigateToMain = {},
+        showSnackBar = {}
     )
 }

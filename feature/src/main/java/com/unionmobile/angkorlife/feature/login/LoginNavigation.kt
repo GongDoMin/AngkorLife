@@ -5,11 +5,13 @@ import androidx.navigation.compose.composable
 import com.unionmobile.angkorlife.feature.navigation.Routes
 
 fun NavGraphBuilder.loginScreen(
-    navigateToMain: () -> Unit
+    navigateToMain: () -> Unit,
+    showSnackBar: (message: String) -> Unit
 ) {
     composable<Routes.LOGIN> {
         LoginScreen(
-            navigateToMain = navigateToMain
+            navigateToMain = navigateToMain,
+            showSnackBar = showSnackBar
         )
     }
 }
