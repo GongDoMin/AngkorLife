@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -21,14 +19,10 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.CopyRightText
@@ -55,76 +49,53 @@ fun MainScreen(
             item(
                 span = { GridItemSpan(gridCount) }
             ) {
-                Column {
-                    MainHeader(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        timer = uiState.timer
-                    )
+                MainHeader(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    timer = uiState.timer
+                )
+            }
 
-                    MainVoteDescription(
-                        modifier = Modifier
-                            .drawBehind {
-                                drawRect(
-                                    Brush.linearGradient(
-                                        colors = listOf(
-                                            Color.Black,
-                                            Color(0xFF161616)
-                                        )
+            item(
+                span = { GridItemSpan(gridCount) }
+            ) {
+                MainVoteDescription(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .drawBehind {
+                            drawRect(
+                                Brush.linearGradient(
+                                    colors = listOf(
+                                        Color.Black,
+                                        Color(0xFF161616)
                                     )
                                 )
-                            }
-                            .padding(
-                                vertical = 50.dp,
-                                horizontal = 16.dp
                             )
-                    )
+                        }
+                        .padding(
+                            vertical = 50.dp,
+                            horizontal = 16.dp
+                        )
+                )
+            }
 
-                    Spacer(
-                        modifier = Modifier.padding(vertical = 25.dp)
-                    )
-
-                    Column(
+            item(
+                span = { GridItemSpan(gridCount) }
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = 50.dp,
+                            bottom = 40.dp,
+                            start = 16.dp,
+                            end = 16.dp
+                        )
+                ) {
+                    CandidateTitle(
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .background(Color(0xFF6F76FF))
-                                .size(
-                                    width = 19.dp,
-                                    height = 3.dp
-                                )
-                        )
-
-                        Spacer(modifier = Modifier.padding(vertical = 5.dp))
-
-                        Text(
-                            text = "2024\nCandidate List",
-                            style = TextStyle(
-                                fontFamily = KantumruyFontFamily,
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 28.sp,
-                                lineHeight = 29.sp
-                            ),
-                            color = Color.White
-                        )
-
-                        Spacer(modifier = Modifier.padding(vertical = 12.5.dp))
-
-                        Text(
-                            text = "\u203B You can vote for up to 3 candidates",
-                            style = TextStyle(
-                                fontFamily = KantumruyFontFamily,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 14.sp,
-                                lineHeight = 18.sp
-                            ),
-                            color = Color(0xFFAEAEB2)
-                        )
-
-                        Spacer(modifier = Modifier.padding(vertical = 20.dp))
-                    }
+                    )
                 }
             }
 

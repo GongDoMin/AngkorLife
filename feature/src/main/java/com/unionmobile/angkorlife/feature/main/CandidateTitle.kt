@@ -17,8 +17,12 @@ import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
-fun CandidateTitle() {
-    Column {
+fun CandidateTitle(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
         Box(
             modifier = Modifier
                 .background(Color(0xFF6F76FF))
