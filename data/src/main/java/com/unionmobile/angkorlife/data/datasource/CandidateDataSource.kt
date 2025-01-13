@@ -10,4 +10,6 @@ interface CandidateDataSource {
     fun getCandidate(candidateId: Int, userId: String) : Flow<CandidateDetailEntity>
 
     fun getVotedCandidatesId(userId: String) : Flow<List<Int>>
+
+    fun vote(userId: String, candidateId: Int) : Flow<Unit>
 }

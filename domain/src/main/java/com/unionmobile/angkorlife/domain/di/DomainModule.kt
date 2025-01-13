@@ -7,11 +7,13 @@ import com.unionmobile.angkorlife.domain.impl.GetCandidatesUseCaseImpl
 import com.unionmobile.angkorlife.domain.impl.GetTimerUseCaseImpl
 import com.unionmobile.angkorlife.domain.impl.GetVotedCandidatesIdUseCaseImpl
 import com.unionmobile.angkorlife.domain.impl.LoginUseCaseImpl
+import com.unionmobile.angkorlife.domain.impl.VoteUseCaseImpl
 import com.unionmobile.angkorlife.domain.usecase.GetCandidateDetailUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetCandidatesUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetTimerUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetVotedCandidatesIdUseCase
 import com.unionmobile.angkorlife.domain.usecase.LoginUseCase
+import com.unionmobile.angkorlife.domain.usecase.VoteUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -37,4 +39,8 @@ abstract class DomainModule {
 
     @Binds
     abstract fun bindGetCandidateDetailUseCase(getCandidateDetailUseCaseImpl: GetCandidateDetailUseCaseImpl) : GetCandidateDetailUseCase
+
+    @Binds
+    abstract fun bindVoteUseCase(voteUseCaseImpl: VoteUseCaseImpl) : VoteUseCase
+
 }

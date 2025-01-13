@@ -10,4 +10,6 @@ interface CandidateRepository {
     fun getCandidate(candidateId: Int, userId: String) : Flow<CandidateDetail>
 
     fun getVotedCandidatesId(userId: String) : Flow<List<Int>>
+
+    fun vote(userId: String, candidateId: Int) : Flow<Unit>
 }

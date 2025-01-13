@@ -1,8 +1,11 @@
 package com.unionmobile.angkorlife.remote.service
 
+import com.unionmobile.angkorlife.remote.model.request.VoteRequest
 import com.unionmobile.angkorlife.remote.model.response.CandidateDetailResponse
 import com.unionmobile.angkorlife.remote.model.response.PageCandidateListResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -25,4 +28,9 @@ interface AngkorLifeService {
     suspend fun getVotedCandidatesId(
         @Query("userId") userId: String
     ) : List<Int>
+
+    @POST("vote")
+    suspend fun vote(
+        @Body voteRequest: VoteRequest
+    )
 }

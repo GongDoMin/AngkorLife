@@ -20,4 +20,7 @@ class CandidateRepositoryImpl @Inject constructor(
 
     override fun getVotedCandidatesId(userId: String): Flow<List<Int>> =
         candidateDataSource.getVotedCandidatesId(userId)
+
+    override fun vote(userId: String, candidateId: Int): Flow<Unit> =
+        candidateDataSource.vote(userId, candidateId)
 }

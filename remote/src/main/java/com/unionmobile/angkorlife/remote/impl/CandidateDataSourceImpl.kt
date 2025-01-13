@@ -3,6 +3,7 @@ package com.unionmobile.angkorlife.remote.impl
 import com.unionmobile.angkorlife.data.datasource.CandidateDataSource
 import com.unionmobile.angkorlife.data.model.CandidateDetailEntity
 import com.unionmobile.angkorlife.data.model.CandidateEntity
+import com.unionmobile.angkorlife.remote.model.request.VoteRequest
 import com.unionmobile.angkorlife.remote.model.response.toEntity
 import com.unionmobile.angkorlife.remote.service.AngkorLifeService
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +35,13 @@ class CandidateDataSourceImpl @Inject constructor(
         flow {
             val response = angkorLifeService.getVotedCandidatesId(userId)
             emit(response)
+        }
+
+    override fun vote(userId: String, candidateId: Int): Flow<Unit> =
+        flow {
+            angkorLifeService.vote(
+                VoteRequest(userId, candidateId)
+            )
         }
 }
 
