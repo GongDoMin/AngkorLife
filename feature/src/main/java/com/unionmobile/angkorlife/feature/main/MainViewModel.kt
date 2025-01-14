@@ -32,7 +32,8 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     data class UiState(
         val timer: Timer = Timer(),
-        val candidates: List<CandidateModel> = emptyList()
+        val candidates: List<CandidateModel> = emptyList(),
+        val isModal: Boolean = false
     )
 
     sealed interface Event {
@@ -69,9 +70,18 @@ class MainViewModel @Inject constructor(
                             it
                         }
                     }
-                    _uiState.update { it.copy(candidates = candidates) }
+                    _uiState.update {
+                        it.copy(
+                            candidates = candidates,
+                            isModal = true
+                        )
+                    }
             }
         }
+    }
+
+    fun dismissModal() {
+        _uiState.update { it.copy(isModal = false) }
     }
 
     private fun getTimer() {

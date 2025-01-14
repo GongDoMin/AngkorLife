@@ -26,6 +26,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
+import com.unionmobile.angkorlife.feature.common.ConfirmModal
 import com.unionmobile.angkorlife.feature.common.CopyRightText
 import com.unionmobile.angkorlife.feature.common.EventCollect
 import com.unionmobile.angkorlife.feature.login.LoginViewModel
@@ -162,6 +163,16 @@ fun MainScreen(
 
                 )
             }
+        }
+
+        if (uiState.isModal) {
+            ConfirmModal(
+                onDismissRequest = viewModel::dismissModal,
+                title = "Voting completed",
+                message = "Thank you for voting",
+                confirmButtonText = "Confirm",
+                onClickConfirmButton = viewModel::dismissModal
+            )
         }
     }
 }
