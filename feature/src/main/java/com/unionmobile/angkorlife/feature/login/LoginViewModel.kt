@@ -27,7 +27,7 @@ class LoginViewModel @Inject constructor(
         data class ShowSnackBar(val message: String) : Event
     }
 
-    private val _uiState = MutableStateFlow<UiState>(UiState())
+    private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
     private val _event = Channel<Event>()
