@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -45,8 +46,7 @@ fun ConfirmModal(
             modifier = Modifier
                 .width(280.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(Color.White)
-                .clickable {},
+                .background(Color.White),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
@@ -89,6 +89,7 @@ fun ConfirmModal(
 
             Text(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .clip(RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp))
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
@@ -103,7 +104,8 @@ fun ConfirmModal(
                     lineHeight = 44.dpTextUnit,
                     lineHeightStyle = BasicLineHeightStyle,
                     color = Color(0xFF4232D5)
-                )
+                ),
+                textAlign = TextAlign.Center
             )
         }
     }
