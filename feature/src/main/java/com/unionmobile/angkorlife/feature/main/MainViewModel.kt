@@ -57,19 +57,19 @@ class MainViewModel @Inject constructor(
                 .catch {
                     (it as ExceptionType).handleVoteError(candidateId)
                 }.collect {
-                val candidates = uiState.value.candidates.map {
-                    if (it.id == candidateId) {
-                        it.copy(
-                            voteCntInt = it.voteCntInt + 1,
-                            voteCntString = (it.voteCntInt + 1).toFormattedString(),
-                            isVoted = true
-                        )
+                    val candidates = uiState.value.candidates.map {
+                        if (it.id == candidateId) {
+                            it.copy(
+                                voteCntInt = it.voteCntInt + 1,
+                                voteCntString = (it.voteCntInt + 1).toFormattedString(),
+                                isVoted = true
+                            )
+                        }
+                        else {
+                            it
+                        }
                     }
-                    else {
-                        it
-                    }
-                }
-                _uiState.update { it.copy(candidates = candidates) }
+                    _uiState.update { it.copy(candidates = candidates) }
             }
         }
     }
