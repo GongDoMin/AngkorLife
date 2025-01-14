@@ -1,6 +1,5 @@
 package com.unionmobile.angkorlife.remote.impl
 
-import android.util.Log
 import com.unionmobile.angkorlife.data.datasource.CandidateRemoteDataSource
 import com.unionmobile.angkorlife.data.model.CandidateDetailEntity
 import com.unionmobile.angkorlife.data.model.CandidateEntity
@@ -22,7 +21,10 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
             val response = angkorLifeService.getCandidates(page, size, sort)
             response.content.map { it.toEntity() }
         } catch (t: Throwable) {
-            throw t.mapToAngkorLifeError()
+            throw when (t) {
+                is IOException -> ExceptionType.Network("Connection failed")
+                else -> ExceptionType.UnKnown
+            }
         }
     }
 
@@ -37,18 +39,24 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
                     .sortedBy { it.displayOrder }
             angkorLifeService.getCandidate(candidateId, userId).toEntity(sortedProfiles)
         } catch (t: Throwable) {
-            throw t.mapToAngkorLifeError()
+            throw when (t) {
+                is HttpException -> {
+                    when (t.code()) {
+                        401 -> ExceptionType.UnAuthorized("Authorization error")
+                        404 -> ExceptionType.NotFound("Candidate is note exist")
+                        else -> ExceptionType.UnKnown
+                    }
+                }
+                is IOException -> ExceptionType.Network("Connection failed")
+                else -> ExceptionType.UnKnown
+            }
         }
     }
 
     override suspend fun getVotedCandidatesId(userId: String) : List<Int> {
-        return try {
-            userId.validate()
+        userId.validate()
 
-            angkorLifeService.getVotedCandidatesId(userId)
-        } catch (t: Throwable) {
-            throw t.mapToAngkorLifeError()
-        }
+        return angkorLifeService.getVotedCandidatesId(userId)
     }
 
     override suspend fun vote(candidateId: Int, userId: String) {
@@ -57,30 +65,25 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
 
             angkorLifeService.vote(VoteRequest(userId, candidateId))
         } catch (t: Throwable) {
-            throw t.mapToAngkorLifeError()
+            throw when (t) {
+                is HttpException -> {
+                    when (t.code()) {
+                        400 -> ExceptionType.BadRequest("The maximum number of allowed votes is 3")
+                        401 -> ExceptionType.UnAuthorized("Authorization error")
+                        404 -> ExceptionType.NotFound("Invalid Request")
+                        409 -> ExceptionType.Conflict("Already Voted")
+                        else -> ExceptionType.UnKnown
+                    }
+                }
+                is IOException -> ExceptionType.Network("Connection failed")
+                else -> ExceptionType.UnKnown
+            }
         }
     }
 
     private fun String.validate() {
         if (isEmpty()) {
             throw HttpException(Response.error<Any>(401, "401 HTTP".toResponseBody()))
-        }
-    }
-
-    private fun Throwable.mapToAngkorLifeError() : ExceptionType {
-        Log.e(TAG, message?: "error message is empty")
-        return when (this) {
-            is HttpException -> {
-                when (code()) {
-                    400 -> ExceptionType.BadRequest("Invalid Request")
-                    401 -> ExceptionType.UnAuthorized("Authorization error")
-                    404 -> ExceptionType.NotFound("Invalid Request")
-                    409 -> ExceptionType.Conflict("Request already completed")
-                    else -> ExceptionType.UnKnown
-                }
-            }
-            is IOException -> ExceptionType.Network("Connection failed")
-            else -> ExceptionType.UnKnown
         }
     }
 }
