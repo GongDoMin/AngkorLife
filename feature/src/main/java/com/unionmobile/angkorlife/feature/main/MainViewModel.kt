@@ -110,7 +110,7 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun ExceptionType.handleVoteError(candidateId: Int) {
-        val message = message ?: "에러가 발생했습니다."
+        val message = message ?: ""
         when (this) {
             is ExceptionType.Network ->
                 _event.send(
@@ -138,14 +138,14 @@ class MainViewModel @Inject constructor(
             }
             else -> {
                 _event.send(
-                    Event.ShowSnackBarAndNavigateToLogin(message)
+                    Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
                 )
             }
         }
     }
 
     private suspend fun ExceptionType.handleGetCandidatesError() {
-        val message = this.message ?: "에러가 발생했습니다."
+        val message = this.message ?: ""
         when (this) {
             is ExceptionType.Network ->
                 _event.send(
@@ -153,7 +153,7 @@ class MainViewModel @Inject constructor(
                 )
             else ->
                 _event.send(
-                    Event.ShowSnackBarAndNavigateToLogin(message)
+                    Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
                 )
         }
     }

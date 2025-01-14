@@ -44,7 +44,7 @@ class LoginViewModel @Inject constructor(
             loginUseCase.invoke(id)
                 .catch {
                     _uiState.update { it.copy(isLoggingIn = false) }
-                    _event.send(Event.ShowSnackBar(it.message ?: "에러가 발생했습니다."))
+                    _event.send(Event.ShowSnackBar(it.message ?: ""))
                 }
                 .collect {
                     _event.send(Event.SuccessLogin)
