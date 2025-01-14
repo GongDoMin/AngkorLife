@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.unionmobile.angkorlife.domain.usecase.GetCandidateDetailUseCase
 import com.unionmobile.angkorlife.domain.usecase.VoteUseCase
+import com.unionmobile.angkorlife.exception.ExceptionType
 import com.unionmobile.angkorlife.feature.common.launch
 import com.unionmobile.angkorlife.feature.detail.model.CandidateDetailModel
 import com.unionmobile.angkorlife.feature.detail.model.toPresentation
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
@@ -41,7 +43,9 @@ class DetailViewModel @Inject constructor(
 
     init {
         val candidateId = savedStateHandle.get<Int>(Routes.DETAIL.CANDIDATE_ID)
-        getCandidateDetail(candidateId)
+        launch(Dispatchers.IO) {
+            getCandidateDetail(candidateId)
+        }
     }
 
     fun vote() {
@@ -59,17 +63,41 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun getCandidateDetail(candidateId: Int?) {
-        checkNotNull(candidateId) { "candidateId cannot be null" }
+    private suspend fun getCandidateDetail(candidateId: Int?) {
+        if (candidateId == null) {
+            _event.send(
+                Event.ShowSnackBarAndNavigateToMain("잘못된 접근입니다.")
+            )
+            return
+        }
 
-        launch(Dispatchers.IO) {
-            getCandidateDetailUseCase.invoke(candidateId).collect { candidateDetail ->
-                _uiState.update {
-                    it.copy(
-                        candidateDetail = candidateDetail.toPresentation()
-                    )
-                }
+        getCandidateDetailUseCase.invoke(candidateId)
+            .catch {
+                (it as ExceptionType).handleGetCandidateDetailError()
+            }.collect { candidateDetail ->
+            _uiState.update {
+                it.copy(
+                    candidateDetail = candidateDetail.toPresentation()
+                )
             }
+        }
+    }
+
+    private suspend fun ExceptionType.handleGetCandidateDetailError() {
+        val message = this.message ?: ""
+        when (this) {
+            is ExceptionType.Network ->
+                _event.send(
+                    Event.ShowSnackBarAndNavigateToMain(message)
+                )
+            is ExceptionType.NotFound ->
+                _event.send(
+                    Event.ShowSnackBarAndNavigateToMain(message)
+                )
+            else ->
+                _event.send(
+                    Event.ShowSnackBarAndNavigateToLogin(message)
+                )
         }
     }
 }
