@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -51,6 +52,7 @@ fun LoginScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
     val keyboardHeight = WindowInsets.ime.getBottom(LocalDensity.current)
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(keyboardHeight) {
         scrollState.scrollBy(keyboardHeight.toFloat())
@@ -148,7 +150,10 @@ fun LoginScreen(
                         disabledContainerColor = Color(0xFF4232D5),
                         disabledContentColor = Color.White,
                     ),
-                    onClick = viewModel::login,
+                    onClick = {
+                        keyboardController?.hide()
+                        viewModel.login()
+                    },
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
                     Text(
