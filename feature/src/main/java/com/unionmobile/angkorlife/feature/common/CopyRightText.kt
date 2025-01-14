@@ -8,7 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
+import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.RobotoFontFamily
 
 @Composable
@@ -23,8 +23,10 @@ fun CopyRightText(
             fontFamily = RobotoFontFamily,
             fontWeight = FontWeight.Light,
             fontSize = 10.dpTextUnit,
+            lineHeight = 16.dpTextUnit,
+            lineHeightStyle = BasicLineHeightStyle,
+            color = Color(0xFFF8F8Fc)
         ),
-        color = Color(0xFFF8F8Fc),
         textAlign = textAlign
     )
 }
