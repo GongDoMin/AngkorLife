@@ -116,10 +116,13 @@ class MainViewModel @Inject constructor(
                 _event.send(
                     Event.ShowSnackBar(message)
                 )
-            is ExceptionType.NotFound ->
+            is ExceptionType.NotFound -> {
+                val candidates = uiState.value.candidates.filterNot { it.id == candidateId }
+                _uiState.update { it.copy(candidates = candidates) }
                 _event.send(
                     Event.ShowSnackBar(message)
                 )
+            }
             is ExceptionType.Conflict -> {
                 if (uiState.value.candidates.find { it.id == candidateId }?.isVoted == true) {
                     _event.send(
