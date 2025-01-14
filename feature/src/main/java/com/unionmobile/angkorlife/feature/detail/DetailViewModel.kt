@@ -10,8 +10,10 @@ import com.unionmobile.angkorlife.feature.detail.model.toPresentation
 import com.unionmobile.angkorlife.feature.navigation.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
@@ -25,8 +27,17 @@ class DetailViewModel @Inject constructor(
         val candidateDetail: CandidateDetailModel = CandidateDetailModel()
     )
 
+    sealed interface Event {
+        data class ShowSnackBar(val message: String) : Event
+        data class ShowSnackBarAndNavigateToLogin(val message: String) : Event
+        data class ShowSnackBarAndNavigateToMain(val message: String) : Event
+    }
+
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
+
+    private val _event = Channel<Event>()
+    val event = _event.receiveAsFlow()
 
     init {
         val candidateId = savedStateHandle.get<Int>(Routes.DETAIL.CANDIDATE_ID)
