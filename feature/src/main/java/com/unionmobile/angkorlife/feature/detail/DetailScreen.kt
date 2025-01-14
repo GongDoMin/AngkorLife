@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
@@ -38,16 +39,37 @@ import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.domain.model.MimeType
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.CopyRightText
+import com.unionmobile.angkorlife.feature.common.EventCollect
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
 fun DetailScreen(
     popBackStack: () -> Unit,
+    navigateToLogin: () -> Unit,
+    showSnackBar: (message: String) -> Unit,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     val voteButtonHeight = remember { 84.dp }
     val horizontalPagerIntervalSeconds = remember { 3000L }
+
+    EventCollect(
+        event = viewModel.event,
+        lifecycleOwner = LocalLifecycleOwner.current,
+    ) {
+        when (it) {
+            is DetailViewModel.Event.ShowSnackBar -> showSnackBar(it.message)
+            is DetailViewModel.Event.ShowSnackBarAndNavigateToMain -> {
+                showSnackBar(it.message)
+                popBackStack()
+            }
+            is DetailViewModel.Event.ShowSnackBarAndNavigateToLogin -> {
+                showSnackBar(it.message)
+                navigateToLogin()
+            }
+        }
+    }
 
     AngkorLifeTopBarWithContent(
         isBackButtonVisible = true,
@@ -173,6 +195,8 @@ fun DetailScreen(
 @Composable
 fun DetailScreenPreview() {
     DetailScreen(
-        popBackStack = {}
+        popBackStack = {},
+        navigateToLogin = {},
+        showSnackBar = {}
     )
 }

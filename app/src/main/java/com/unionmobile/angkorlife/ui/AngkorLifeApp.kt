@@ -61,7 +61,13 @@ fun AngkorLifeApp() {
             )
 
             detailScreen(
-                popBackStack = angkorLifeNavController::popBackStack
+                popBackStack = angkorLifeNavController::popBackStack,
+                navigateToLogin = angkorLifeNavController::navigateToLogin,
+                showSnackBar = {
+                    coroutineScope.launch {
+                        snackBarHostState.dismissAndShow(message = it)
+                    }
+                }
             )
         }
     }
