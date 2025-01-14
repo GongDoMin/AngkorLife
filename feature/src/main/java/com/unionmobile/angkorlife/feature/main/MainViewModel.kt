@@ -92,10 +92,18 @@ class MainViewModel @Inject constructor(
                 getCandidatesUseCase.invoke(),
                 getVotedCandidatesIdUseCase.invoke()
             ) { candidates, votedCandidatesId ->
-                candidates.map { candidate ->
-                    candidate.toPresentation(
-                        isVoted = votedCandidatesId.contains(candidate.id)
-                    )
+                if (uiState.value.candidates.isNotEmpty()) {
+                    _uiState.value.candidates.map {
+                        it.copy(
+                            isVoted = votedCandidatesId.contains(it.id)
+                        )
+                    }
+                } else {
+                    candidates.map { candidate ->
+                        candidate.toPresentation(
+                            isVoted = votedCandidatesId.contains(candidate.id)
+                        )
+                    }
                 }
             }.catch {
                 (it as ExceptionType).handleGetCandidatesError()
