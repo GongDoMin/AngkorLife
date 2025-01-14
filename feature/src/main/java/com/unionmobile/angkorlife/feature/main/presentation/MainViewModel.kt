@@ -17,7 +17,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
@@ -97,54 +96,55 @@ class MainViewModel @Inject constructor(
 
     private fun getCandidates() {
         launch(Dispatchers.IO) {
-            combine(
-                getCandidatesUseCase.invoke(),
-                getVotedCandidatesIdUseCase.invoke()
-            ) { candidates, votedCandidatesId ->
-                if (uiState.value.candidates.isNotEmpty()) {
-                    _uiState.value.candidates.map {
-                        it.copy(
-                            isVoted = votedCandidatesId.contains(it.id)
-                        )
-                    }
-                } else {
-                    candidates.map { candidate ->
-                        candidate.toPresentation(
-                            isVoted = votedCandidatesId.contains(candidate.id)
-                        )
-                    }
-                }
-            }.catch {
-                (it as ExceptionType).handleGetCandidatesError()
-            }.collect { candidates ->
-                _uiState.update {
-                    it.copy(
-                        candidates = candidates
+            getCandidatesUseCase.invoke()
+                .catch {
+                    _event.send(
+                        Event.ShowSnackBarAndNavigateToLogin((it as ExceptionType).message)
                     )
+                }.collect {
+                    val candidates = it.map { candidate ->
+                        candidate.toPresentation(
+                            isVoted = false
+                        )
+                    }
+
+                    _uiState.update {
+                        it.copy(
+                            candidates = candidates
+                        )
+                    }
                 }
-            }
+
+            getVotedCandidatesIdUseCase.invoke()
+                .collect { votedCandidatesId ->
+                    _uiState.update { uiState ->
+                        uiState.copy(
+                            candidates = uiState.candidates.map { candidate ->
+                                if (votedCandidatesId.contains(candidate.id)) {
+                                    candidate.copy(isVoted = true)
+                                } else {
+                                    candidate
+                                }
+                            }
+                        )
+                    }
+                }
         }
     }
 
     private suspend fun ExceptionType.handleVoteError(candidateId: Int) {
-        val message = message ?: ""
         when (this) {
-            is ExceptionType.Network ->
-                _event.send(
-                    Event.ShowSnackBar(message)
-                )
+            is ExceptionType.Network, is ExceptionType.BadRequest -> {
+                _event.send(Event.ShowSnackBar(this.message))
+            }
             is ExceptionType.NotFound -> {
                 val candidates = uiState.value.candidates.filterNot { it.id == candidateId }
                 _uiState.update { it.copy(candidates = candidates) }
-                _event.send(
-                    Event.ShowSnackBar(message)
-                )
+                _event.send(Event.ShowSnackBar(errorMessage))
             }
             is ExceptionType.Conflict -> {
                 if (uiState.value.candidates.find { it.id == candidateId }?.isVoted == true) {
-                    _event.send(
-                        Event.ShowSnackBar(message)
-                    )
+                    _event.send(Event.ShowSnackBar(errorMessage))
                 } else {
                     val candidates = uiState.value.candidates.map {
                         if (it.id == candidateId) it.copy(isVoted = true)
@@ -153,25 +153,8 @@ class MainViewModel @Inject constructor(
                     _uiState.update { it.copy(candidates = candidates) }
                 }
             }
-            else -> {
-                _event.send(
-                    Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
-                )
-            }
-        }
-    }
-
-    private suspend fun ExceptionType.handleGetCandidatesError() {
-        val message = this.message ?: ""
-        when (this) {
-            is ExceptionType.Network ->
-                _event.send(
-                    Event.ShowSnackBarAndNavigateToLogin(message)
-                )
             else ->
-                _event.send(
-                    Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
-                )
+                _event.send(Event.ShowSnackBar(this.message))
         }
     }
 }
