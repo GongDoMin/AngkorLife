@@ -22,7 +22,7 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
             response.content.map { it.toEntity() }
         } catch (t: Throwable) {
             throw when (t) {
-                is IOException -> ExceptionType.Network("Connection failed")
+                is IOException -> ExceptionType.Network
                 else -> ExceptionType.UnKnown
             }
         }
@@ -47,7 +47,7 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
                         else -> ExceptionType.UnKnown
                     }
                 }
-                is IOException -> ExceptionType.Network("Connection failed")
+                is IOException -> ExceptionType.Network
                 else -> ExceptionType.UnKnown
             }
         }
@@ -75,7 +75,7 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
                         else -> ExceptionType.UnKnown
                     }
                 }
-                is IOException -> ExceptionType.Network("Connection failed")
+                is IOException -> ExceptionType.Network
                 else -> ExceptionType.UnKnown
             }
         }

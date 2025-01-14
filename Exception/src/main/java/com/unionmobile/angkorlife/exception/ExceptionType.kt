@@ -1,17 +1,19 @@
 package com.unionmobile.angkorlife.exception
 
-sealed class ExceptionType : Exception() {
-    data class Network(override val message: String) : ExceptionType()
+sealed class ExceptionType(override val message: String) : Exception() {
+    data object Network : ExceptionType("Connection failed") {
+        private fun readResolve(): Any = Network
+    }
 
-    data class BadRequest(override val message: String) : ExceptionType()
+    data class BadRequest(val errorMessage: String) : ExceptionType(errorMessage)
 
-    data class UnAuthorized(override val message: String) : ExceptionType()
+    data class UnAuthorized(val errorMessage: String) : ExceptionType(errorMessage)
 
-    data class NotFound(override val message: String) : ExceptionType()
+    data class NotFound(val errorMessage: String) : ExceptionType(errorMessage)
 
-    data class Conflict(override val message: String) : ExceptionType()
+    data class Conflict(val errorMessage: String) : ExceptionType(errorMessage)
 
-    data object UnKnown : ExceptionType() {
+    data object UnKnown : ExceptionType("Error occurred") {
         private fun readResolve(): Any = UnKnown
     }
 }
