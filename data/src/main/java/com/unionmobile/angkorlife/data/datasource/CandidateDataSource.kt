@@ -5,11 +5,11 @@ import com.unionmobile.angkorlife.data.model.CandidateEntity
 import kotlinx.coroutines.flow.Flow
 
 interface CandidateDataSource {
-    fun getCandidates(page: Int, size: Int, sort: List<String>) : Flow<List<CandidateEntity>>
+    suspend fun getCandidates(page: Int, size: Int, sort: List<String>) : List<CandidateEntity>
 
-    fun getCandidate(candidateId: Int, userId: String) : Flow<CandidateDetailEntity>
+    suspend fun getCandidate(candidateId: Int, userId: String) : CandidateDetailEntity
 
-    fun getVotedCandidatesId(userId: String) : Flow<List<Int>>
+    suspend fun getVotedCandidatesId(userId: String) : List<Int>
 
-    fun vote(userId: String, candidateId: Int) : Flow<Unit>
+    suspend fun vote(candidateId: Int, userId: String)
 }

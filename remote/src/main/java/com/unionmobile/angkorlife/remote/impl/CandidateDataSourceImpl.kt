@@ -1,51 +1,77 @@
 package com.unionmobile.angkorlife.remote.impl
 
+import android.util.Log
 import com.unionmobile.angkorlife.data.datasource.CandidateDataSource
 import com.unionmobile.angkorlife.data.model.CandidateDetailEntity
 import com.unionmobile.angkorlife.data.model.CandidateEntity
+import com.unionmobile.angkorlife.exception.ExceptionType
 import com.unionmobile.angkorlife.remote.model.request.VoteRequest
 import com.unionmobile.angkorlife.remote.model.response.toEntity
 import com.unionmobile.angkorlife.remote.service.AngkorLifeService
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import okio.IOException
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class CandidateDataSourceImpl @Inject constructor(
     private val angkorLifeService: AngkorLifeService
 ): CandidateDataSource {
-    override fun getCandidates(page: Int, size: Int, sort: List<String>): Flow<List<CandidateEntity>> =
-        flow {
+    override suspend fun getCandidates(page: Int, size: Int, sort: List<String>) : List<CandidateEntity> {
+        return try {
             val response = angkorLifeService.getCandidates(page, size, sort)
-            val candidates = response.content.map { it.toEntity() }
-            emit(candidates)
+            response.content.map { it.toEntity() }
+        } catch (t: Throwable) {
+            throw t.mapToAngkorLifeError()
         }
+    }
 
-    override fun getCandidate(candidateId: Int, userId: String): Flow<CandidateDetailEntity> =
-        flow {
+    override suspend fun getCandidate(candidateId: Int, userId: String) : CandidateDetailEntity {
+        return try {
             val response = angkorLifeService.getCandidate(candidateId, userId)
             val sortedProfiles =
                 response.profileInfoList
                     .filter { it.fileArea == CANDIDATE_DETAIL_IMAGE }
                     .sortedBy { it.displayOrder }
-            val candidate = angkorLifeService.getCandidate(candidateId, userId).toEntity(sortedProfiles)
-            emit(candidate)
+            angkorLifeService.getCandidate(candidateId, userId).toEntity(sortedProfiles)
+        } catch (t: Throwable) {
+            throw t.mapToAngkorLifeError()
         }
+    }
 
-    override fun getVotedCandidatesId(userId: String): Flow<List<Int>> =
-        flow {
-            val response = angkorLifeService.getVotedCandidatesId(userId)
-            emit(response)
+    override suspend fun getVotedCandidatesId(userId: String) : List<Int> {
+        return try {
+            angkorLifeService.getVotedCandidatesId(userId)
+        } catch (t: Throwable) {
+            throw t.mapToAngkorLifeError()
         }
+    }
 
-    override fun vote(userId: String, candidateId: Int): Flow<Unit> =
-        flow {
-            angkorLifeService.vote(
-                VoteRequest(userId, candidateId)
-            )
-            emit(Unit)
+    override suspend fun vote(candidateId: Int, userId: String) {
+        return try {
+            angkorLifeService.vote(VoteRequest(userId, candidateId))
+        } catch (t: Throwable) {
+            throw t.mapToAngkorLifeError()
         }
+    }
+
+    private fun Throwable.mapToAngkorLifeError() : ExceptionType {
+        Log.e(TAG, message?: "error message is empty")
+        return when (this) {
+            is HttpException -> {
+                when (code()) {
+                    400 -> ExceptionType.BadRequest(message())
+                    401 -> ExceptionType.UnAuthorized(message())
+                    404 -> ExceptionType.NotFound(message())
+                    409 -> ExceptionType.Conflict(message())
+                    else -> ExceptionType.UnKnown
+                }
+            }
+            is IOException -> ExceptionType.Network("연결 실패")
+            else -> ExceptionType.UnKnown
+        }
+    }
 }
 
 private const val CANDIDATE_LIST_IMAGE = 1
 private const val CANDIDATE_DETAIL_IMAGE = 2
 private const val VIDEO = 3
+private const val TAG = "CandidateDataSourceImpl"
