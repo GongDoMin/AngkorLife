@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,8 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.domain.model.Timer
@@ -113,13 +116,19 @@ fun TimeContainerWithLabel(
             time = time
         )
 
-        LabelContainer(
+        Text(
             modifier = Modifier
-                .size(
-                    width = 48.dp,
-                    height = 12.dp
-                ),
-            label = label
+                .width(48.dp),
+            text = label,
+            style = TextStyle(
+                fontFamily = KantumruyFontFamily,
+                fontWeight = FontWeight.Medium,
+                fontSize = 10.dpTextUnit,
+                lineHeight = 12.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFFB9B9B9)
+            ),
+            textAlign = TextAlign.Center
         )
     }
 }
@@ -139,41 +148,18 @@ fun TimeContainer(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 22.dpTextUnit
-            ),
-            color = Color(0xFFDADADA)
+                fontSize = 22.dpTextUnit,
+                lineHeight = 26.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFFDADADA)
+            )
         )
     }
 }
 
 @Composable
-fun LabelContainer(
-    label: String,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = label,
-            style = TextStyle(
-                fontFamily = KantumruyFontFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 10.dpTextUnit
-            ),
-            color = Color(0xFFB9B9B9)
-        )
-    }
-}
-
-@Composable
-fun Colon(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
+fun Colon() {
+    Column {
         PainterImage(
             modifier = Modifier
                 .size(width = 2.dp, height = 10.dp),
@@ -192,16 +178,6 @@ fun TimeContainerPreview() {
             .size(48.dp)
             .background(Color(0xFF1B191A)),
         time = 10
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LabelContainerPreview() {
-    LabelContainer(
-        modifier = Modifier
-            .size(width = 48.dp, height = 12.dp),
-        label = "DAY"
     )
 }
 
