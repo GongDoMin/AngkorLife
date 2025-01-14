@@ -8,7 +8,6 @@ import com.unionmobile.angkorlife.exception.ExceptionType
 import com.unionmobile.angkorlife.feature.common.launch
 import com.unionmobile.angkorlife.feature.detail.model.CandidateDetailModel
 import com.unionmobile.angkorlife.feature.detail.model.toPresentation
-import com.unionmobile.angkorlife.feature.main.MainViewModel.Event
 import com.unionmobile.angkorlife.feature.navigation.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -85,11 +84,11 @@ class DetailViewModel @Inject constructor(
             .catch {
                 (it as ExceptionType).handleGetCandidateDetailError()
             }.collect { candidateDetail ->
-            _uiState.update {
-                it.copy(
-                    candidateDetail = candidateDetail.toPresentation()
-                )
-            }
+                _uiState.update {
+                    it.copy(
+                        candidateDetail = candidateDetail.toPresentation()
+                    )
+                }
         }
     }
 
