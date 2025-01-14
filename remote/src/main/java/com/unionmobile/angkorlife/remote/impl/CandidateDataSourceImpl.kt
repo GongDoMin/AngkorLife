@@ -58,10 +58,10 @@ class CandidateDataSourceImpl @Inject constructor(
         return when (this) {
             is HttpException -> {
                 when (code()) {
-                    400 -> ExceptionType.BadRequest(message())
-                    401 -> ExceptionType.UnAuthorized(message())
-                    404 -> ExceptionType.NotFound(message())
-                    409 -> ExceptionType.Conflict(message())
+                    400 -> ExceptionType.BadRequest("잘못된 요청입니다.")
+                    401 -> ExceptionType.UnAuthorized("권한 에러")
+                    404 -> ExceptionType.NotFound("잘못된 요청입니다.")
+                    409 -> ExceptionType.Conflict("이미 완료된 처리입니다.")
                     else -> ExceptionType.UnKnown
                 }
             }
