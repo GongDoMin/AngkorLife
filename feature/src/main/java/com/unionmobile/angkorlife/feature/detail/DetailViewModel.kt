@@ -28,6 +28,11 @@ class DetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
+    init {
+        val candidateId = savedStateHandle.get<Int>(Routes.DETAIL.CANDIDATE_ID)
+        getCandidateDetail(candidateId)
+    }
+
     fun vote() {
         val candidateId = _uiState.value.candidateDetail.id
         launch(Dispatchers.IO) {
@@ -55,10 +60,5 @@ class DetailViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    init {
-        val candidateId = savedStateHandle.get<Int>(Routes.DETAIL.CANDIDATE_ID)
-        getCandidateDetail(candidateId)
     }
 }
