@@ -15,6 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.RobotoFontFamily
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
@@ -39,9 +40,10 @@ fun CandidateInformation(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 22.dpTextUnit,
-                lineHeight = 26.dpTextUnit
-            ),
-            color = Color.White
+                lineHeight = 26.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color.White
+            )
         )
 
         Spacer(modifier = Modifier.padding(vertical = 3.dp))
@@ -52,9 +54,10 @@ fun CandidateInformation(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 14.dpTextUnit,
-                lineHeight = 20.dpTextUnit
-            ),
-            color = Color(0xFF6F76FF)
+                lineHeight = 20.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFF6F76FF)
+            )
         )
 
         Spacer(modifier = Modifier.padding(vertical = 13.dp))
@@ -154,9 +157,11 @@ fun Extra(
             style = TextStyle(
                 fontFamily = RobotoFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 14.dpTextUnit
-            ),
-            color = Color(0xFF7C7C7C)
+                fontSize = 14.dpTextUnit,
+                lineHeight = 16.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFF7C7C7C)
+            )
         )
 
         Spacer(modifier = Modifier.padding(vertical = 5.dp))
@@ -168,9 +173,10 @@ fun Extra(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 16.dpTextUnit,
-                lineHeight = 19.dpTextUnit
-            ),
-            color = Color(0xFFF6F6F6)
+                lineHeight = 19.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFFF6F6F6)
+            )
         )
     }
 }
