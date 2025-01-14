@@ -1,12 +1,12 @@
 package com.unionmobile.angkorlife.local.impl
 
-import com.unionmobile.angkorlife.data.datasource.UserInformationDataSource
+import com.unionmobile.angkorlife.data.datasource.UserInformationLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-class UserInformationDataSourceImpl @Inject constructor(): UserInformationDataSource {
+class UserInformationLocalDataSourceImpl @Inject constructor(): UserInformationLocalDataSource {
     private var userId: String = ""
     private val votedCandidates = MutableStateFlow<List<Int>>(emptyList())
 

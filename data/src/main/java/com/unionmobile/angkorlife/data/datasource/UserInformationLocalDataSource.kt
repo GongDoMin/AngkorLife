@@ -2,7 +2,7 @@ package com.unionmobile.angkorlife.data.datasource
 
 import kotlinx.coroutines.flow.Flow
 
-interface UserInformationDataSource {
+interface UserInformationLocalDataSource {
     fun getUserId(): String
 
     fun setUserId(userId: String)

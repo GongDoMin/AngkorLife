@@ -1,13 +1,13 @@
 package com.unionmobile.angkorlife.data.impl
 
-import com.unionmobile.angkorlife.data.datasource.UserInformationDataSource
+import com.unionmobile.angkorlife.data.datasource.UserInformationLocalDataSource
 import com.unionmobile.angkorlife.domain.repository.UserIdRepository
 import javax.inject.Inject
 
 class UserIdRepositoryImpl @Inject constructor(
-    private val userInformationDataSource: UserInformationDataSource
+    private val userInformationLocalDataSource: UserInformationLocalDataSource
 ) : UserIdRepository {
     override fun setUserId(userId: String) {
-        userInformationDataSource.setUserId(userId)
+        userInformationLocalDataSource.setUserId(userId)
     }
 }

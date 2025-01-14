@@ -1,7 +1,7 @@
 package com.unionmobile.angkorlife.local.di
 
-import com.unionmobile.angkorlife.data.datasource.UserInformationDataSource
-import com.unionmobile.angkorlife.local.impl.UserInformationDataSourceImpl
+import com.unionmobile.angkorlife.data.datasource.UserInformationLocalDataSource
+import com.unionmobile.angkorlife.local.impl.UserInformationLocalDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ import javax.inject.Singleton
 abstract class LocalModule {
     @Binds
     @Singleton
-    abstract fun bindUserInformationDataSource(userInformationDataSourceImpl: UserInformationDataSourceImpl) : UserInformationDataSource
+    abstract fun bindUserInformationLocalDataSource(userInformationLocalDataSourceImpl: UserInformationLocalDataSourceImpl) : UserInformationLocalDataSource
 }
