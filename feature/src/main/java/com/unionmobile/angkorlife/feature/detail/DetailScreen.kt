@@ -38,6 +38,7 @@ import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.domain.model.MimeType
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
+import com.unionmobile.angkorlife.feature.common.ConfirmModal
 import com.unionmobile.angkorlife.feature.common.CopyRightText
 import com.unionmobile.angkorlife.feature.common.EventCollect
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
@@ -187,6 +188,16 @@ fun DetailScreen(
                     )
                 )
             }
+        }
+
+        if (uiState.isModal) {
+            ConfirmModal(
+                onDismissRequest = viewModel::dismissModal,
+                title = "Voting completed",
+                message = "Thank you for voting",
+                confirmButtonText = "Confirm",
+                onClickConfirmButton = viewModel::dismissModal
+            )
         }
     }
 }

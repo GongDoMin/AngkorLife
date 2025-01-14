@@ -27,7 +27,8 @@ class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     data class UiState(
-        val candidateDetail: CandidateDetailModel = CandidateDetailModel()
+        val candidateDetail: CandidateDetailModel = CandidateDetailModel(),
+        val isModal: Boolean = false
     )
 
     sealed interface Event {
@@ -58,13 +59,18 @@ class DetailViewModel @Inject constructor(
                 }.collect {
                     _uiState.update {
                         it.copy(
-                            it.candidateDetail.copy(
+                            candidateDetail = it.candidateDetail.copy(
                                 voted = true
-                            )
+                            ),
+                            isModal = true
                         )
                     }
             }
         }
+    }
+
+    fun dismissModal() {
+        _uiState.update { it.copy(isModal = false) }
     }
 
     private suspend fun getCandidateDetail(candidateId: Int?) {
