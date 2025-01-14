@@ -12,7 +12,7 @@ class LoginUseCaseImpl @Inject constructor(
     override operator fun invoke(userId: String): Flow<Unit> =
         flow {
             if (!userId.isValidRange()) {
-                throw IllegalArgumentException("아이디는 최소 1개 이상 16개 이하여야 합니다.")
+                throw IllegalStateException("ID must be at least 1 and no more than 16")
             }
 
             userIdRepository.setUserId(userId)
