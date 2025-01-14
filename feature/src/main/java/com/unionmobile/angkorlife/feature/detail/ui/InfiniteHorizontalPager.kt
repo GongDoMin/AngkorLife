@@ -8,36 +8,47 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.delay
 
 @Composable
 fun InfiniteHorizontalPager(
-    listSize: Int,
+    pageCount: Int,
     intervalSeconds: Long,
     modifier: Modifier = Modifier,
     bottomContent: @Composable (currentPage: Int) -> Unit,
-    pagerContent: @Composable PagerScope.(page: Int) -> Unit
+    pagerContent: @Composable PagerScope.(currentPage: Int) -> Unit
 ) {
-    // listSize 가 0일 경우에는 pageCount 를 0으로 한다.
-    val pageCount = if (listSize > 0) Int.MAX_VALUE else 0
+    val max = remember { 1000 }
+    val totalPageCount = remember(pageCount) { pageCount * max }
+    val half = totalPageCount / 2
 
     // initialPage는 전체 페이지 중간 지점을 기준으로 listSize의 배수인 페이지를 설정합니다.
     // 이렇게 함으로써, 무한 스크롤의 경우 첫 페이지가 정확히 리스트의 시작 상태와 매칭됩니다.
-    val initialPage = if (listSize > 0) pageCount / 2 - ((pageCount / 2) % listSize) else 0
+    val initialPage = remember(pageCount) {
+        if (pageCount > 0) half - (half % pageCount)
+        else 0
+    }
 
     val pagerState = rememberPagerState(
         initialPage = initialPage,
-        pageCount = { pageCount }
+        pageCount = { totalPageCount }
     )
     val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
+
+    LaunchedEffect(initialPage) {
+        if (initialPage != 0) pagerState.scrollToPage(initialPage)
+    }
 
     // 드래그 중이라면 취소
     if (!isDragged) {
         LaunchedEffect(Unit) {
             while (true) {
                 delay(intervalSeconds)
-                val target = if (pagerState.currentPage == Int.MAX_VALUE) initialPage else pagerState.currentPage + 1
+                val target =
+                    if (pagerState.currentPage == totalPageCount) initialPage
+                    else pagerState.currentPage + 1
                 pagerState.animateScrollToPage(page = target)
             }
         }
@@ -46,8 +57,8 @@ fun InfiniteHorizontalPager(
     Column(
         modifier = modifier
     ){
-        HorizontalPager(pagerState) { page ->
-            pagerContent(page)
+        HorizontalPager(pagerState) { currentPage ->
+            pagerContent(currentPage)
         }
 
         bottomContent(pagerState.currentPage)

@@ -87,7 +87,7 @@ fun DetailScreen(
                     .verticalScroll(rememberScrollState())
             ) {
                 InfiniteHorizontalPager(
-                    listSize = uiState.candidateDetail.profileInfoList.size,
+                    pageCount = uiState.candidateDetail.profileInfoList.size,
                     intervalSeconds = horizontalPagerIntervalSeconds,
                     bottomContent = { currentPage ->
                         Column(
