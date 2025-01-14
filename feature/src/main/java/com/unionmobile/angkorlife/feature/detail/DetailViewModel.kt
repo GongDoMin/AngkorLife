@@ -8,6 +8,7 @@ import com.unionmobile.angkorlife.exception.ExceptionType
 import com.unionmobile.angkorlife.feature.common.launch
 import com.unionmobile.angkorlife.feature.detail.model.CandidateDetailModel
 import com.unionmobile.angkorlife.feature.detail.model.toPresentation
+import com.unionmobile.angkorlife.feature.main.MainViewModel.Event
 import com.unionmobile.angkorlife.feature.navigation.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -51,14 +52,17 @@ class DetailViewModel @Inject constructor(
     fun vote() {
         val candidateId = _uiState.value.candidateDetail.id
         launch(Dispatchers.IO) {
-            voteUseCase.invoke(candidateId).collect {
-                _uiState.update {
-                    it.copy(
-                        it.candidateDetail.copy(
-                            voted = true
+            voteUseCase.invoke(candidateId)
+                .catch {
+                    (it as ExceptionType).handleVoteError()
+                }.collect {
+                    _uiState.update {
+                        it.copy(
+                            it.candidateDetail.copy(
+                                voted = true
+                            )
                         )
-                    )
-                }
+                    }
             }
         }
     }
@@ -78,6 +82,39 @@ class DetailViewModel @Inject constructor(
             _uiState.update {
                 it.copy(
                     candidateDetail = candidateDetail.toPresentation()
+                )
+            }
+        }
+    }
+
+    private suspend fun ExceptionType.handleVoteError() {
+        val message = this.message ?: ""
+        when (this) {
+            is ExceptionType.Network ->
+                _event.send(
+                    Event.ShowSnackBar(message)
+                )
+            is ExceptionType.NotFound ->
+                _event.send(
+                    Event.ShowSnackBarAndNavigateToMain(message)
+                )
+            is ExceptionType.Conflict ->
+                if (uiState.value.candidateDetail.voted) {
+                    _event.send(
+                        Event.ShowSnackBar(message)
+                    )
+                } else {
+                    _uiState.update {
+                        it.copy(
+                            it.candidateDetail.copy(
+                                voted = true
+                            )
+                        )
+                    }
+                }
+            else -> {
+                _event.send(
+                    Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
                 )
             }
         }
