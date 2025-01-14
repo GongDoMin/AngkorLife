@@ -38,11 +38,10 @@ fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val lifecycleOwner = LocalLifecycleOwner.current
 
     EventCollect(
         event = viewModel.event,
-        lifecycleOwner = lifecycleOwner,
+        lifecycleOwner = LocalLifecycleOwner.current,
     ) {
         when (it) {
             is MainViewModel.Event.ShowSnackBar -> showSnackBar(it.message)

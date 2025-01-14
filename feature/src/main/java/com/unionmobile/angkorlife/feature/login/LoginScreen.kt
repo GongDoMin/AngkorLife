@@ -49,7 +49,6 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val lifecycleOwner = LocalLifecycleOwner.current
     val scrollState = rememberScrollState()
     val keyboardHeight = WindowInsets.ime.getBottom(LocalDensity.current)
 
@@ -59,7 +58,7 @@ fun LoginScreen(
 
     EventCollect(
         event = viewModel.event,
-        lifecycleOwner = lifecycleOwner,
+        lifecycleOwner = LocalLifecycleOwner.current,
     ) {
         when (it) {
             is LoginViewModel.Event.SuccessLogin -> navigateToMain()
