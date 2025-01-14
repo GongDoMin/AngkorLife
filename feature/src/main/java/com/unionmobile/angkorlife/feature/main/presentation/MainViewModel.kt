@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife.feature.main
+package com.unionmobile.angkorlife.feature.main.presentation
 
 import androidx.lifecycle.ViewModel
 import com.unionmobile.angkorlife.domain.model.Timer
@@ -20,7 +20,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import okio.IOException
 import javax.inject.Inject
 
 @HiltViewModel

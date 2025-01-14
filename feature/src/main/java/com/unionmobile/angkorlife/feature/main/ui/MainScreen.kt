@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife.feature.main
+package com.unionmobile.angkorlife.feature.main.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,6 +27,7 @@ import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.ConfirmModal
 import com.unionmobile.angkorlife.feature.common.CopyRightText
 import com.unionmobile.angkorlife.feature.common.EventCollect
+import com.unionmobile.angkorlife.feature.main.presentation.MainViewModel
 
 @Composable
 fun MainScreen(

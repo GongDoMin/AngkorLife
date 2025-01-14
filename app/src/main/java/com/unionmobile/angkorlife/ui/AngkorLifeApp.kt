@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.unionmobile.angkorlife.feature.detail.detailScreen
 import com.unionmobile.angkorlife.feature.login.navigation.loginScreen
-import com.unionmobile.angkorlife.feature.main.mainScreen
+import com.unionmobile.angkorlife.feature.main.navigation.mainScreen
 import com.unionmobile.angkorlife.feature.navigation.Routes
 import com.unionmobile.angkorlife.feature.navigation.rememberAngkorLifeNavController
 import kotlinx.coroutines.launch
