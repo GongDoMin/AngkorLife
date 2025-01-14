@@ -75,7 +75,7 @@ class DetailViewModel @Inject constructor(
     private suspend fun getCandidateDetail(candidateId: Int?) {
         if (candidateId == null) {
             _event.send(
-                Event.ShowSnackBarAndNavigateToMain("잘못된 접근입니다.")
+                Event.ShowSnackBarAndNavigateToMain("Invalid access")
             )
             return
         }
@@ -93,21 +93,14 @@ class DetailViewModel @Inject constructor(
     }
 
     private suspend fun ExceptionType.handleVoteError() {
-        val message = this.message ?: ""
         when (this) {
-            is ExceptionType.Network ->
-                _event.send(
-                    Event.ShowSnackBar(message)
-                )
+            is ExceptionType.Network, is ExceptionType.BadRequest ->
+                _event.send(Event.ShowSnackBar(message))
             is ExceptionType.NotFound ->
-                _event.send(
-                    Event.ShowSnackBarAndNavigateToMain(message)
-                )
+                _event.send(Event.ShowSnackBarAndNavigateToMain(message))
             is ExceptionType.Conflict ->
                 if (uiState.value.candidateDetail.voted) {
-                    _event.send(
-                        Event.ShowSnackBar(message)
-                    )
+                    _event.send(Event.ShowSnackBar(message))
                 } else {
                     _uiState.update {
                         it.copy(
@@ -117,29 +110,21 @@ class DetailViewModel @Inject constructor(
                         )
                     }
                 }
-            else -> {
-                _event.send(
-                    Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
-                )
-            }
+            is ExceptionType.UnAuthorized ->
+                _event.send(Event.ShowSnackBarAndNavigateToLogin(message))
+            else ->
+                _event.send(Event.ShowSnackBar(message))
         }
     }
 
     private suspend fun ExceptionType.handleGetCandidateDetailError() {
-        val message = this.message ?: ""
         when (this) {
-            is ExceptionType.Network ->
-                _event.send(
-                    Event.ShowSnackBarAndNavigateToMain(message)
-                )
-            is ExceptionType.NotFound ->
-                _event.send(
-                    Event.ShowSnackBarAndNavigateToMain(message)
-                )
+            is ExceptionType.Network, is ExceptionType.NotFound ->
+                _event.send(Event.ShowSnackBarAndNavigateToMain(message))
+            is ExceptionType.UnAuthorized ->
+                _event.send(Event.ShowSnackBarAndNavigateToLogin(message))
             else ->
-                _event.send(
-                    Event.ShowSnackBarAndNavigateToLogin(message)
-                )
+                _event.send(Event.ShowSnackBar(message))
         }
     }
 }
