@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
@@ -25,11 +27,11 @@ fun CandidateTitle(
     ) {
         Box(
             modifier = Modifier
-                .background(Color(0xFF6F76FF))
                 .size(
                     width = 19.dp,
                     height = 3.dp
                 )
+                .background(Color(0xFF6F76FF))
         )
 
         Spacer(modifier = Modifier.padding(vertical = 5.dp))
@@ -40,9 +42,10 @@ fun CandidateTitle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 28.dpTextUnit,
-                lineHeight = 29.dpTextUnit
-            ),
-            color = Color.White
+                lineHeight = 29.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color.White
+            )
         )
 
         Spacer(modifier = Modifier.padding(vertical = 12.5.dp))
@@ -53,9 +56,19 @@ fun CandidateTitle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 14.dpTextUnit,
-                lineHeight = 18.dpTextUnit
-            ),
-            color = Color(0xFFAEAEB2)
+                lineHeight = 18.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFFAEAEB2)
+            )
         )
     }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFF000000
+)
+@Composable
+fun CandidateTitlePreview() {
+    CandidateTitle()
 }
