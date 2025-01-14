@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 import com.unionmobile.angkorlife.feature.main.model.toFormattedString
@@ -59,9 +60,11 @@ fun Candidate(
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.dpTextUnit
+                fontSize = 16.dpTextUnit,
+                lineHeight = 19.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFFF6F6F6)
             ),
-            color = Color(0xFFF6F6F6),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -74,8 +77,10 @@ fun Candidate(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 14.dpTextUnit,
+                lineHeight = 16.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFF6F76FF)
             ),
-            color = Color(0xFF6F76FF),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -95,8 +100,7 @@ fun Candidate(
             ),
             onClick = { onClickVote(id) },
             contentPadding = PaddingValues(
-                vertical = 8.dp,
-                horizontal = 12.dp
+                vertical = 8.dp
             )
         ) {
             val text = if (isVoted) {
@@ -110,7 +114,9 @@ fun Candidate(
                 style = TextStyle(
                     fontFamily = KantumruyFontFamily,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.dpTextUnit
+                    fontSize = 16.dpTextUnit,
+                    lineHeight = 16.dpTextUnit,
+                    lineHeightStyle = BasicLineHeightStyle,
                 )
             )
         }
