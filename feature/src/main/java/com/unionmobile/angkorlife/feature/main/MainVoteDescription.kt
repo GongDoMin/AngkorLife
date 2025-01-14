@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
@@ -135,9 +136,10 @@ fun TitleCell(
             fontFamily = KantumruyFontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 13.dpTextUnit,
-            lineHeight = 15.dpTextUnit
-        ),
-        color = Color(0xFFF6F6F6)
+            lineHeight = 15.dpTextUnit,
+            lineHeightStyle = BasicLineHeightStyle,
+            color = Color(0xFFF6F6F6)
+        )
     )
 }
 
@@ -158,12 +160,14 @@ fun BasicDescriptionCell(
             modifier = Modifier
                 .alpha(dotAlpha.floatValue),
             text = "\u2022",
-            color = Color(0xFFDBDBDB),
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
-                fontSize = 13.dpTextUnit
-            ),
+                fontSize = 13.dpTextUnit,
+                lineHeight = 15.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFFDBDBDB)
+            )
         )
 
         Spacer(modifier = Modifier.padding(2.dp))
@@ -175,9 +179,10 @@ fun BasicDescriptionCell(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 13.dpTextUnit,
-                lineHeight = 15.dpTextUnit
-            ),
-            color = Color(0xFFDBDBDB)
+                lineHeight = 15.dpTextUnit,
+                lineHeightStyle = BasicLineHeightStyle,
+                color = Color(0xFFDBDBDB)
+            )
         )
     }
 }
