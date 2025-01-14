@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife.feature.login
+package com.unionmobile.angkorlife.feature.login.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -44,6 +44,7 @@ import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.EventCollect
 import com.unionmobile.angkorlife.feature.common.PainterImage
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
+import com.unionmobile.angkorlife.feature.login.presentation.LoginViewModel
 
 @Composable
 fun LoginScreen(

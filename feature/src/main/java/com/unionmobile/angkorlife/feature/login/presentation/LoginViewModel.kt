@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife.feature.login
+package com.unionmobile.angkorlife.feature.login.presentation
 
 import androidx.lifecycle.ViewModel
 import com.unionmobile.angkorlife.domain.usecase.LoginUseCase
