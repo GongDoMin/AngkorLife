@@ -48,7 +48,10 @@ class MainViewModel @Inject constructor(
 
     fun vote(candidateId: Int) {
         launch(Dispatchers.IO) {
-            voteUseCase.invoke(candidateId).collect {
+            voteUseCase.invoke(candidateId)
+                .catch {
+                    (it as ExceptionType).handleVoteError(candidateId)
+                }.collect {
                 val candidates = uiState.value.candidates.map {
                     if (it.id == candidateId) {
                         it.copy(
@@ -90,16 +93,7 @@ class MainViewModel @Inject constructor(
                     )
                 }
             }.catch {
-                when (it as ExceptionType) {
-                    is ExceptionType.Network ->
-                        _event.send(
-                            Event.ShowSnackBarAndNavigateToLogin(it.message ?: "에러가 발생했습니다.")
-                        )
-                    else ->
-                        _event.send(
-                            Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
-                        )
-                }
+                (it as ExceptionType).handleGetCandidatesError()
             }.collect { candidates ->
                 _uiState.update {
                     it.copy(
@@ -107,6 +101,52 @@ class MainViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    private suspend fun ExceptionType.handleVoteError(candidateId: Int) {
+        val message = message ?: "에러가 발생했습니다."
+        when (this) {
+            is ExceptionType.Network ->
+                _event.send(
+                    Event.ShowSnackBar(message)
+                )
+            is ExceptionType.NotFound ->
+                _event.send(
+                    Event.ShowSnackBar(message)
+                )
+            is ExceptionType.Conflict -> {
+                if (uiState.value.candidates.find { it.id == candidateId }?.isVoted == true) {
+                    _event.send(
+                        Event.ShowSnackBar(message)
+                    )
+                } else {
+                    val candidates = uiState.value.candidates.map {
+                        if (it.id == candidateId) it.copy(isVoted = true)
+                        else it
+                    }
+                    _uiState.update { it.copy(candidates = candidates) }
+                }
+            }
+            else -> {
+                _event.send(
+                    Event.ShowSnackBarAndNavigateToLogin(message)
+                )
+            }
+        }
+    }
+
+    private suspend fun ExceptionType.handleGetCandidatesError() {
+        val message = this.message ?: "에러가 발생했습니다."
+        when (this) {
+            is ExceptionType.Network ->
+                _event.send(
+                    Event.ShowSnackBarAndNavigateToLogin(message)
+                )
+            else ->
+                _event.send(
+                    Event.ShowSnackBarAndNavigateToLogin(message)
+                )
         }
     }
 
