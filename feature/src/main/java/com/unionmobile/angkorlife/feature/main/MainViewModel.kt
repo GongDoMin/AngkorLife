@@ -6,6 +6,7 @@ import com.unionmobile.angkorlife.domain.usecase.GetCandidatesUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetTimerUseCase
 import com.unionmobile.angkorlife.domain.usecase.GetVotedCandidatesIdUseCase
 import com.unionmobile.angkorlife.domain.usecase.VoteUseCase
+import com.unionmobile.angkorlife.exception.ExceptionType
 import com.unionmobile.angkorlife.feature.common.launch
 import com.unionmobile.angkorlife.feature.main.model.CandidateModel
 import com.unionmobile.angkorlife.feature.main.model.toFormattedString
@@ -89,17 +90,15 @@ class MainViewModel @Inject constructor(
                     )
                 }
             }.catch {
-                when (it) {
-                    is IOException -> {
+                when (it as ExceptionType) {
+                    is ExceptionType.Network ->
                         _event.send(
-                            Event.ShowSnackBarAndNavigateToLogin("연결 실패")
+                            Event.ShowSnackBarAndNavigateToLogin(it.message ?: "에러가 발생했습니다.")
                         )
-                    }
-                    else -> {
+                    else ->
                         _event.send(
                             Event.ShowSnackBarAndNavigateToLogin("에러가 발생했습니다.")
                         )
-                    }
                 }
             }.collect { candidates ->
                 _uiState.update {
