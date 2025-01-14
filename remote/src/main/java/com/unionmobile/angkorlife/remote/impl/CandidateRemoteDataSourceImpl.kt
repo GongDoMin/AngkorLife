@@ -1,7 +1,7 @@
 package com.unionmobile.angkorlife.remote.impl
 
 import android.util.Log
-import com.unionmobile.angkorlife.data.datasource.CandidateDataSource
+import com.unionmobile.angkorlife.data.datasource.CandidateRemoteDataSource
 import com.unionmobile.angkorlife.data.model.CandidateDetailEntity
 import com.unionmobile.angkorlife.data.model.CandidateEntity
 import com.unionmobile.angkorlife.exception.ExceptionType
@@ -12,9 +12,9 @@ import okio.IOException
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class CandidateDataSourceImpl @Inject constructor(
+class CandidateRemoteDataSourceImpl @Inject constructor(
     private val angkorLifeService: AngkorLifeService
-): CandidateDataSource {
+): CandidateRemoteDataSource {
     override suspend fun getCandidates(page: Int, size: Int, sort: List<String>) : List<CandidateEntity> {
         return try {
             val response = angkorLifeService.getCandidates(page, size, sort)

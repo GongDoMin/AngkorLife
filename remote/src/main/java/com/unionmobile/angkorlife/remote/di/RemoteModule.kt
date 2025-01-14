@@ -1,7 +1,7 @@
 package com.unionmobile.angkorlife.remote.di
 
-import com.unionmobile.angkorlife.data.datasource.CandidateDataSource
-import com.unionmobile.angkorlife.remote.impl.CandidateDataSourceImpl
+import com.unionmobile.angkorlife.data.datasource.CandidateRemoteDataSource
+import com.unionmobile.angkorlife.remote.impl.CandidateRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,5 +11,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class RemoteModule {
     @Binds
-    abstract fun bindCandidateDataSource(candidateDataSourceImpl: CandidateDataSourceImpl) : CandidateDataSource
+    abstract fun bindCandidateRemoteDataSource(candidateRemoteDataSourceImpl: CandidateRemoteDataSourceImpl) : CandidateRemoteDataSource
 }

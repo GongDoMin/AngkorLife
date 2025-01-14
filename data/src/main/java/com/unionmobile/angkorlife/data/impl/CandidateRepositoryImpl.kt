@@ -1,6 +1,6 @@
 package com.unionmobile.angkorlife.data.impl
 
-import com.unionmobile.angkorlife.data.datasource.CandidateDataSource
+import com.unionmobile.angkorlife.data.datasource.CandidateRemoteDataSource
 import com.unionmobile.angkorlife.data.datasource.UserInformationLocalDataSource
 import com.unionmobile.angkorlife.data.model.toModel
 import com.unionmobile.angkorlife.domain.model.Candidate
@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CandidateRepositoryImpl @Inject constructor(
-    private val candidateDataSource: CandidateDataSource,
+    private val candidateRemoteDataSource: CandidateRemoteDataSource,
     private val userInformationLocalDataSource: UserInformationLocalDataSource
 ): CandidateRepository {
     override fun getCandidates(page: Int, size: Int, sort: List<String>): Flow<List<Candidate>> =
         flow {
             emit(
-                candidateDataSource.getCandidates(page, size, sort).map { it.toModel() }
+                candidateRemoteDataSource.getCandidates(page, size, sort).map { it.toModel() }
             )
         }
 
@@ -25,14 +25,14 @@ class CandidateRepositoryImpl @Inject constructor(
         flow {
             val userId = userInformationLocalDataSource.getUserId()
             emit(
-                candidateDataSource.getCandidate(candidateId, userId).toModel()
+                candidateRemoteDataSource.getCandidate(candidateId, userId).toModel()
             )
         }
 
     override suspend fun getVotedCandidatesId(): Flow<List<Int>> {
         val userId = userInformationLocalDataSource.getUserId()
         try {
-            val votedCandidates = candidateDataSource.getVotedCandidatesId(userId)
+            val votedCandidates = candidateRemoteDataSource.getVotedCandidatesId(userId)
             votedCandidates.forEach {
                 userInformationLocalDataSource.updateVotedCandidate(it)
             }
@@ -47,7 +47,7 @@ class CandidateRepositoryImpl @Inject constructor(
     override fun vote(candidateId: Int): Flow<Unit> =
         flow {
             val userId = userInformationLocalDataSource.getUserId()
-            candidateDataSource.vote(candidateId, userId)
+            candidateRemoteDataSource.vote(candidateId, userId)
             userInformationLocalDataSource.updateVotedCandidate(candidateId)
             emit(Unit)
         }
