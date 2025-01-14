@@ -8,8 +8,10 @@ import com.unionmobile.angkorlife.exception.ExceptionType
 import com.unionmobile.angkorlife.remote.model.request.VoteRequest
 import com.unionmobile.angkorlife.remote.model.response.toEntity
 import com.unionmobile.angkorlife.remote.service.AngkorLifeService
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.IOException
 import retrofit2.HttpException
+import retrofit2.Response
 import javax.inject.Inject
 
 class CandidateRemoteDataSourceImpl @Inject constructor(
@@ -26,6 +28,8 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getCandidate(candidateId: Int, userId: String) : CandidateDetailEntity {
         return try {
+            userId.validate()
+
             val response = angkorLifeService.getCandidate(candidateId, userId)
             val sortedProfiles =
                 response.profileInfoList
@@ -39,6 +43,8 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getVotedCandidatesId(userId: String) : List<Int> {
         return try {
+            userId.validate()
+
             angkorLifeService.getVotedCandidatesId(userId)
         } catch (t: Throwable) {
             throw t.mapToAngkorLifeError()
@@ -47,9 +53,17 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun vote(candidateId: Int, userId: String) {
         return try {
+            userId.validate()
+
             angkorLifeService.vote(VoteRequest(userId, candidateId))
         } catch (t: Throwable) {
             throw t.mapToAngkorLifeError()
+        }
+    }
+
+    private fun String.validate() {
+        if (isEmpty()) {
+            throw HttpException(Response.error<Any>(401, "401 HTTP".toResponseBody()))
         }
     }
 
