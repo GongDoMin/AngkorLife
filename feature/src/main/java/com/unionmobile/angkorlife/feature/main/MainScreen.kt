@@ -1,9 +1,7 @@
 package com.unionmobile.angkorlife.feature.main
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,7 +27,6 @@ import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.ConfirmModal
 import com.unionmobile.angkorlife.feature.common.CopyRightText
 import com.unionmobile.angkorlife.feature.common.EventCollect
-import com.unionmobile.angkorlife.feature.login.LoginViewModel
 
 @Composable
 fun MainScreen(
@@ -101,21 +98,16 @@ fun MainScreen(
             item(
                 span = { GridItemSpan(gridCount) }
             ) {
-                Box(
+                CandidateTitle(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
                             top = 50.dp,
-                            bottom = 40.dp,
                             start = 16.dp,
-                            end = 16.dp
+                            end = 16.dp,
+                            bottom = 40.dp
                         )
-                ) {
-                    CandidateTitle(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                    )
-                }
+                )
             }
 
             items(
@@ -131,6 +123,12 @@ fun MainScreen(
                         Modifier.padding(start = 5.dp, end = 5.dp)
                     }
                 }
+                val candidate = remember(
+                    uiState.candidates[index].isVoted,
+                    uiState.candidates[index].voteCntString
+                ) {
+                    uiState.candidates[index]
+                }
 
                 Column(
                     modifier = columnModifier
@@ -138,11 +136,11 @@ fun MainScreen(
                     Candidate(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        url = uiState.candidates[index].profileUrl,
-                        id = uiState.candidates[index].id,
-                        name = uiState.candidates[index].name,
-                        voteCountString = uiState.candidates[index].voteCntString,
-                        isVoted = uiState.candidates[index].isVoted,
+                        url = candidate.profileUrl,
+                        id = candidate.id,
+                        name = candidate.name,
+                        voteCountString = candidate.voteCntString,
+                        isVoted = candidate.isVoted,
                         onClickImage = navigateToDetail,
                         onClickVote = viewModel::vote
                     )
