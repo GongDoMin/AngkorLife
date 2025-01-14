@@ -40,11 +40,16 @@ class MainViewModel @Inject constructor(
         data class ShowSnackBarAndNavigateToLogin(val message: String) : Event
     }
 
-    private val _uiState = MutableStateFlow<UiState>(UiState())
+    private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
     private val _event = Channel<Event>()
     val event = _event.receiveAsFlow()
+
+    init {
+        getTimer()
+        getCandidates()
+    }
 
     fun vote(candidateId: Int) {
         launch(Dispatchers.IO) {
@@ -148,10 +153,5 @@ class MainViewModel @Inject constructor(
                     Event.ShowSnackBarAndNavigateToLogin(message)
                 )
         }
-    }
-
-    init {
-        getTimer()
-        getCandidates()
     }
 }
