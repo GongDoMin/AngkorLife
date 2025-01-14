@@ -44,7 +44,7 @@ class LoginViewModel @Inject constructor(
             loginUseCase.invoke(id)
                 .catch {
                     _uiState.update { it.copy(isLoggingIn = false) }
-                    _event.send(Event.ShowSnackBar("아이디의 길이는 최소 1 최대 16 입니다."))
+                    _event.send(Event.ShowSnackBar(it.message ?: "에러가 발생했습니다."))
                 }
                 .collect {
                     _event.send(Event.SuccessLogin)
