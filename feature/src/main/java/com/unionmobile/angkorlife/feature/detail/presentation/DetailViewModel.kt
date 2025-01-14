@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife.feature.detail
+package com.unionmobile.angkorlife.feature.detail.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

@@ -11,7 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.unionmobile.angkorlife.feature.detail.detailScreen
+import com.unionmobile.angkorlife.feature.detail.navigation.detailScreen
 import com.unionmobile.angkorlife.feature.login.navigation.loginScreen
 import com.unionmobile.angkorlife.feature.main.navigation.mainScreen
 import com.unionmobile.angkorlife.feature.navigation.Routes

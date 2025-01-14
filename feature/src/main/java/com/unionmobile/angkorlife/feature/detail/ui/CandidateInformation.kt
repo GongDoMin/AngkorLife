@@ -1,4 +1,4 @@
-package com.unionmobile.angkorlife.feature.detail
+package com.unionmobile.angkorlife.feature.detail.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
