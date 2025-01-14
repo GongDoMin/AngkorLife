@@ -31,11 +31,13 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
@@ -110,19 +112,23 @@ fun LoginScreen(
                         Text(
                             text = "Enter your ID",
                             style = TextStyle(
-                                color = Color(0xFFAEAEB2),
                                 fontFamily = KantumruyFontFamily,
                                 fontWeight = FontWeight.Normal,
-                                fontSize = 13.dpTextUnit
+                                fontSize = 13.dpTextUnit,
+                                lineHeight = 18.dpTextUnit,
+                                lineHeightStyle = BasicLineHeightStyle,
+                                color = Color(0xFFAEAEB2)
                             )
                         )
                     },
                     singleLine = true,
                     textStyle = TextStyle(
-                        color = Color(0xFFAEAEB2),
                         fontFamily = KantumruyFontFamily,
                         fontWeight = FontWeight.Normal,
-                        fontSize = 13.dpTextUnit
+                        fontSize = 13.dpTextUnit,
+                        lineHeight = 18.dpTextUnit,
+                        lineHeightStyle = BasicLineHeightStyle,
+                        color = Color(0xFFAEAEB2)
                     ),
                     colors = TextFieldDefaults.colors(
                         unfocusedTextColor = Color(0xFFAEAEB2),
@@ -134,8 +140,7 @@ fun LoginScreen(
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
-                    shape = RoundedCornerShape(8.dp),
-
+                    shape = RoundedCornerShape(8.dp)
                 )
 
                 Spacer(modifier = Modifier.padding(vertical = 12.dp))
@@ -147,8 +152,8 @@ fun LoginScreen(
                     colors = ButtonColors(
                         containerColor = Color(0xFF4232D5),
                         contentColor = Color.White,
-                        disabledContainerColor = Color(0xFF4232D5),
-                        disabledContentColor = Color.White,
+                        disabledContainerColor = Color.Unspecified,
+                        disabledContentColor = Color.Unspecified,
                     ),
                     onClick = {
                         keyboardController?.hide()
@@ -157,12 +162,18 @@ fun LoginScreen(
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
                     Text(
+                        modifier = Modifier
+                            .fillMaxWidth(),
                         text = "Log in",
                         style = TextStyle(
                             fontFamily = KantumruyFontFamily,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 16.dpTextUnit
-                        )
+                            fontSize = 16.dpTextUnit,
+                            lineHeight = 24.dpTextUnit,
+                            lineHeightStyle = BasicLineHeightStyle,
+                            color = Color.White
+                        ),
+                        textAlign = TextAlign.Center
                     )
                 }
             }
