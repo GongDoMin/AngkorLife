@@ -6,5 +6,5 @@ data class ProfileInfo(
 )
 
 enum class MimeType {
-    IMAGE_GIF, IMAGE_JPG, IMAGE_PNG, UNKNOWN
+    IMAGE_JPG, UNKNOWN
 }

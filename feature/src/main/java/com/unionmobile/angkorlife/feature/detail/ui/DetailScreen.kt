@@ -113,7 +113,7 @@ fun DetailScreen(
                     val profile = uiState.candidateDetail.profileInfoList[currentPage % uiState.candidateDetail.profileInfoList.size]
 
                     when (profile.mimeType) {
-                        MimeType.IMAGE_GIF, MimeType.IMAGE_JPG, MimeType.IMAGE_PNG -> {
+                        MimeType.IMAGE_JPG -> {
                             AsyncImage(
                                 modifier = horizontalModifier,
                                 model = profile.profileUrl,
