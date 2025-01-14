@@ -23,11 +23,7 @@ fun DotContainer(
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = 16.dp,
-                end = 16.dp
-            ),
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
     ) {
         repeat(dotCount) {

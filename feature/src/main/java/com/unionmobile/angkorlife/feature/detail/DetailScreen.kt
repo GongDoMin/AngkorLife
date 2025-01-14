@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
 import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.domain.model.MimeType
@@ -41,6 +43,7 @@ import com.unionmobile.angkorlife.feature.common.AngkorLifeTopBarWithContent
 import com.unionmobile.angkorlife.feature.common.ConfirmModal
 import com.unionmobile.angkorlife.feature.common.CopyRightText
 import com.unionmobile.angkorlife.feature.common.EventCollect
+import com.unionmobile.angkorlife.feature.common.PainterImage
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
@@ -80,20 +83,29 @@ fun DetailScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .background(Color.Black)
         ) {
             Column(
                 modifier = Modifier
-                    .background(Color.Black)
                     .verticalScroll(rememberScrollState())
             ) {
                 InfiniteHorizontalPager(
                     listSize = uiState.candidateDetail.profileInfoList.size,
                     intervalSeconds = horizontalPagerIntervalSeconds,
                     bottomContent = { currentPage ->
-                        DotContainer(
-                            dotCount = uiState.candidateDetail.profileInfoList.size,
-                            currentPage = currentPage
-                        )
+                        Column(
+                            modifier = Modifier
+                                .padding(
+                                    start = 16.dp,
+                                    end = 16.dp,
+                                    bottom = 10.dp
+                                )
+                        ) {
+                            DotContainer(
+                                dotCount = uiState.candidateDetail.profileInfoList.size,
+                                currentPage = currentPage
+                            )
+                        }
                     }
                 ) { currentPage ->
                     val horizontalModifier = remember {
@@ -179,12 +191,25 @@ fun DetailScreen(
                 } else {
                     "Vote"
                 }
+
+                if (uiState.candidateDetail.voted) {
+                    PainterImage(
+                        modifier = Modifier
+                            .size(24.dp),
+                        res = R.drawable.img_voted
+                    )
+
+                    Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+                }
+
                 Text(
                     text = text,
                     style = TextStyle(
                         fontFamily = KantumruyFontFamily,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.dpTextUnit
+                        fontSize = 16.dpTextUnit,
+                        lineHeight = 24.dpTextUnit,
+                        lineHeightStyle = BasicLineHeightStyle
                     )
                 )
             }
