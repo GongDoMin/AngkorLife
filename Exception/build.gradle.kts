@@ -13,11 +13,3 @@ kotlin {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
-
-dependencies {
-    implementation(project(":exception"))
-
-    implementation(libs.coroutines.core)
-    implementation(libs.hilt.core)
-    kapt(libs.hilt.compiler)
-}

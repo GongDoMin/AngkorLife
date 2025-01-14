@@ -16,6 +16,7 @@ kotlin {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":exception"))
 
     implementation(libs.coroutines.core)
     implementation(libs.hilt.core)
