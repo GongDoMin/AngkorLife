@@ -11,12 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
+import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.design.RobotoFontFamily
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
@@ -92,7 +94,7 @@ fun CandidateExtra(
         modifier = modifier
     ) {
         Extra(
-            title = "Education",
+            title = stringResource(R.string.education),
             description = education
         )
 
@@ -103,7 +105,7 @@ fun CandidateExtra(
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
 
         Extra(
-            title = "Major",
+            title = stringResource(R.string.major),
             description = major
         )
 
@@ -114,7 +116,7 @@ fun CandidateExtra(
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
 
         Extra(
-            title = "Hobbies",
+            title = stringResource(R.string.hobbies),
             description = hobby
         )
 
@@ -125,7 +127,7 @@ fun CandidateExtra(
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
 
         Extra(
-            title = "Talent",
+            title = stringResource(R.string.talent),
             description = talent
         )
 
@@ -136,7 +138,7 @@ fun CandidateExtra(
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
 
         Extra(
-            title = "Ambition",
+            title = stringResource(R.string.ambition),
             description = ambition
         )
     }

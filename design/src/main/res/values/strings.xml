@@ -23,6 +23,12 @@
     <string name="how_to_vote_description_1">Up to there people can participate in early voting per day</string>
     <string name="how_to_vote_description_2">Three new voting tickets are issued every day at midnight(00:00), and you can vote anew every day during the early voting period</string>
 
+    <string name="education">Education</string>
+    <string name="major">Major</string>
+    <string name="hobbies">Hobbies</string>
+    <string name="talent">Talent</string>
+    <string name="ambition">Ambition</string>
+
     <string name="copyright">COPYRIGHT © WUPSC ALL RIGHT RESERVED.</string>
 
     <string name="vote">Vote</string>
