@@ -4,6 +4,9 @@
 
     <string name="login_text_field_hint">Enter your ID</string>
     <string name="login">Log in</string>
+    
+    <string name="candidate_list">2024\nCandidate List</string>
+    <string name="vote_description">※ You can vote for up to 3 candidates</string>
 
     <string name="copyright">COPYRIGHT © WUPSC ALL RIGHT RESERVED.</string>
 

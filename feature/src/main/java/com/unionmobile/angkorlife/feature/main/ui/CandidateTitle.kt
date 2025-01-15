@@ -10,12 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
+import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
@@ -37,7 +39,7 @@ fun CandidateTitle(
         Spacer(modifier = Modifier.padding(vertical = 5.dp))
 
         Text(
-            text = "2024\nCandidate List",
+            text = stringResource(R.string.candidate_list),
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.SemiBold,
@@ -51,7 +53,7 @@ fun CandidateTitle(
         Spacer(modifier = Modifier.padding(vertical = 12.5.dp))
 
         Text(
-            text = "\u203B You can vote for up to 3 candidates",
+            text = stringResource(R.string.vote_description),
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
