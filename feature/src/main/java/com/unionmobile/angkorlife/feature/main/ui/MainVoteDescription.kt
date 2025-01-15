@@ -161,7 +161,7 @@ fun BasicDescriptionCell(
         Text(
             modifier = Modifier
                 .alpha(dotAlpha.floatValue),
-            text = "\u2022",
+            text = stringResource(R.string.dot),
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
