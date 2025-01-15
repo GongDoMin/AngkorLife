@@ -8,6 +8,11 @@
     <string name="candidate_list">2024\nCandidate List</string>
     <string name="vote_description">※ You can vote for up to 3 candidates</string>
 
+    <string name="day">DAY</string>
+    <string name="hr">HR</string>
+    <string name="min">MIN</string>
+    <string name="sec">SEC</string>
+
     <string name="copyright">COPYRIGHT © WUPSC ALL RIGHT RESERVED.</string>
 
     <string name="vote">Vote</string>

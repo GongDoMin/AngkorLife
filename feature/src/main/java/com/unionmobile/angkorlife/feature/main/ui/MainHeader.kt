@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -72,28 +73,28 @@ fun Timer(
     ) {
         TimeContainerWithLabel(
             time = day,
-            label = "DAY"
+            label = stringResource(R.string.day)
         )
 
         Colon()
 
         TimeContainerWithLabel(
             time = hour,
-            label = "HR"
+            label = stringResource(R.string.hr)
         )
 
         Colon()
 
         TimeContainerWithLabel(
             time = minute,
-            label = "MIN"
+            label = stringResource(R.string.min)
         )
 
         Colon()
 
         TimeContainerWithLabel(
             time = second,
-            label = "SEC"
+            label = stringResource(R.string.sec)
         )
     }
 }
