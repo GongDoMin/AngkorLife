@@ -50,31 +50,12 @@ class MainViewModel @Inject constructor(
         getCandidates()
     }
 
-    fun vote(candidateId: Int) {
+    fun vote(candidateId: Int, voteCount: Int) {
         launch(Dispatchers.IO) {
-            voteUseCase.invoke(candidateId)
+            voteUseCase.invoke(candidateId, voteCount + 1)
                 .catch {
                     (it as ExceptionType).handleVoteError(candidateId)
-                }.collect {
-                    val candidates = uiState.value.candidates.map {
-                        if (it.id == candidateId) {
-                            it.copy(
-                                voteCntInt = it.voteCntInt + 1,
-                                voteCntString = (it.voteCntInt + 1).toFormattedString(),
-                                isVoted = true
-                            )
-                        }
-                        else {
-                            it
-                        }
-                    }
-                    _uiState.update {
-                        it.copy(
-                            candidates = candidates,
-                            isModal = true
-                        )
-                    }
-            }
+                }.collect {}
         }
     }
 
@@ -116,15 +97,18 @@ class MainViewModel @Inject constructor(
                 }
 
             getVotedCandidatesIdUseCase.invoke()
-                .collect { votedCandidatesId ->
+                .collect { votedCandidates ->
                     _uiState.update { uiState ->
                         uiState.copy(
                             candidates = uiState.candidates.map { candidate ->
-                                if (votedCandidatesId.contains(candidate.id)) {
-                                    candidate.copy(isVoted = true)
-                                } else {
-                                    candidate
-                                }
+                                val matchedVote = votedCandidates.find { it.candidateId == candidate.id }
+                                matchedVote?.let {
+                                    candidate.copy(
+                                        isVoted = true,
+                                        voteCntInt = it.voteCount ?: candidate.voteCntInt,
+                                        voteCntString = it.voteCount?.toFormattedString() ?: candidate.voteCntString
+                                    )
+                                } ?: candidate
                             }
                         )
                     }

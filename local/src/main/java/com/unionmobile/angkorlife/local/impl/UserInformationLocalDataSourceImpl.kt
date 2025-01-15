@@ -1,14 +1,19 @@
 package com.unionmobile.angkorlife.local.impl
 
 import com.unionmobile.angkorlife.data.datasource.UserInformationLocalDataSource
+import com.unionmobile.angkorlife.data.model.VotedCandidateEntity
+import com.unionmobile.angkorlife.local.model.VotedCandidateLocal
+import com.unionmobile.angkorlife.local.model.toEntity
+import com.unionmobile.angkorlife.local.model.toLocal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class UserInformationLocalDataSourceImpl @Inject constructor(): UserInformationLocalDataSource {
     private var userId: String = ""
-    private val votedCandidates = MutableStateFlow<List<Int>>(emptyList())
+    private val votedCandidates = MutableStateFlow<List<VotedCandidateLocal>>(emptyList())
 
     override fun getUserId(): String =
         userId
@@ -17,16 +22,17 @@ class UserInformationLocalDataSourceImpl @Inject constructor(): UserInformationL
         this.userId = userId
     }
 
-    override fun updateVotedCandidate(candidateId: Int) {
+    override fun updateVotedCandidate(votedCandidate: VotedCandidateEntity) {
+        val local = votedCandidate.toLocal()
         votedCandidates.update { currentList ->
-            if (candidateId !in currentList) {
-                currentList + candidateId
+            if (currentList.none { it.candidateId == local.candidateId }) {
+                currentList + local
             } else {
                 currentList
             }
         }
     }
 
-    override fun getVotedCandidates(): Flow<List<Int>> =
-        votedCandidates
+    override fun getVotedCandidates(): Flow<List<VotedCandidateEntity>> =
+        votedCandidates.map { it.map { it.toEntity() } }
 }

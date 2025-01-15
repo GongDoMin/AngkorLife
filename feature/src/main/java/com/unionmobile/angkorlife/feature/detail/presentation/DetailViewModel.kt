@@ -44,22 +44,25 @@ class DetailViewModel @Inject constructor(
 
     init {
         val candidateId = savedStateHandle.get<Int>(Routes.DETAIL.CANDIDATE_ID)
+        val voteCount = savedStateHandle.get<Int>(Routes.DETAIL.VOTE_CNT)
         launch(Dispatchers.IO) {
-            getCandidateDetail(candidateId)
+            getCandidateDetail(candidateId, voteCount)
         }
     }
 
     fun vote() {
         val candidateId = _uiState.value.candidateDetail.id
+        val voteCount = uiState.value.candidateDetail.voteCount
         launch(Dispatchers.IO) {
-            voteUseCase.invoke(candidateId)
+            voteUseCase.invoke(candidateId, voteCount + 1)
                 .catch {
                     (it as ExceptionType).handleVoteError()
                 }.collect {
                     _uiState.update {
                         it.copy(
                             candidateDetail = it.candidateDetail.copy(
-                                voted = true
+                                voted = true,
+                                voteCount = voteCount + 1
                             ),
                             isModal = true
                         )
@@ -72,8 +75,8 @@ class DetailViewModel @Inject constructor(
         _uiState.update { it.copy(isModal = false) }
     }
 
-    private suspend fun getCandidateDetail(candidateId: Int?) {
-        if (candidateId == null) {
+    private suspend fun getCandidateDetail(candidateId: Int?, voteCount: Int?) {
+        if (candidateId == null || voteCount == null) {
             _event.send(
                 Event.ShowSnackBarAndNavigateToMain("Invalid access")
             )
@@ -86,7 +89,7 @@ class DetailViewModel @Inject constructor(
             }.collect { candidateDetail ->
                 _uiState.update {
                     it.copy(
-                        candidateDetail = candidateDetail.toPresentation()
+                        candidateDetail = candidateDetail.toPresentation(voteCount)
                     )
                 }
         }

@@ -2,6 +2,7 @@ package com.unionmobile.angkorlife.domain.repository
 
 import com.unionmobile.angkorlife.domain.model.Candidate
 import com.unionmobile.angkorlife.domain.model.CandidateDetail
+import com.unionmobile.angkorlife.domain.model.VotedCandidate
 import kotlinx.coroutines.flow.Flow
 
 interface CandidateRepository {
@@ -9,7 +10,7 @@ interface CandidateRepository {
 
     fun getCandidate(candidateId: Int) : Flow<CandidateDetail>
 
-    suspend fun getVotedCandidatesId() : Flow<List<Int>>
+    suspend fun getVotedCandidatesId() : Flow<List<VotedCandidate>>
 
-    fun vote(candidateId: Int) : Flow<Unit>
+    fun vote(votedCandidate: VotedCandidate) : Flow<Unit>
 }

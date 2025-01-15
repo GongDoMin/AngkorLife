@@ -1,5 +1,6 @@
 package com.unionmobile.angkorlife.data.datasource
 
+import com.unionmobile.angkorlife.data.model.VotedCandidateEntity
 import kotlinx.coroutines.flow.Flow
 
 interface UserInformationLocalDataSource {
@@ -7,7 +8,7 @@ interface UserInformationLocalDataSource {
 
     fun setUserId(userId: String)
 
-    fun updateVotedCandidate(candidateId: Int)
+    fun updateVotedCandidate(votedCandidate: VotedCandidateEntity)
 
-    fun getVotedCandidates(): Flow<List<Int>>
+    fun getVotedCandidates(): Flow<List<VotedCandidateEntity>>
 }

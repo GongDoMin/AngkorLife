@@ -37,7 +37,7 @@ fun Candidate(
     voteCountString: String,
     isVoted: Boolean,
     onClickImage: (candidateId: Int, voteCnt: Int) -> Unit,
-    onClickVote: (candidateId: Int) -> Unit,
+    onClickVote: (candidateId: Int, voteCount: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -99,7 +99,7 @@ fun Candidate(
                 disabledContainerColor = Color.White,
                 disabledContentColor = Color(0xFF4232D5),
             ),
-            onClick = { onClickVote(id) },
+            onClick = { onClickVote(id, voteCount) },
             contentPadding = PaddingValues(
                 vertical = 8.dp
             )
@@ -138,7 +138,7 @@ fun NotVotedCandidatePreview() {
         voteCountString = 1200.toFormattedString(),
         isVoted = false,
         onClickImage = { _, _ -> },
-        onClickVote = {}
+        onClickVote = { _, _ -> },
     )
 }
 
@@ -156,6 +156,6 @@ fun VotedCandidatePreview() {
         voteCountString = 1200.toFormattedString(),
         isVoted = true,
         onClickImage = { _, _ -> },
-        onClickVote = {}
+        onClickVote = { _, _ ->}
     )
 }
