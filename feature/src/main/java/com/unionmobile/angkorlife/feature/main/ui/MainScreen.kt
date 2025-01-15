@@ -31,7 +31,7 @@ import com.unionmobile.angkorlife.feature.main.presentation.MainViewModel
 
 @Composable
 fun MainScreen(
-    navigateToDetail: (candidateId: Int) -> Unit,
+    navigateToDetail: (candidateId: Int, voteCnt: Int) -> Unit,
     navigateToLogin: () -> Unit,
     showSnackBar: (message: String) -> Unit,
     viewModel: MainViewModel = hiltViewModel()
@@ -140,6 +140,7 @@ fun MainScreen(
                         url = candidate.profileUrl,
                         id = candidate.id,
                         name = candidate.name,
+                        voteCount = candidate.voteCntInt,
                         voteCountString = candidate.voteCntString,
                         isVoted = candidate.isVoted,
                         onClickImage = navigateToDetail,
@@ -180,7 +181,7 @@ fun MainScreen(
 @Composable
 fun MainScreenPreview() {
     MainScreen(
-        navigateToDetail = {},
+        navigateToDetail = { _, _ -> },
         navigateToLogin = {},
         showSnackBar = {}
     )

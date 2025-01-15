@@ -6,7 +6,7 @@ import com.unionmobile.angkorlife.feature.main.ui.MainScreen
 import com.unionmobile.angkorlife.feature.navigation.Routes
 
 fun NavGraphBuilder.mainScreen(
-    navigateToDetail: (candidateId: Int) -> Unit,
+    navigateToDetail: (candidateId: Int, voteCnt: Int) -> Unit,
     navigateToLogin: () -> Unit,
     showSnackBar: (message: String) -> Unit
 ) {

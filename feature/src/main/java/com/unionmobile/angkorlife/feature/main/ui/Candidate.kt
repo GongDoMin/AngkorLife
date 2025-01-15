@@ -33,9 +33,10 @@ fun Candidate(
     url: String,
     id: Int,
     name: String,
+    voteCount: Int,
     voteCountString: String,
     isVoted: Boolean,
-    onClickImage: (candidateId: Int) -> Unit,
+    onClickImage: (candidateId: Int, voteCnt: Int) -> Unit,
     onClickVote: (candidateId: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -48,7 +49,7 @@ fun Candidate(
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { onClickImage(id) },
+                .clickable { onClickImage(id, voteCount) },
             model = url,
             contentDescription = null
         )
@@ -133,9 +134,10 @@ fun NotVotedCandidatePreview() {
         url = "",
         id = 0,
         name = "kazakova Julia",
+        voteCount = 10,
         voteCountString = 1200.toFormattedString(),
         isVoted = false,
-        onClickImage = {},
+        onClickImage = { _, _ -> },
         onClickVote = {}
     )
 }
@@ -150,9 +152,10 @@ fun VotedCandidatePreview() {
         url = "",
         id = 0,
         name = "kazakova Julia",
+        voteCount = 10,
         voteCountString = 1200.toFormattedString(),
         isVoted = true,
-        onClickImage = {},
+        onClickImage = { _, _ -> },
         onClickVote = {}
     )
 }

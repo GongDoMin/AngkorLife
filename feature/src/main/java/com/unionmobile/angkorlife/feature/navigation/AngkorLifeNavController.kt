@@ -38,7 +38,7 @@ class AngkorLifeNavController(
         }
     }
 
-    fun navigateToDetail(candidateId: Int) {
-        navController.navigate(Routes.DETAIL(candidateId))
+    fun navigateToDetail(candidateId: Int, voteCnt: Int) {
+        navController.navigate(Routes.DETAIL(candidateId, voteCnt))
     }
 }
