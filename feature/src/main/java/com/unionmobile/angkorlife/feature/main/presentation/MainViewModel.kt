@@ -55,7 +55,13 @@ class MainViewModel @Inject constructor(
             voteUseCase.invoke(candidateId, voteCount + 1)
                 .catch {
                     (it as ExceptionType).handleVoteError(candidateId)
-                }.collect {}
+                }.collect {
+                    _uiState.update {
+                        it.copy(
+                            isModal = true
+                        )
+                    }
+                }
         }
     }
 
