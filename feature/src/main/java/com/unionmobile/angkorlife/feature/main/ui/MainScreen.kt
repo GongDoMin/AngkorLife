@@ -168,9 +168,9 @@ fun MainScreen(
         if (uiState.isModal) {
             ConfirmModal(
                 onDismissRequest = viewModel::dismissModal,
-                title = "Voting completed",
-                message = "Thank you for voting",
-                confirmButtonText = "Confirm",
+                title = stringResource(R.string.voting_completed_title),
+                message = stringResource(R.string.voting_completed_message),
+                confirmButtonText = stringResource(R.string.confirm_button_text),
                 onClickConfirmButton = viewModel::dismissModal
             )
         }
