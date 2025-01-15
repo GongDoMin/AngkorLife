@@ -6,7 +6,7 @@
     
 - **Architecture**
 
-    Clean architecture 및 MVVM 디자인 패턴을 통해 구현됐습니다.
+    Clean architecture 및 MVVM 디자인 패턴을 통해 구현했습니다.
 
 ## Architecture
 
