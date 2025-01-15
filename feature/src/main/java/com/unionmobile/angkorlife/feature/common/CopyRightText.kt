@@ -4,11 +4,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.unionmobile.angkorlife.design.BasicLineHeightStyle
+import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.design.RobotoFontFamily
 
 @Composable
@@ -18,7 +20,7 @@ fun CopyRightText(
 ) {
     Text(
         modifier = modifier,
-        text = "COPYRIGHT © WUPSC ALL RIGHT RESERVED.",
+        text = stringResource(R.string.copyright),
         style = TextStyle(
             fontFamily = RobotoFontFamily,
             fontWeight = FontWeight.Light,
