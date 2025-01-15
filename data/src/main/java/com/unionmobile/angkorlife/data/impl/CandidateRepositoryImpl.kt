@@ -42,7 +42,7 @@ class CandidateRepositoryImpl @Inject constructor(
                 userInformationLocalDataSource.updateVotedCandidate(
                     VotedCandidateEntity(
                         candidateId = candidateId,
-                        voteCount = null
+                        voteCnt = null
                     )
                 )
             }

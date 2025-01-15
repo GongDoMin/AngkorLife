@@ -140,8 +140,8 @@ fun MainScreen(
                         url = candidate.profileUrl,
                         id = candidate.id,
                         name = candidate.name,
-                        voteCount = candidate.voteCntInt,
-                        voteCountString = candidate.voteCntString,
+                        voteCnt = candidate.voteCntInt,
+                        voteCntString = candidate.voteCntString,
                         isVoted = candidate.isVoted,
                         onClickImage = navigateToDetail,
                         onClickVote = viewModel::vote

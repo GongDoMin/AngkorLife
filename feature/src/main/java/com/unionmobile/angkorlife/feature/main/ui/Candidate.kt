@@ -33,11 +33,11 @@ fun Candidate(
     url: String,
     id: Int,
     name: String,
-    voteCount: Int,
-    voteCountString: String,
+    voteCnt: Int,
+    voteCntString: String,
     isVoted: Boolean,
     onClickImage: (candidateId: Int, voteCnt: Int) -> Unit,
-    onClickVote: (candidateId: Int, voteCount: Int) -> Unit,
+    onClickVote: (candidateId: Int, voteCnt: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -49,7 +49,7 @@ fun Candidate(
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { onClickImage(id, voteCount) },
+                .clickable { onClickImage(id, voteCnt) },
             model = url,
             contentDescription = null
         )
@@ -73,7 +73,7 @@ fun Candidate(
         Spacer(modifier = Modifier.padding(vertical = 2.dp))
 
         Text(
-            text = voteCountString,
+            text = voteCntString,
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
@@ -99,7 +99,7 @@ fun Candidate(
                 disabledContainerColor = Color.White,
                 disabledContentColor = Color(0xFF4232D5),
             ),
-            onClick = { onClickVote(id, voteCount) },
+            onClick = { onClickVote(id, voteCnt) },
             contentPadding = PaddingValues(
                 vertical = 8.dp
             )
@@ -134,8 +134,8 @@ fun NotVotedCandidatePreview() {
         url = "",
         id = 0,
         name = "kazakova Julia",
-        voteCount = 10,
-        voteCountString = 1200.toFormattedString(),
+        voteCnt = 10,
+        voteCntString = 1200.toFormattedString(),
         isVoted = false,
         onClickImage = { _, _ -> },
         onClickVote = { _, _ -> },
@@ -152,8 +152,8 @@ fun VotedCandidatePreview() {
         url = "",
         id = 0,
         name = "kazakova Julia",
-        voteCount = 10,
-        voteCountString = 1200.toFormattedString(),
+        voteCnt = 10,
+        voteCntString = 1200.toFormattedString(),
         isVoted = true,
         onClickImage = { _, _ -> },
         onClickVote = { _, _ ->}

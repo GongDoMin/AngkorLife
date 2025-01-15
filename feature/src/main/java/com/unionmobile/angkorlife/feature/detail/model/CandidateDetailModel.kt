@@ -13,11 +13,11 @@ data class CandidateDetailModel(
     val ambition: String = "",
     val profileInfoList: List<ProfileInfoModel> = emptyList(),
     val voted: Boolean = false,
-    val voteCount: Int = 0
+    val voteCnt: Int = 0
 )
 
 fun CandidateDetail.toPresentation(
-    voteCount: Int
+    voteCnt: Int
 ) =
     CandidateDetailModel(
         id = id,
@@ -30,5 +30,5 @@ fun CandidateDetail.toPresentation(
         ambition = ambition,
         profileInfoList = profileInfoList.map { it.toPresentation() },
         voted = voted,
-        voteCount = voteCount
+        voteCnt = voteCnt
     )

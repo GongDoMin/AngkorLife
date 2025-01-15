@@ -44,17 +44,17 @@ class DetailViewModel @Inject constructor(
 
     init {
         val candidateId = savedStateHandle.get<Int>(Routes.DETAIL.CANDIDATE_ID)
-        val voteCount = savedStateHandle.get<Int>(Routes.DETAIL.VOTE_CNT)
+        val voteCnt = savedStateHandle.get<Int>(Routes.DETAIL.VOTE_CNT)
         launch(Dispatchers.IO) {
-            getCandidateDetail(candidateId, voteCount)
+            getCandidateDetail(candidateId, voteCnt)
         }
     }
 
     fun vote() {
         val candidateId = _uiState.value.candidateDetail.id
-        val voteCount = uiState.value.candidateDetail.voteCount
+        val voteCnt = uiState.value.candidateDetail.voteCnt
         launch(Dispatchers.IO) {
-            voteUseCase.invoke(candidateId, voteCount + 1)
+            voteUseCase.invoke(candidateId, voteCnt + 1)
                 .catch {
                     (it as ExceptionType).handleVoteError()
                 }.collect {
@@ -62,7 +62,7 @@ class DetailViewModel @Inject constructor(
                         it.copy(
                             candidateDetail = it.candidateDetail.copy(
                                 voted = true,
-                                voteCount = voteCount + 1
+                                voteCnt = voteCnt + 1
                             ),
                             isModal = true
                         )
@@ -75,8 +75,8 @@ class DetailViewModel @Inject constructor(
         _uiState.update { it.copy(isModal = false) }
     }
 
-    private suspend fun getCandidateDetail(candidateId: Int?, voteCount: Int?) {
-        if (candidateId == null || voteCount == null) {
+    private suspend fun getCandidateDetail(candidateId: Int?, voteCnt: Int?) {
+        if (candidateId == null || voteCnt == null) {
             _event.send(
                 Event.ShowSnackBarAndNavigateToMain("Invalid access")
             )
@@ -89,7 +89,7 @@ class DetailViewModel @Inject constructor(
             }.collect { candidateDetail ->
                 _uiState.update {
                     it.copy(
-                        candidateDetail = candidateDetail.toPresentation(voteCount)
+                        candidateDetail = candidateDetail.toPresentation(voteCnt)
                     )
                 }
         }

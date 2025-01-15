@@ -9,6 +9,6 @@ import javax.inject.Inject
 class VoteUseCaseImpl @Inject constructor(
     private val candidateRepository: CandidateRepository,
 ) : VoteUseCase {
-    override suspend operator fun invoke(candidateId: Int, voteCount: Int): Flow<Unit> =
-        candidateRepository.vote(VotedCandidate(candidateId, voteCount))
+    override suspend operator fun invoke(candidateId: Int, updatedVoteCnt: Int): Flow<Unit> =
+        candidateRepository.vote(VotedCandidate(candidateId, updatedVoteCnt))
 }

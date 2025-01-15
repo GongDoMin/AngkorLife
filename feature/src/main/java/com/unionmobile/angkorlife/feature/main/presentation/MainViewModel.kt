@@ -50,9 +50,9 @@ class MainViewModel @Inject constructor(
         getCandidates()
     }
 
-    fun vote(candidateId: Int, voteCount: Int) {
+    fun vote(candidateId: Int, voteCnt: Int) {
         launch(Dispatchers.IO) {
-            voteUseCase.invoke(candidateId, voteCount + 1)
+            voteUseCase.invoke(candidateId, voteCnt + 1)
                 .catch {
                     (it as ExceptionType).handleVoteError(candidateId)
                 }.collect {
@@ -111,8 +111,8 @@ class MainViewModel @Inject constructor(
                                 matchedVote?.let {
                                     candidate.copy(
                                         isVoted = true,
-                                        voteCntInt = it.voteCount ?: candidate.voteCntInt,
-                                        voteCntString = it.voteCount?.toFormattedString() ?: candidate.voteCntString
+                                        voteCntInt = it.voteCnt ?: candidate.voteCntInt,
+                                        voteCntString = it.voteCnt?.toFormattedString() ?: candidate.voteCntString
                                     )
                                 } ?: candidate
                             }
