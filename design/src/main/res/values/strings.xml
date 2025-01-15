@@ -2,6 +2,9 @@
 <resources>
     <string name="top_bar_title">2024 WMU</string>
 
+    <string name="login_text_field_hint">Enter your ID</string>
+    <string name="login">Log in</string>
+
     <string name="voting_completed_title">Voting completed</string>
     <string name="voting_completed_message">Thank you for voting</string>
     <string name="confirm_button_text">Confirm</string>

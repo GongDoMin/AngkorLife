@@ -111,7 +111,7 @@ fun LoginScreen(
                     onValueChange = viewModel::updateId,
                     placeholder = {
                         Text(
-                            text = "Enter your ID",
+                            text = stringResource(R.string.login_text_field_hint),
                             style = TextStyle(
                                 fontFamily = KantumruyFontFamily,
                                 fontWeight = FontWeight.Normal,
@@ -165,7 +165,7 @@ fun LoginScreen(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        text = "Log in",
+                        text = stringResource(R.string.login),
                         style = TextStyle(
                             fontFamily = KantumruyFontFamily,
                             fontWeight = FontWeight.Bold,
