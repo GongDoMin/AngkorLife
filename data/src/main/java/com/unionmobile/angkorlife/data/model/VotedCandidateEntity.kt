@@ -4,7 +4,7 @@ import com.unionmobile.angkorlife.domain.model.VotedCandidate
 
 data class VotedCandidateEntity(
     val candidateId: Int = 0,
-    val voteCount: Int = 0
+    val voteCount: Int? = 0
 )
 
 fun VotedCandidate.toData() =
