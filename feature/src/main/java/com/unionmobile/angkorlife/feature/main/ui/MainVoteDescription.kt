@@ -13,12 +13,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
+import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 
 @Composable
@@ -29,7 +31,7 @@ fun MainVoteDescription(
         modifier = modifier
     ) {
         Text(
-            text = "WORLD MISS UNIVERSITY",
+            text = stringResource(R.string.world_miss_university),
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Medium,
@@ -41,7 +43,7 @@ fun MainVoteDescription(
         Spacer(modifier = Modifier.padding(vertical = 5.dp))
 
         Text(
-            text = "Mobile Voting\nInformation",
+            text = stringResource(R.string.mobile_voting_information),
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.SemiBold,
@@ -54,7 +56,7 @@ fun MainVoteDescription(
         Spacer(modifier = Modifier.padding(vertical = 20.dp))
 
         Text(
-            text = "2024 World Miss University brings\ntogether future global leaders who embody both \nbeauty and intellect",
+            text = stringResource(R.string.world_miss_university_description),
             style = TextStyle(
                 fontFamily = KantumruyFontFamily,
                 fontWeight = FontWeight.Normal,
@@ -89,12 +91,12 @@ fun VoteDescriptionTable(
             modifier = rowModifier
         ) {
             TitleCell(
-                title = "Period",
+                title = stringResource(R.string.period),
                 modifier = titleModifier
             )
 
             BasicDescriptionCell(
-                description = "10/17(Thu) 12PM - 10/31(Thu) 6PM",
+                description = stringResource(R.string.period_description),
                 modifier = descriptionModifier
             )
         }
@@ -108,15 +110,15 @@ fun VoteDescriptionTable(
             modifier = rowModifier
         ) {
             TitleCell(
-                title = "How to vote",
+                title = stringResource(R.string.how_to_vote),
                 modifier = titleModifier
             )
 
             DotWithDescriptionCell(
                 descriptions =
                     listOf(
-                        "Up to there people can participate in early voting per day",
-                        "Three new voting tickets are issued every day at midnight(00:00), and you can vote anew every day during the early voting period"
+                        stringResource(R.string.how_to_vote_description_1),
+                        stringResource(R.string.how_to_vote_description_2)
                     ),
                 modifier = descriptionModifier
             )
