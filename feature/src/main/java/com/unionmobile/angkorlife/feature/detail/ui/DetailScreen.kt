@@ -184,9 +184,9 @@ fun DetailScreen(
                 contentPadding = PaddingValues(vertical = 12.dp)
             ) {
                 val text = if (uiState.candidateDetail.voted) {
-                    "Voted"
+                    stringResource(R.string.voted)
                 } else {
-                    "Vote"
+                    stringResource(R.string.vote)
                 }
 
                 if (uiState.candidateDetail.voted) {

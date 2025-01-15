@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.unionmobile.angkorlife.design.BasicLineHeightStyle
 import com.unionmobile.angkorlife.design.KantumruyFontFamily
+import com.unionmobile.angkorlife.design.R
 import com.unionmobile.angkorlife.feature.common.dpTextUnit
 import com.unionmobile.angkorlife.feature.main.model.toFormattedString
 
@@ -105,9 +107,9 @@ fun Candidate(
             )
         ) {
             val text = if (isVoted) {
-                "Voted"
+                stringResource(R.string.voted)
             } else {
-                "Vote"
+                stringResource(R.string.vote)
             }
 
             Text(
