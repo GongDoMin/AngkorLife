@@ -190,7 +190,7 @@ fun TimeContainerPreview() {
 fun TimeContainerWithLabelPreview() {
     TimeContainerWithLabel(
         time = 10,
-        label = "SEC"
+        label = stringResource(R.string.sec)
     )
 }
 

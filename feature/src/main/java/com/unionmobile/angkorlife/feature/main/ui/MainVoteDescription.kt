@@ -219,7 +219,7 @@ fun DotWithDescriptionCell(
 @Composable
 fun TitleCellPreview() {
     TitleCell(
-        title = "How to vote"
+        title = stringResource(R.string.how_to_vote)
     )
 }
 
@@ -230,7 +230,7 @@ fun TitleCellPreview() {
 @Composable
 fun BasicDescriptionCellPreview() {
     BasicDescriptionCell(
-        description = "10/17(Thu) 12PM - 10/31(Thu) 6PM"
+        description = stringResource(R.string.period_description)
     )
 }
 
@@ -241,7 +241,7 @@ fun BasicDescriptionCellPreview() {
 @Composable
 fun BasicDescriptionCellWithDotPreview() {
     BasicDescriptionCell(
-        description = "10/17(Thu) 12PM - 10/31(Thu) 6PM",
+        description = stringResource(R.string.period_description),
         dotIsVisible = true
 
     )

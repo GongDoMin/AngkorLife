@@ -189,7 +189,7 @@ fun ExtraPreview() {
     Extra(
         modifier = Modifier
             .background(Color(0xFF171717)),
-        title = "Education",
+        title = stringResource(R.string.education),
         description = "Bashkir State Agrarian University"
     )
 }
