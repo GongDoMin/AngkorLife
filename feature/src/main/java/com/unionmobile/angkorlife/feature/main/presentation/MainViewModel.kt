@@ -103,7 +103,11 @@ class MainViewModel @Inject constructor(
                 }
 
             getVotedCandidatesIdUseCase.invoke()
-                .collect { votedCandidates ->
+                .catch {
+                    _event.send(
+                        Event.ShowSnackBarAndNavigateToLogin((it as ExceptionType).message)
+                    )
+                }.collect { votedCandidates ->
                     _uiState.update { uiState ->
                         uiState.copy(
                             candidates = uiState.candidates.map { candidate ->

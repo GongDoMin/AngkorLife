@@ -54,9 +54,21 @@ class CandidateRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getVotedCandidatesId(userId: String) : List<Int> {
-        userId.validate()
+        return try {
+            userId.validate()
 
-        return angkorLifeService.getVotedCandidatesId(userId)
+            angkorLifeService.getVotedCandidatesId(userId)
+        } catch (t: Throwable) {
+            throw when (t) {
+                is IOException -> ExceptionType.Network
+                is HttpException ->
+                    when (t.code()) {
+                        401 -> ExceptionType.UnAuthorized("Authorization error")
+                        else -> ExceptionType.UnKnown
+                    }
+                else -> ExceptionType.UnKnown
+            }
+        }
     }
 
     override suspend fun vote(candidateId: Int, userId: String) {

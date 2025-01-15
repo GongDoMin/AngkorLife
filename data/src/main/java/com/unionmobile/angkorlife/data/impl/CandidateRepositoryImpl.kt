@@ -10,9 +10,12 @@ import com.unionmobile.angkorlife.domain.model.Candidate
 import com.unionmobile.angkorlife.domain.model.CandidateDetail
 import com.unionmobile.angkorlife.domain.model.VotedCandidate
 import com.unionmobile.angkorlife.domain.repository.CandidateRepository
+import com.unionmobile.angkorlife.exception.ExceptionType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import java.io.IOException
 import javax.inject.Inject
 
 class CandidateRepositoryImpl @Inject constructor(
@@ -35,8 +38,9 @@ class CandidateRepositoryImpl @Inject constructor(
         }
 
     override suspend fun getVotedCandidatesId(): Flow<List<VotedCandidate>> {
-        val userId = userInformationLocalDataSource.getUserId()
-        try {
+        return userInformationLocalDataSource.getVotedCandidates().onStart {
+            val userId = userInformationLocalDataSource.getUserId()
+
             val votedCandidates = candidateRemoteDataSource.getVotedCandidatesId(userId)
             votedCandidates.forEach { candidateId ->
                 userInformationLocalDataSource.updateVotedCandidate(
@@ -46,12 +50,7 @@ class CandidateRepositoryImpl @Inject constructor(
                     )
                 )
             }
-        } catch (t: Throwable) {
-            // 에러 처리 생략
-            // 실패 시 ( IOException, userId is Empty 등 ) 빈 목록을 보여주기 위해서
-        }
-
-        return userInformationLocalDataSource.getVotedCandidates().map { it.map { it.toDomain() } }
+        }.map { it.map { it.toDomain() } }
     }
 
     override fun vote(votedCandidate: VotedCandidate): Flow<Unit> =
